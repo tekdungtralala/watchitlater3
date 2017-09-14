@@ -7,10 +7,10 @@ import {ServerService} from "./server.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'watch it later';
 
   constructor(private ss:ServerService) {
-    console.log('ss');
+    console.log('ssd');
     this.ss.getGitStatus().subscribe(
       (response) => console.log(response)
     );
