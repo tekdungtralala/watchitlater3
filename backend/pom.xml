@@ -27,6 +27,8 @@
 
 	<build>
 		<plugins>
+
+			<!-- Git -->
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
@@ -44,6 +46,14 @@
 					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
 				</configuration>
 			</plugin>
+
+			<!-- Jar executable -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.5.7.RELEASE</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
