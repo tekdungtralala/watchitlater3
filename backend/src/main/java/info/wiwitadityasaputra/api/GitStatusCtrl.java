@@ -1,19 +1,19 @@
 package info.wiwitadityasaputra.api;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/git-status")
 public class GitStatusCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getGitStatus() throws JSONException {
+	public String getGitStatus() throws Exception {
+
 		JSONObject result = new JSONObject();
 		result.put("gitId", gitId);
 		result.put("gitIdAbbrev", gitIdAbbrev);
