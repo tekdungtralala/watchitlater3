@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerService } from '../server.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serverService: ServerService) {
+    console.log('getGitStatus');
+    this.serverService.getGitStatus().subscribe(
+      (response) => console.log(response)
+    );
+  }
 
   ngOnInit() {
   }

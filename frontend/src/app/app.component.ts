@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
-
-import { ServerService } from "./server.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +8,7 @@ import { ServerService } from "./server.service";
 })
 export class AppComponent {
 
-  constructor(private ss:ServerService, private router: Router) {
-    console.log('ssd');
-    this.ss.getGitStatus().subscribe(
-      (response) => console.log(response)
-    );
+  constructor(private router: Router) {
   }
 
   onLoadHome() {
