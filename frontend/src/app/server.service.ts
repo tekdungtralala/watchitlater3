@@ -13,16 +13,16 @@ export class ServerService {
   }
 
   login() {
-    const url: string = this.domain +  "/api/auth/signin?" + this.getAuthQueryParam();
-    return this.http.get(url, {withCredentials: true});
+    const url: string = this.domain +  "/api/auth/signin";
+    return this.http.post(url, {});
   }
 
   logout() {
-    const url: string = this.domain +  "/api/auth/signout?" + this.getAuthQueryParam();
+    const url: string = this.domain +  "/api/auth/signout";
     return this.http.get(url);
   }
 
   getAuthQueryParam() {
-    return '&query-param-auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VySWRcIjpcIndpd2l0XCIsXCJlbWFpbEFkZHJlc3NcIjpcInRva2VuXCIsXCJjcmVhdGVkRGF0ZVwiOlwiU2VwIDE1LCAyMDE3IDExOjIwOjQ5IEFNXCJ9In0.Dqv_suXhqOh_vQGHXBzUHPsxvPvxUlTvyhSClmcTyUoDSklvKR8Se0Xp6F6hyMw7w9k5e_Z8YR4mFA3-zs72pg';
+    return '&query-param-auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VySWRcIjpcInVzZXJcIixcImVtYWlsQWRkcmVzc1wiOlwid2l3aXQuYWRpdHlhLnNhcHV0cmFAZ21haWwuY29tXCIsXCJjcmVhdGVkRGF0ZVwiOlwiU2VwIDE1LCAyMDE3IDY6MDY6NDIgUE1cIn0ifQ.PLv_76zL0Ai-RVSaeORg8c0c_jf67_ynPBitGMKDTwm8lPKwUM1UGfgrekRIRVa6H_VS3Nxz2b0VLtM09c4hCg';
   }
 }

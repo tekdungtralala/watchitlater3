@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api.auth;
+package info.wiwitadityasaputra.config;
 
 import java.util.Date;
 
@@ -11,9 +11,9 @@ public class AuthModel {
 	public AuthModel() {
 	}
 
-	public AuthModel(String u, String e) {
-		this.userId = u;
-		this.emailAddress = e;
+	public AuthModel(String userId, String emailAddress) {
+		this.userId = userId;
+		this.emailAddress = emailAddress;
 		this.createdDate = new Date();
 	}
 

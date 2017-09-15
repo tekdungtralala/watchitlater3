@@ -2,13 +2,10 @@ package info.wiwitadityasaputra.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -16,8 +13,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,16 +24,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.google.gson.Gson;
-
-import info.wiwitadityasaputra.api.auth.AuthModel;
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 
 public class CorsFilter extends GenericFilterBean {
 
 	private static String AUTH_QUERY_PARAM = "query-param-auth";
-	private static String ENCODED_KEY = "rcb7I2sVE2+hEB5M9lXP7w==";
 
 	private Logger logger = LogManager.getLogger(CorsFilter.class);
 
@@ -59,13 +51,7 @@ public class CorsFilter extends GenericFilterBean {
 		logger.info("authValue = " + authValue);
 
 		try {
-			byte[] decodedKey = Base64.getDecoder().decode(ENCODED_KEY);
-			SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-
-			String json = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authValue).getBody().getSubject();
-			logger.info("json = " + json);
-			Gson gson = new Gson();
-			AuthModel am = gson.fromJson(json, AuthModel.class);
+			AuthModel am = AppJWTManager.fromQueryParamAuth(authValue);
 			logger.info("userId = " + am.getUserId());
 			logger.info("emailAddress = " + am.getEmailAddress());
 			logger.info("createdDate = " + am.getCreatedDate());

@@ -13,8 +13,7 @@ export class LoginComponent implements OnInit {
     console.log('login');
     this.serverService.login().subscribe(
       (response: Response) => {
-        console.log(response.headers);
-        console.log(response.headers.get("Set-Cookie"));
+        console.log(response);
       }
     );
   }
