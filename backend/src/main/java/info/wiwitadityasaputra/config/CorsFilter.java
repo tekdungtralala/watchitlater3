@@ -39,7 +39,9 @@ public class CorsFilter extends GenericFilterBean {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		// logger.info("full URL = " + getFullURL(req));
-		loadSecurityContext(getQueryMap(req.getQueryString()).get(AUTH_QUERY_PARAM));
+		Map<String, String> queryMap = getQueryMap(req.getQueryString());
+		if (queryMap != null)
+			loadSecurityContext(queryMap.get(AUTH_QUERY_PARAM));
 
 		chain.doFilter(request, response);
 	}
@@ -55,6 +57,7 @@ public class CorsFilter extends GenericFilterBean {
 			logger.info("userId = " + am.getUserId());
 			logger.info("emailAddress = " + am.getEmailAddress());
 			logger.info("createdDate = " + am.getCreatedDate());
+			am.checkAuthModel();
 
 			List<GrantedAuthority> grantedAuth = new ArrayList<GrantedAuthority>();
 			grantedAuth.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -66,7 +69,9 @@ public class CorsFilter extends GenericFilterBean {
 			SecurityContextHolder.setContext(context);
 			logger.info("save auth");
 		} catch (SignatureException se) {
-			logger.info("Invalid JWT");
+			logger.info("Invalid JWT: " + se.getMessage());
+		} catch (AuthExpiredException ae) {
+			logger.info("AuthModel is expired: " + ae.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +90,8 @@ public class CorsFilter extends GenericFilterBean {
 	}
 
 	private Map<String, String> getQueryMap(String query) {
+		if (StringUtils.isEmpty(query))
+			return null;
 		String[] params = query.split("&");
 		Map<String, String> map = new HashMap<String, String>();
 		for (String param : params) {

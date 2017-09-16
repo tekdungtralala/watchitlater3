@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from "@angular/http";
-import {RouterModule, Routes} from "@angular/router";
+import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ServerService } from "./server.service";
+import { ServerService } from './app-util/server.service';
 import { HomeComponent } from './home/home.component';
 import { Top100Component } from './top100/top100.component';
 import { LatestComponent } from './latest/latest.component';

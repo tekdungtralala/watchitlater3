@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '../server.service';
-import {Response} from "@angular/http";
+import { ServerService } from '../app-util/server.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +11,7 @@ export class LoginComponent implements OnInit {
   constructor(private serverService: ServerService) {
     console.log('login');
     this.serverService.login().subscribe(
-      (response: Response) => {
+      (response: any) => {
         console.log(response);
       }
     );

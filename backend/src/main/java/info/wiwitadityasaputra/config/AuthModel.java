@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class AuthModel {
 
+	private static int ACTIVE_HOUR = 48;
+
 	private String userId;
 	private String emailAddress;
 	private Date createdDate;
@@ -39,5 +41,13 @@ public class AuthModel {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public void checkAuthModel() throws AuthExpiredException {
+		Date currentDate = new Date();
+		long secs = (currentDate.getTime() - this.createdDate.getTime()) / 1000;
+		int hours = (int) (secs / 3600);
+		if (ACTIVE_HOUR <= hours)
+			throw new AuthExpiredException("Auth is expired");
 	}
 }

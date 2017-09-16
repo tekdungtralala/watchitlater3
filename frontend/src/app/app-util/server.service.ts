@@ -1,24 +1,30 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import { Injectable } from '@angular/core';
+import {Http, Response} from '@angular/http';
+import 'rxjs/Rx'
 
 @Injectable()
 export class ServerService {
-  domain: string = "http://localhost:8080";
+  domain: string = 'http://localhost:8080';
 
   constructor(private http: Http) {}
 
   getGitStatus() {
-    const url: string = this.domain +  "/api/git-status?" + this.getAuthQueryParam();
+    const url: string = this.domain +  '/api/git-status?' + this.getAuthQueryParam();
     return this.http.get(url);
   }
 
   login() {
-    const url: string = this.domain +  "/api/auth/signin";
-    return this.http.post(url, {});
+    const url: string = this.domain +  '/api/auth/signin';
+    return this.http.post(url, {}).map(
+      (response: Response) => {
+        const data = response.json();
+        return data;
+      }
+    );
   }
 
   logout() {
-    const url: string = this.domain +  "/api/auth/signout";
+    const url: string = this.domain +  '/api/auth/signout';
     return this.http.get(url);
   }
 

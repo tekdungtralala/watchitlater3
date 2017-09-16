@@ -1,5 +1,7 @@
 package info.wiwitadityasaputra.api.auth;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,5 +26,11 @@ public class AuthController {
 		AuthModel am = new AuthModel("user", email);
 		SignatureModel sm = new SignatureModel(AppJWTManager.fromAuthModel(am), email);
 		return sm;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/signout")
+	public void signOut(HttpServletRequest request) throws Exception {
+		logger.info("call /api/auth/signout");
+		request.logout();
 	}
 }
