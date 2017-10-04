@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
-import 'rxjs/Rx'
+import { Http, Response } from '@angular/http';
+import 'rxjs/Rx';
+
+import { AuthModel } from './Auth.model';
 
 @Injectable()
 export class ServerService {
-  domain: string = 'http://localhost:8080';
+  private domain: string = 'http://localhost:8080';
+  private token: string;
 
   constructor(private http: Http) {}
 
@@ -13,11 +16,38 @@ export class ServerService {
     return this.http.get(url);
   }
 
+  refreshToken() {
+    const url: string = this.domain +  '/api/auth/refresh-token?' + this.getAuthQueryParam();
+    this.http.get(url).map(
+      (res: Response) => {
+        let data: any = res.json();
+        this.token = data.token;
+        return data;
+      }
+    ).subscribe((value: any) =>{
+      console.log('afterRefreshToken ', value);
+    });
+  }
+
+  me() {
+    const url: string = this.domain +  '/api/auth/me?' + this.getAuthQueryParam();
+    return this.http.get(url).map(
+      (res: Response) => {
+        let data: any = res.json();
+
+        this.refreshToken();
+
+        return data;
+      }
+    );
+  }
+
   login() {
     const url: string = this.domain +  '/api/auth/signin';
     return this.http.post(url, {}).map(
-      (response: Response) => {
-        const data = response.json();
+      (res: Response) => {
+        let data: any = res.json();
+        this.token = data.token;
         return data;
       }
     );
@@ -25,10 +55,10 @@ export class ServerService {
 
   logout() {
     const url: string = this.domain +  '/api/auth/signout';
-    return this.http.get(url);
+    return this.http.post(url, {});
   }
 
   getAuthQueryParam() {
-    return '&query-param-auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VySWRcIjpcInVzZXJcIixcImVtYWlsQWRkcmVzc1wiOlwid2l3aXQuYWRpdHlhLnNhcHV0cmFAZ21haWwuY29tXCIsXCJjcmVhdGVkRGF0ZVwiOlwiU2VwIDE1LCAyMDE3IDY6MDY6NDIgUE1cIn0ifQ.PLv_76zL0Ai-RVSaeORg8c0c_jf67_ynPBitGMKDTwm8lPKwUM1UGfgrekRIRVa6H_VS3Nxz2b0VLtM09c4hCg';
+    return '&query-param-auth=' + this.token;
   }
 }

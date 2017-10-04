@@ -9,12 +9,10 @@ import { ServerService } from '../app-util/server.service';
 export class LoginComponent implements OnInit {
 
   constructor(private serverService: ServerService) {
-    console.log('login');
-    this.serverService.login().subscribe(
-      (response: any) => {
-        console.log(response);
-      }
-    );
+    console.log('LoginComponent');
+    serverService.login().subscribe(function (value) {
+      console.log('login success')
+    });
   }
 
   ngOnInit() {

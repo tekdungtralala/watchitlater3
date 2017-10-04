@@ -73,7 +73,7 @@ public class CorsFilter extends GenericFilterBean {
 		} catch (AuthExpiredException ae) {
 			logger.info("AuthModel is expired: " + ae.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Failed parsing jwt: ", e.getMessage());
 		}
 	}
 

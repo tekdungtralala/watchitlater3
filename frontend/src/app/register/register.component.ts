@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ServerService} from '../app-util/server.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serverService: ServerService) {
+    console.log('RegisterComponent');
+    serverService.logout().subscribe();
+  }
 
   ngOnInit() {
   }

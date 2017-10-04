@@ -9,10 +9,7 @@ import { ServerService } from '../app-util/server.service';
 export class HomeComponent implements OnInit {
 
   constructor(private serverService: ServerService) {
-    console.log('getGitStatus');
-    this.serverService.getGitStatus().subscribe(
-      (response) => console.log(response)
-    );
+    console.log('HomeComponent');
   }
 
   ngOnInit() {

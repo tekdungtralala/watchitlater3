@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { ServerService } from '../server.service';
+import { ServerService } from '../app-util/server.service';
 
 @Component({
   selector: 'app-latest',
@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LatestComponent implements OnInit {
 
-  // constructor(private serverService: ServerService) {
-  //   console.log('login');
-  //   this.serverService.logout().subscribe(
-  //     (response) => console.log(response)
-  //   );
-  // }
+  constructor(private serverService: ServerService) {
+    console.log('LatestComponent');
+    serverService.me().subscribe(function (value) {
+      console.log('me status', value);
+    })
+  }
 
   ngOnInit() {
   }
