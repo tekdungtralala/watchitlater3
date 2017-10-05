@@ -10,9 +10,7 @@ export class LatestComponent implements OnInit {
 
   constructor(private serverService: ServerService) {
     console.log('LatestComponent');
-    serverService.me().subscribe(function (value) {
-      console.log('me status', value);
-    })
+    serverService.me().subscribe();
   }
 
   ngOnInit() {

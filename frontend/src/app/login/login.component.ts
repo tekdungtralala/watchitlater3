@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private serverService: ServerService) {
     console.log('LoginComponent');
+    this.serverService.login().subscribe();
   }
 
   ngOnInit() {

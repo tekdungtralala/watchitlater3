@@ -10,7 +10,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private serverService: ServerService) {
     console.log('RegisterComponent');
-    // serverService.logout().subscribe();
+    serverService.getGitStatus().subscribe();
   }
 
   ngOnInit() {

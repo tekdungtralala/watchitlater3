@@ -11,11 +11,6 @@ export class ServerService {
 
   constructor(private http: Http) {}
 
-  getGitStatus() {
-    const url: string = this.domain +  '/api/git-status?' + this.getAuthQueryParam();
-    return this.http.get(url);
-  }
-
   refreshToken() {
     const url: string = this.domain +  '/api/auth/refresh-token?' + this.getAuthQueryParam();
     this.http.get(url).map(
@@ -31,20 +26,17 @@ export class ServerService {
 
   me() {
     const url: string = this.domain +  '/api/auth/me?' + this.getAuthQueryParam();
-    return this.http.get(url).map(
-      (res: Response) => {
-        let data: any = res.json();
+    return this.http.get(url, {withCredentials: true});
+  }
 
-        this.refreshToken();
-
-        return data;
-      }
-    );
+  getGitStatus() {
+    const url: string = this.domain +  '/api/git-status?' + this.getAuthQueryParam();
+    return this.http.get(url, {withCredentials: true});
   }
 
   login() {
     const url: string = this.domain +  '/api/auth/signin';
-    return this.http.post(url, {}).map(
+    return this.http.get(url, {withCredentials:true}).map(
       (res: Response) => {
         let data: any = res.json();
         this.token = data.token;
@@ -55,10 +47,11 @@ export class ServerService {
 
   logout() {
     const url: string = this.domain +  '/api/auth/signout';
-    return this.http.post(url, {});
+    return this.http.get(url, {});
   }
 
   getAuthQueryParam() {
-    return '&query-param-auth=' + this.token;
+    return '';
+    // return '&query-param-auth=' + this.token;
   }
 }
