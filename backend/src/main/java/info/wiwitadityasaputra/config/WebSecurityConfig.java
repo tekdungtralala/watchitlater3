@@ -22,7 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll()
 				.and()
 			.cors().and()
-			.csrf().disable();
+			.csrf().disable()
+			.logout()
+				.deleteCookies("JSESSIONID")
+				.invalidateHttpSession(true) ;
 	}
 	
     @Bean
