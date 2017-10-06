@@ -6,22 +6,35 @@
       <a class="navbar-brand js-scroll-trigger" (click)="onLoadHome();">
         Watch it Later
       </a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button"
+              data-toggle="collapse"
+              data-target="#navbarResponsive"
+              aria-controls="navbarResponsive"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" (click)="onLoadHome();">Home</a>
+            <a class="nav-link js-scroll-trigger" (click)="onLoadHome();"
+              [ngClass]="{'active': currentRouter === '/'}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" (click)="onLoadTop100();">Top 100 Movies</a>
+            <a class="nav-link js-scroll-trigger" (click)="onLoadTop100();"
+               [ngClass]="{'active': currentRouter === '/top100'}">Top 100 Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" (click)="onLoadLatest();">Latest Movies</a>
+            <a class="nav-link js-scroll-trigger" (click)="onLoadLatest();"
+               [ngClass]="{'active': currentRouter === '/latest'}">Latest Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" (click)="onLoadRegister();">Register / Signin</a>
+            <a class="nav-link js-scroll-trigger" (click)="onLoadRegister();"
+               [ngClass]="{'active': currentRouter === '/register'}">Register </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" (click)="onLoadLogin();"
+               [ngClass]="{'active': currentRouter === '/login'}">Signin</a>
           </li>
         </ul>
       </div>
