@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,9 +7,16 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {
+  isHeaderShrink: boolean = false;
+
+  @HostListener('window:scroll', []) onScrollEvent() {
+    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.isHeaderShrink = number > 100 ? true: false;
+  }
+
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) {
   }
 
   ngOnInit() {
@@ -32,21 +40,6 @@ export class AppComponent implements OnInit{
     // $('.js-scroll-trigger').click(function() {
     //   $('.navbar-collapse').collapse('hide');
     // });
-
-    // Activate scrollspy to add active class to navbar items on scroll
-    // $('body').scrollspy({ target: '#mainNav', offset: 48});
-
-    // Collapse the navbar when page is scrolled
-    // $(window).scroll(function() {
-    //   if ($("#mainNav").offset().top > 100) { $("#mainNav").addClass("navbar-shrink");
-    //   } else { $("#mainNav").removeClass("navbar-shrink"); }
-    // });
-
-    // Scroll reveal calls
-    let sr = ScrollReveal();
-    // sr.reveal('.sr-icons', { duration: 600, scale: 0.3, distance: '0px'}, 200);
-    // sr.reveal('.sr-button', { duration: 1000, delay: 200 });
-    // sr.reveal('.sr-contact', { duration: 600, scale: 0.3, distance: '0px'}, 300);
   }
 
   onLoadHome() {

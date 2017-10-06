@@ -1,3 +1,237 @@
-<p>
-  home works!
-</p>
+<div class="home-component">
+  <header class="masthead">
+    <div class="header-content">
+      <div class="header-content-inner">
+        <h1 id="homeHeading" style="color: #F05F40 !important">Find out your favorite movies</h1>
+        <hr>
+        <p style="color: #F05F40 !important">This website is created for my portfolio purpose, there is no intent to get any profit</p>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">technology</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-primary" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="section-heading text-white">
+            Spring boot, Angular 4, REST API & MySQL
+          </h2>
+          <hr class="light">
+          <p class="text-faded">
+            Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run". We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.
+          </p>
+          <p class="text-faded">
+            AngularJS is a structural framework for dynamic web apps. It lets you use HTML as your template language and lets you extend HTML's syntax to express your application's components clearly and succinctly. AngularJS's data binding and dependency injection eliminate much of the code you would otherwise have to write. And it all happens within the browser, making it an ideal partner with any server technology.
+          </p>
+          <p class="text-faded">
+            A REST API defines a set of functions which developers can perform requests and receive responses via HTTP protocol such as GET and POST.
+          </p>
+          <p class="text-faded">
+            MySQL is the world's most popular open source database. With its proven performance, reliability and ease-of-use, MySQL has become the leading database choice for web-based applications, used by high profile web properties including Facebook, Twitter, YouTube, Yahoo! and many more.
+          </p>
+          <a class="btn btn-default btn-xl js-scroll-trigger" href="#services">My Service!</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">My Service</h2>
+          <hr class="primary">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row" [ngsRevealSet]="{ duration: 600, scale: 0.3, distance: '0px', reset: true}" [ngsInterval]="20" [ngsSelector]="'.sr-icons'">
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-cog text-primary sr-icons"></i>
+            <h3>Open Source</h3>
+            <p class="text-muted">Source code available in github repo.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-code text-primary sr-icons" ></i>
+            <h3>Clean Code</h3>
+            <p class="text-muted">Easy to improve, Easy to understand.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-newspaper-o text-primary sr-icons" ></i>
+            <h3>Cutting Edge</h3>
+            <p class="text-muted">Using the latest technology.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-heart text-primary sr-icons" ></i>
+            <h3>Made with Love</h3>
+            <p class="text-muted">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <i class="fa fa-heart-o" aria-hidden="true"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="p-0" id="portfolio">
+    <div class="container-fluid">
+      <div class="row no-gutter popup-gallery">
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/1.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/2.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/3.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/4.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/5.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="assets/img/portfolio/thumbnails/6.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                  Category
+                </div>
+                <div class="project-name">
+                  Project Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="call-to-action bg-dark">
+    <div class="container text-center"
+         [ngsRevealSet]="{ duration: 1000, delay: 200, reset: true}" [ngsSelector]="'.sr-button'">
+      <h2>
+        Find Out More
+      </h2>
+      <a class="btn btn-default btn-xl sr-button" href="" >Top 100 Movies</a>
+      &nbsp;
+      <a class="btn btn-default btn-xl sr-button" href="" >Latest Movies</a>
+    </div>
+  </div>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="section-heading">Let's Get In Touch!</h2>
+          <hr class="primary">
+          <p>Please, feel free to contact me any time.</p>
+        </div>
+      </div>
+      <div class="row" [ngsRevealSet]="{ duration: 600, scale: 0.3, distance: '0px', reset: true}" [ngsInterval]="20" [ngsSelector]="'.sr-contact'">
+        <div class="col-lg-3 mr-auto text-center">
+          <i class="fa fa-envelope-o fa-3x sr-contact" ></i>
+          <p>
+            <a href="mailto:wiwit.aditya.saputra@gmail.com">wiwit.aditya.saputra@gmail.com</a>
+          </p>
+        </div>
+        <div class="col-lg-3 mr-auto text-center">
+          <i class="fa fa-github fa-3x sr-contact"></i>
+          <p>
+            <a href="https://github.com/tekdungtralala" target="_blank">tekdungtralala</a>
+          </p>
+        </div>
+        <div class="col-lg-3 mr-auto text-center">
+          <i class="fa fa-briefcase fa-3x sr-contact"></i>
+          <p>
+            <a href="https://www.upwork.com/o/profiles/users/_~016d109302643b6455/" target="_blank">Wiwit Aditya S.</a>
+          </p>
+        </div>
+        <div class="col-lg-3 mr-auto text-center">
+          <i class="fa fa-facebook-official fa-3x sr-contact"></i>
+          <p>
+            <a href="https://www.facebook.com/WiwitAdityaSaputra" target="_blank">Wiwit Aditya</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
