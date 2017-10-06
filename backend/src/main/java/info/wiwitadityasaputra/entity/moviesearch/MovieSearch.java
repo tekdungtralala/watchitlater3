@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import info.wiwitadityasaputra.entity.AbstractEntity;
 import info.wiwitadityasaputra.entity.movie.Movie;
+import info.wiwitadityasaputra.util.AbstractEntity;
 
 @Entity
 @Table(name = "movie_search")

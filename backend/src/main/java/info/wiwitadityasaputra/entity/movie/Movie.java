@@ -16,8 +16,8 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import info.wiwitadityasaputra.entity.AbstractEntity;
 import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
+import info.wiwitadityasaputra.util.AbstractEntity;
 
 @Entity
 @Table(name = "movie")

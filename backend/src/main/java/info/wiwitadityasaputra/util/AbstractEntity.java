@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.entity;
+package info.wiwitadityasaputra.util;
 
 import java.io.Serializable;
 import java.util.Date;

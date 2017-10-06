@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.config;
+package info.wiwitadityasaputra.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,6 @@ public class SearchMovieSchedule {
 			logger.info(" list.length: " + list.size());
 
 			for (MovieSearch ms : list) {
-
 				try {
 					logger.info(ms.getId() + " - " + ms.getQuery());
 

@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.config;
+package info.wiwitadityasaputra.util;
 
 import java.util.Date;
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import info.wiwitadityasaputra.api.ForbiddenException;
-import info.wiwitadityasaputra.config.AuthModel;
+import info.wiwitadityasaputra.util.AuthModel;
 
 @RestController
 @RequestMapping(value = "/api/auth")
