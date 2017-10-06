@@ -34,10 +34,9 @@ public class SearchMovieSchedule {
 
 			List<MovieSearch> list = movieSearchRepo.findAll();
 			for (MovieSearch ms : list) {
-				String query = ms.getQuery();
-				ms.setQuery(query.trim());
-				ms.setCreatedBy("system");
-				movieSearchRepo.save(ms);
+				if (ms.getMovie() != null) {
+					logger.info(ms.getId() + " - " + ms.getMovie().getReleased());
+				}
 			}
 
 			stillRunnig = false;

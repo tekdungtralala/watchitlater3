@@ -1,17 +1,23 @@
 package info.wiwitadityasaputra.entity.movie;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import info.wiwitadityasaputra.entity.AbstractEntity;
+import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
 
 @Entity
 @Table(name = "movie")
@@ -43,6 +49,10 @@ public class Movie extends AbstractEntity {
 
 	@Column(name = "json")
 	private String json;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MovieSearch> listMovieSearch;
 
 	public Integer getId() {
 		return id;
@@ -106,6 +116,14 @@ public class Movie extends AbstractEntity {
 
 	public void setJson(String json) {
 		this.json = json;
+	}
+
+	public Set<MovieSearch> getListMovieSearch() {
+		return listMovieSearch;
+	}
+
+	public void setListMovieSearch(Set<MovieSearch> listMovieSearch) {
+		this.listMovieSearch = listMovieSearch;
 	}
 
 }
