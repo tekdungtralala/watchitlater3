@@ -31,8 +31,11 @@ public class Movie extends AbstractEntity {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "imdb_id")
+	private String imdbId;
+
 	@Column(name = "imdb_rating")
-	private Float imdbRating;
+	private Double imdbRating;
 
 	@Column(name = "released")
 	@Temporal(TemporalType.DATE)
@@ -70,11 +73,19 @@ public class Movie extends AbstractEntity {
 		this.title = title;
 	}
 
-	public Float getImdbRating() {
+	public String getImdbId() {
+		return imdbId;
+	}
+
+	public void setImdbId(String imdbId) {
+		this.imdbId = imdbId;
+	}
+
+	public Double getImdbRating() {
 		return imdbRating;
 	}
 
-	public void setImdbRating(Float imdbRating) {
+	public void setImdbRating(Double imdbRating) {
 		this.imdbRating = imdbRating;
 	}
 
