@@ -176,7 +176,7 @@ header.masthead {
   min-height: auto;
   text-align: center;
   color: white;
-  background-image: url("https://i.ytimg.com/vi/X4wWcAfbXic/maxresdefault.jpg");
+  background-image: url("/assets/img/home.jpg");
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
