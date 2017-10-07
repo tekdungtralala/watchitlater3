@@ -3,6 +3,10 @@ package info.wiwitadityasaputra.util.api;
 import org.springframework.beans.factory.annotation.Value;
 
 public class AbstractCtrl {
+	public final static String API_PATH_GIT_STATUS = "/api/git-status";
+	public final static String API_PATH_AUTH = "/api/auth";
+	public final static String API_PATH_MOVIE_POSTER = "/api/movie-poster";
+
 	@Value("${git.commit.id}")
 	protected String gitId;
 

@@ -11,4 +11,6 @@ import info.wiwitadityasaputra.movie.Movie;
 public interface MoviePosterRepository extends JpaRepository<MoviePoster, Integer> {
 
 	public List<MoviePoster> findByMovie(Movie movie);
+
+	public MoviePoster findByImdbId(String imdbId);
 }

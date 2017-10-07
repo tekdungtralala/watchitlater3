@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import info.wiwitadityasaputra.util.config.AuthModel;
 
 @RestController
-@RequestMapping(value = "/api/auth")
-public class AuthController {
+@RequestMapping(value = AbstractCtrl.API_PATH_AUTH)
+public class AuthController extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(AuthController.class);
 
