@@ -51,6 +51,58 @@ public class SearchMovieSchedule {
 			stillRunnig = true;
 			logger.info("start(), stillRunnig: " + stillRunnig);
 
+			List<MovieSearch> listMovieSearch = movieSearchRepo.findByEmptyMovie();
+			logger.info(" listMovieSearch.length: " + listMovieSearch.size());
+			for (MovieSearch ms : listMovieSearch) {
+				boolean finded = false;
+				if (ms.getImdbId() != null) {
+					Movie movie = movieRepo.findByImdbId(ms.getImdbId());
+
+					ms.setMovie(movie);
+					movieSearchRepo.save(ms);
+				}
+				if (finded)
+					continue;
+				try {
+					logger.info(ms.getId() + " - " + ms.getQuery());
+
+					ms.setQuery(ms.getQuery().trim());
+
+					String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + ms.getQuery().trim();
+					logger.info("url: " + url);
+
+					RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+					String response = restTemplate.getForObject(url, String.class);
+					JSONObject json = new JSONObject(response);
+					logger.info(response);
+
+					Movie movie = new Movie();
+					movie.setTitle(json.getString("Title"));
+					movie.setImdbId(json.getString("imdbID"));
+					movie.setImdbRating(json.getDouble("imdbRating"));
+					movie.setReleased(MOVIE_RELEASED_FORMAT.parse(json.getString("Released")));
+					movie.setGenre(json.getString("Genre"));
+					movie.setYear(json.getInt("Year"));
+					movie.setPlot(json.getString("Plot"));
+					movie.setJson(response);
+					movieRepo.save(movie);
+
+					ms.setMovie(movie);
+					ms.setImdbId(movie.getImdbId());
+					movieSearchRepo.save(ms);
+				} catch (Exception e) {
+					logger.error(ms.getQuery() + ", " + e.getMessage());
+				}
+			}
+
+			for (MoviePoster mp : moviePosterRepo.findAll()) {
+				Movie movie = movieRepo.findByImdbId(mp.getImdbId());
+				if (movie != null) {
+					mp.setMovie(movie);
+					moviePosterRepo.save(mp);
+				}
+			}
+
 			for (Movie movie : movieRepo.findAll()) {
 				List<MoviePoster> list = moviePosterRepo.findByMovie(movie);
 				if (list == null || list.size() == 0) {
@@ -67,6 +119,7 @@ public class SearchMovieSchedule {
 
 						MoviePoster mp = new MoviePoster();
 						mp.setMovie(movie);
+						mp.setImdbId(movie.getImdbId());
 						mp.setImgByte(response.getBody());
 						mp.setMain(true);
 						mp.setFileType(contentType.getType() + "/" + contentType.getSubtype());
@@ -75,39 +128,6 @@ public class SearchMovieSchedule {
 						logger.error(movie.getImdbId() + ", " + e.getMessage());
 					}
 
-				}
-			}
-
-			List<MovieSearch> listMovieSearch = movieSearchRepo.findByEmptyMovie();
-			logger.info(" listMovieSearch.length: " + listMovieSearch.size());
-			for (MovieSearch ms : listMovieSearch) {
-				try {
-					logger.info(ms.getId() + " - " + ms.getQuery());
-
-					ms.setQuery(ms.getQuery().trim());
-
-					String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + ms.getQuery().trim();
-					logger.info("url: " + url);
-
-					RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-					String response = restTemplate.getForObject(url, String.class);
-					JSONObject json = new JSONObject(response);
-					logger.info(response);
-
-					Movie movie = new Movie();
-					movie.setTitle(json.getString("Title"));
-					movie.setImdbRating(json.getDouble("imdbRating"));
-					movie.setReleased(MOVIE_RELEASED_FORMAT.parse(json.getString("Released")));
-					movie.setGenre(json.getString("Genre"));
-					movie.setYear(json.getInt("Year"));
-					movie.setPlot(json.getString("Plot"));
-					movie.setJson(response);
-					movieRepo.save(movie);
-
-					ms.setMovie(movie);
-					movieSearchRepo.save(ms);
-				} catch (Exception e) {
-					logger.error(ms.getQuery() + ", " + e.getMessage());
 				}
 			}
 

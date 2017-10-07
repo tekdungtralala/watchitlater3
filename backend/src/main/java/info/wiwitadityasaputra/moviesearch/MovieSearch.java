@@ -26,6 +26,9 @@ public class MovieSearch extends AbstractEntity {
 	@JoinColumn(name = "movie_id", nullable = false)
 	private Movie movie;
 
+	@Column(name = "imdb_id")
+	private String imdbId;
+
 	@Column(name = "query")
 	private String query;
 
@@ -51,5 +54,13 @@ public class MovieSearch extends AbstractEntity {
 
 	public void setQuery(String query) {
 		this.query = query;
+	}
+
+	public String getImdbId() {
+		return imdbId;
+	}
+
+	public void setImdbId(String imdbId) {
+		this.imdbId = imdbId;
 	}
 }

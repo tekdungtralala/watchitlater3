@@ -37,6 +37,9 @@ public class MoviePoster extends AbstractEntity {
 	@JoinColumn(name = "movie_id", nullable = false)
 	private Movie movie;
 
+	@Column(name = "imdb_id")
+	private String imdbId;
+
 	public Integer getId() {
 		return id;
 	}
@@ -75,6 +78,14 @@ public class MoviePoster extends AbstractEntity {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public String getImdbId() {
+		return imdbId;
+	}
+
+	public void setImdbId(String imdbId) {
+		this.imdbId = imdbId;
 	}
 
 }
