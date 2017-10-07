@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import info.wiwitadityasaputra.entity.movieposter.MoviePoster;
 import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.util.AbstractEntity;
 
@@ -56,6 +57,10 @@ public class Movie extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MovieSearch> listMovieSearch;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MoviePoster> listMoviePoster;
 
 	public Integer getId() {
 		return id;
@@ -135,6 +140,14 @@ public class Movie extends AbstractEntity {
 
 	public void setListMovieSearch(Set<MovieSearch> listMovieSearch) {
 		this.listMovieSearch = listMovieSearch;
+	}
+
+	public Set<MoviePoster> getListMoviePoster() {
+		return listMoviePoster;
+	}
+
+	public void setListMoviePoster(Set<MoviePoster> listMoviePoster) {
+		this.listMoviePoster = listMoviePoster;
 	}
 
 }

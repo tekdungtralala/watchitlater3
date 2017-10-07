@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api.auth;
+package info.wiwitadityasaputra.api;
 
 public class SignatureModel {
 

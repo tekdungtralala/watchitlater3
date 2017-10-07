@@ -5,11 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.http.HttpHeaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +24,8 @@ import com.google.gson.JsonObject;
 
 import info.wiwitadityasaputra.entity.movie.Movie;
 import info.wiwitadityasaputra.entity.movie.MovieRepository;
+import info.wiwitadityasaputra.entity.movieposter.MoviePoster;
+import info.wiwitadityasaputra.entity.movieposter.MoviePosterRepository;
 import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.entity.moviesearch.MovieSearchRepository;
 
@@ -38,6 +44,8 @@ public class SearchMovieSchedule {
 	private MovieRepository movieRepo;
 	@Autowired
 	private MovieSearchRepository movieSearchRepo;
+	@Autowired
+	private MoviePosterRepository moviePosterRepo;
 
 	// 10000 = 10 second
 	// 900000 = 15 minute
@@ -47,10 +55,36 @@ public class SearchMovieSchedule {
 			stillRunnig = true;
 			logger.info("start(), stillRunnig: " + stillRunnig);
 
-			List<MovieSearch> list = movieSearchRepo.findByEmptyMovie();
-			logger.info(" list.length: " + list.size());
+			for (Movie movie : movieRepo.findAll()) {
+				List<MoviePoster> list = moviePosterRepo.findByMovie(movie);
+				if (list == null || list.size() == 0) {
+					try {
+						logger.info("fetch poster movie: " + movie.getImdbId());
 
-			for (MovieSearch ms : list) {
+						String url = "http://img.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId();
+						logger.info("url: " + url);
+
+						RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+						ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, null,
+								byte[].class);
+						MediaType contentType = response.getHeaders().getContentType();
+
+						MoviePoster mp = new MoviePoster();
+						mp.setMovie(movie);
+						mp.setImgByte(response.getBody());
+						mp.setMain(true);
+						mp.setFileType(contentType.getType() + "/" + contentType.getSubtype());
+						moviePosterRepo.save(mp);
+					} catch (Exception e) {
+						logger.error(movie.getImdbId() + ", " + e.getMessage());
+					}
+
+				}
+			}
+
+			List<MovieSearch> listMovieSearch = movieSearchRepo.findByEmptyMovie();
+			logger.info(" listMovieSearch.length: " + listMovieSearch.size());
+			for (MovieSearch ms : listMovieSearch) {
 				try {
 					logger.info(ms.getId() + " - " + ms.getQuery());
 
@@ -77,7 +111,7 @@ public class SearchMovieSchedule {
 					ms.setMovie(movie);
 					movieSearchRepo.save(ms);
 				} catch (Exception e) {
-					logger.error(e.getMessage());
+					logger.error(ms.getQuery() + ", " + e.getMessage());
 				}
 			}
 

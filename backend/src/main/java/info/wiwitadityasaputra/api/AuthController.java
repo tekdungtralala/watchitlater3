@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api.auth;
+package info.wiwitadityasaputra.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import info.wiwitadityasaputra.api.ForbiddenException;
 import info.wiwitadityasaputra.util.AuthModel;
 
 @RestController
