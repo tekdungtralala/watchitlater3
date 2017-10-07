@@ -27,17 +27,9 @@ public class AuthController {
 	private Logger logger = LogManager.getLogger(AuthController.class);
 
 	@RequestMapping(method = RequestMethod.GET, value = "/me")
-	public AuthModel me() throws Exception {
+	public Object me() throws Exception {
 		logger.info("call GET /api/auth/me");
-		try {
-			Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			AuthModel am = (AuthModel) obj;
-			am.setCreatedDate(null);
-			return am;
-		} catch (Exception e) {
-			throw new ForbiddenException();
-		}
-
+		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/signin")
