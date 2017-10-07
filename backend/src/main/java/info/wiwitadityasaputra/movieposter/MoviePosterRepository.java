@@ -1,11 +1,11 @@
-package info.wiwitadityasaputra.entity.movieposter;
+package info.wiwitadityasaputra.movieposter;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import info.wiwitadityasaputra.entity.movie.Movie;
+import info.wiwitadityasaputra.movie.Movie;
 
 @Repository
 public interface MoviePosterRepository extends JpaRepository<MoviePoster, Integer> {

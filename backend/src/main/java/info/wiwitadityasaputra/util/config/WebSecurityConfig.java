@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.util;
+package info.wiwitadityasaputra.util.config;
 
 import java.util.Arrays;
 

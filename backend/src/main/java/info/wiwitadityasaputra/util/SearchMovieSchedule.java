@@ -3,9 +3,7 @@ package info.wiwitadityasaputra.util;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
-import org.apache.http.HttpHeaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -20,14 +18,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.gson.JsonObject;
-
-import info.wiwitadityasaputra.entity.movie.Movie;
-import info.wiwitadityasaputra.entity.movie.MovieRepository;
-import info.wiwitadityasaputra.entity.movieposter.MoviePoster;
-import info.wiwitadityasaputra.entity.movieposter.MoviePosterRepository;
-import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
-import info.wiwitadityasaputra.entity.moviesearch.MovieSearchRepository;
+import info.wiwitadityasaputra.movie.Movie;
+import info.wiwitadityasaputra.movie.MovieRepository;
+import info.wiwitadityasaputra.movieposter.MoviePoster;
+import info.wiwitadityasaputra.movieposter.MoviePosterRepository;
+import info.wiwitadityasaputra.moviesearch.MovieSearch;
+import info.wiwitadityasaputra.moviesearch.MovieSearchRepository;
 
 @Component
 public class SearchMovieSchedule {

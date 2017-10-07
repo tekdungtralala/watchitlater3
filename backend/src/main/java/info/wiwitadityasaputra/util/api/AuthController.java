@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api;
+package info.wiwitadityasaputra.util.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import info.wiwitadityasaputra.util.AuthModel;
+import info.wiwitadityasaputra.util.config.AuthModel;
 
 @RestController
 @RequestMapping(value = "/api/auth")

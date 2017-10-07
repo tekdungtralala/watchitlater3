@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api;
+package info.wiwitadityasaputra.util.api;
 
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;

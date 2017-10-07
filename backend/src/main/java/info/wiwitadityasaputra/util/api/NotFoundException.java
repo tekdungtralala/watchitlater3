@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.api;
+package info.wiwitadityasaputra.util.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

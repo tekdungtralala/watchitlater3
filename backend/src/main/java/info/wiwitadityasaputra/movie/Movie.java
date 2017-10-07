@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.entity.movie;
+package info.wiwitadityasaputra.movie;
 
 import java.util.Date;
 import java.util.Set;
@@ -16,8 +16,8 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import info.wiwitadityasaputra.entity.movieposter.MoviePoster;
-import info.wiwitadityasaputra.entity.moviesearch.MovieSearch;
+import info.wiwitadityasaputra.movieposter.MoviePoster;
+import info.wiwitadityasaputra.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.util.AbstractEntity;
 
 @Entity

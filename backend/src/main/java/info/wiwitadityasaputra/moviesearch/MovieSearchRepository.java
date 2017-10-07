@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.entity.moviesearch;
+package info.wiwitadityasaputra.moviesearch;
 
 import java.util.List;
 
