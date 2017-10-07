@@ -27,7 +27,7 @@ public class MovieCtrl extends AbstractCtrl {
 	public List<Movie> getRandom6Movie() {
 		logger.info("GET " + AbstractCtrl.API_PATH_MOVIE + PATH_RANDOM_SIX_MOVIE);
 		List<Movie> list = movieRepo.findAll();
-		int max = list.size();
+		int max = list.size() - 1;
 		int min = 0;
 
 		List<Movie> results = new ArrayList<Movie>();

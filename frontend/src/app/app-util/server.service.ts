@@ -8,13 +8,22 @@ export class ServerService {
 
   constructor(private http: Http) {}
 
-  me() {
-    const url: string = this.domain +  '/api/auth/me';
+  getGitStatus() {
+    const url: string = this.domain +  '/api/git-status';
     return this.http.get(url, {withCredentials: true});
   }
 
-  getGitStatus() {
-    const url: string = this.domain +  '/api/git-status';
+  getMoviePosterUrl(imdbId: string) {
+    return this.domain + '/api/movie-poster/' + imdbId;
+  }
+
+  getLandingPageMovies() {
+    const url: string = this.domain +  '/api/movie/random-nine-movie';
+    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+  }
+
+  me() {
+    const url: string = this.domain +  '/api/auth/me';
     return this.http.get(url, {withCredentials: true});
   }
 
