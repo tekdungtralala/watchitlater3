@@ -1,3 +1,26 @@
-<p>
-  top100 works!
-</p>
+<div class="top100 container">
+  <h2 class="page-tittle">Hall Of Fame</h2>
+  <table class="table table-hover table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th></th>
+      <th>Title</th>
+      <th>Released</th>
+      <th>IMDB Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of top100Movies; let i = index">
+        <th scope="row"> {{ i + 1}} </th>
+        <td>
+          <img [src]="m.imageUrl" class="img-thumbnail rounded movie-poster" height="20px"/>
+        </td>
+        <td class="movie-info">
+            {{ m.title }}
+        </td>
+        <td class="movie-info">{{ m.released }}</td>
+        <td class="movie-info text-center">{{ m.imdbRating }}</td></tr>
+    </tbody>
+  </table>
+</div>

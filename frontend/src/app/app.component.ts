@@ -30,35 +30,30 @@ export class AppComponent implements OnInit {
   }
 
   onLoadHome() {
-    console.log('onLoadHome');
     this.mustShrink = false;
     this.currentRouter = '/';
     this.router.navigate(['/']);
   }
 
   onLoadTop100() {
-    console.log('onLoadTop100');
     this.mustShrink = true;
     this.currentRouter = '/top100';
     this.router.navigate(['/top100']);
   }
 
   onLoadLatest() {
-    console.log('onLoadLatest');
     this.mustShrink = true;
     this.currentRouter = '/latest';
     this.router.navigate(['/latest']);
   }
 
   onLoadRegister() {
-    console.log('onLoadRegister');
     this.mustShrink = true;
     this.currentRouter = '/register';
     this.router.navigate(['/register']);
   }
 
   onLoadLogin() {
-    console.log('onLoadLogin');
     this.mustShrink = true;
     this.currentRouter = '/login';
     this.router.navigate(['/login']);

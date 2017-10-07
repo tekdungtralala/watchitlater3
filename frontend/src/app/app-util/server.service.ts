@@ -17,8 +17,13 @@ export class ServerService {
     return this.domain + '/api/movie-poster/' + imdbId;
   }
 
+  getTop100Movies() {
+    const url: string = this.domain +  '/api/movie/top-100-movies';
+    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+  }
+
   getLandingPageMovies() {
-    const url: string = this.domain +  '/api/movie/random-nine-movie';
+    const url: string = this.domain +  '/api/movie/random-nine-movies';
     return this.http.get(url, {withCredentials: true}).map( response => response.json() );
   }
 
