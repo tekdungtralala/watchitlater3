@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,15 +21,18 @@ import org.springframework.web.client.RestTemplate;
 
 import info.wiwitadityasaputra.movie.Movie;
 import info.wiwitadityasaputra.movie.MovieRepository;
+import info.wiwitadityasaputra.moviegroup.MovieGroup;
+import info.wiwitadityasaputra.moviegroup.MovieGroupRepository;
+import info.wiwitadityasaputra.movieposter.MovieGroupName;
 import info.wiwitadityasaputra.movieposter.MoviePoster;
 import info.wiwitadityasaputra.movieposter.MoviePosterRepository;
 import info.wiwitadityasaputra.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.moviesearch.MovieSearchRepository;
 
 @Component
-public class SearchMovieSchedule {
+public class UpdateMovieSchedule {
 
-	private Logger logger = LogManager.getLogger(SearchMovieSchedule.class);
+	private Logger logger = LogManager.getLogger(UpdateMovieSchedule.class);
 
 	private static final DateFormat MOVIE_RELEASED_FORMAT = new SimpleDateFormat("dd MMM yyyy");
 	private boolean stillRunnig = false;
@@ -42,6 +46,8 @@ public class SearchMovieSchedule {
 	private MovieSearchRepository movieSearchRepo;
 	@Autowired
 	private MoviePosterRepository moviePosterRepo;
+	@Autowired
+	private MovieGroupRepository movieGroupRepo;
 
 	// 10000 = 10 second
 	// 900000 = 15 minute
@@ -130,6 +136,18 @@ public class SearchMovieSchedule {
 
 				}
 			}
+
+			MovieGroup movieGroup = movieGroupRepo.findByName(MovieGroupName.TOP_100.toString());
+			if (movieGroup == null) {
+				movieGroup = new MovieGroup();
+			}
+			JSONArray movieIds = new JSONArray();
+			for (Movie movie : movieRepo.findTop100Movies()) {
+				movieIds.put(movie.getId());
+			}
+			movieGroup.setName(MovieGroupName.TOP_100.toString());
+			movieGroup.setMovieIds(movieIds.toString());
+			movieGroupRepo.save(movieGroup);
 
 			stillRunnig = false;
 		}
