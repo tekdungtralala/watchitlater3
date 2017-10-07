@@ -23,7 +23,7 @@ public class MoviePosterCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{imdbId}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public byte[] getPosterByImdbId(@PathVariable("imdbId") String imdbId) throws Exception {
-		logger.info("call GET " + AbstractCtrl.API_PATH_MOVIE_POSTER + "/" + imdbId);
+		logger.info("GET " + AbstractCtrl.API_PATH_MOVIE_POSTER + "/" + imdbId);
 
 		MoviePoster moviePoster = moviePosterRepo.findByImdbId(imdbId);
 		if (moviePoster == null)

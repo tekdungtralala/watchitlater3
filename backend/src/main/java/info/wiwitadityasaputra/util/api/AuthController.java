@@ -24,17 +24,21 @@ import info.wiwitadityasaputra.util.config.AuthModel;
 @RequestMapping(value = AbstractCtrl.API_PATH_AUTH)
 public class AuthController extends AbstractCtrl {
 
+	private final static String ME = "/me";
+	private final static String SIGNIN = "/signin";
+	private final static String SIGNOUT = "/signout";
+
 	private Logger logger = LogManager.getLogger(AuthController.class);
 
-	@RequestMapping(method = RequestMethod.GET, value = "/me")
+	@RequestMapping(method = RequestMethod.GET, value = ME)
 	public Object me() throws Exception {
-		logger.info("call GET /api/auth/me");
+		logger.info("GET " + AbstractCtrl.API_PATH_AUTH + ME);
 		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/signin")
+	@RequestMapping(method = RequestMethod.GET, value = SIGNIN)
 	public void signIn() throws Exception {
-		logger.info("call POST /api/auth/signin");
+		logger.info("POST " + AbstractCtrl.API_PATH_AUTH + SIGNIN);
 		String email = "wiwit.aditya.saputra@gmail.com";
 		AuthModel am = new AuthModel(UUID.randomUUID().toString(), email);
 
@@ -48,9 +52,9 @@ public class AuthController extends AbstractCtrl {
 		SecurityContextHolder.setContext(context);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/signout")
+	@RequestMapping(method = RequestMethod.GET, value = SIGNOUT)
 	public void signOut(HttpServletRequest request) throws Exception {
-		logger.info("call POST /api/auth/signout");
+		logger.info("POST " + AbstractCtrl.API_PATH_AUTH + SIGNOUT);
 		request.logout();
 	}
 }

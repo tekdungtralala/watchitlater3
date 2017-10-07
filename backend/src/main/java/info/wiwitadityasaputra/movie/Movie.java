@@ -62,6 +62,7 @@ public class Movie extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MoviePoster> listMoviePoster;
 
+	@JsonIgnore
 	public Integer getId() {
 		return id;
 	}
@@ -148,6 +149,30 @@ public class Movie extends AbstractEntity {
 
 	public void setListMoviePoster(Set<MoviePoster> listMoviePoster) {
 		this.listMoviePoster = listMoviePoster;
+	}
+
+	@Override
+	@JsonIgnore
+	public String getCreatedBy() {
+		return super.getCreatedBy();
+	}
+
+	@Override
+	@JsonIgnore
+	public Date getCreatedDt() {
+		return super.getCreatedDt();
+	}
+
+	@Override
+	@JsonIgnore
+	public String getLastUpdatedBy() {
+		return super.getLastUpdatedBy();
+	}
+
+	@Override
+	@JsonIgnore
+	public Date getLastUpdatedDt() {
+		return super.getLastUpdatedDt();
 	}
 
 }
