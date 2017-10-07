@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import {NgsRevealModule} from 'ng-scrollreveal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgsRevealModule } from 'ng-scrollreveal';
 
 import { AppComponent } from './app.component';
 import { ServerService } from './app-util/server.service';
@@ -33,8 +35,11 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
-    NgsRevealModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot(),
+    NgsRevealModule.forRoot()
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]
