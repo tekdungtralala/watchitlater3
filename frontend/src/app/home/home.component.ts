@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { ServerService } from '../app-util/server.service';
-import {MovieModel} from "../app-util/movie.model";
+import { MovieModel } from '../app-util/movie.model';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   listMovieModel: MovieModel[];
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService, private router: Router) {
 
   }
 
@@ -24,6 +26,14 @@ export class HomeComponent implements OnInit {
         this.listMovieModel = response;
       }
     );
+  }
+
+  onLoadTop100() {
+    this.router.navigate(['/top100']);
+  }
+
+  onLoadLatest() {
+    this.router.navigate(['/latest']);
   }
 
 }

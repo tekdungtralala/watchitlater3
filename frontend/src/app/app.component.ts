@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(
       (val: any) => {
         this.isHeaderShrink = val.url !== '/';
+        this.mustShrink = val.url !== '/';
+        this.currentRouter = val.url;
       }
     );
   }
@@ -36,26 +38,18 @@ export class AppComponent implements OnInit {
   }
 
   onLoadTop100() {
-    this.mustShrink = true;
-    this.currentRouter = '/top100';
     this.router.navigate(['/top100']);
   }
 
   onLoadLatest() {
-    this.mustShrink = true;
-    this.currentRouter = '/latest';
     this.router.navigate(['/latest']);
   }
 
   onLoadRegister() {
-    this.mustShrink = true;
-    this.currentRouter = '/register';
     this.router.navigate(['/register']);
   }
 
   onLoadLogin() {
-    this.mustShrink = true;
-    this.currentRouter = '/login';
     this.router.navigate(['/login']);
   }
 }

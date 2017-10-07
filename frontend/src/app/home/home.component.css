@@ -13,3 +13,8 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+
+.find-out-more > a {
+  color: #000000;
+  cursor: pointer;
+}

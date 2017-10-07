@@ -3,6 +3,11 @@
   height: 100%;
 }
 
+.navbar-brand {
+  cursor: pointer;
+}
+
 .nav-link {
   cursor: pointer;
 }
+

@@ -117,14 +117,14 @@
   </section>
 
   <div class="call-to-action bg-dark">
-    <div class="container text-center"
+    <div class="container text-center find-out-more"
          [ngsRevealSet]="{ duration: 1000, delay: 200, reset: true}" [ngsSelector]="'.sr-button'">
       <h2>
         Find Out More
       </h2>
-      <a class="btn btn-default btn-xl sr-button" href="" >Top 100 Movies</a>
+      <a class="btn btn-default btn-xl sr-button" (click)="onLoadTop100()">Top 100 Movies</a>
       &nbsp;
-      <a class="btn btn-default btn-xl sr-button" href="" >Latest Movies</a>
+      <a class="btn btn-default btn-xl sr-button" (click)="onLoadLatest()">Latest Movies</a>
     </div>
   </div>
 
