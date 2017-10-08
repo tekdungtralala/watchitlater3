@@ -1,15 +1,15 @@
-<div>
+<div class="container">
 
-  <p>Simple datepicker</p>
+  <h2 class="page-tittle">Latest Movies</h2>
 
-  <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+  <div class="row">
+    <div class="col-sm-3">
+      <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+    </div>
+    <div class="col-sm-9">
+      888
+    </div>
 
-  <hr/>
-
-  <button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>
-  <button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>
-  <button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
-
-  <hr/>
+  </div>
 
 </div>

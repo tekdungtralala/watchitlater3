@@ -13,6 +13,11 @@ export class ServerService {
     return this.http.get(url, {withCredentials: true});
   }
 
+  getMovieGroupName(date: string) {
+    const url: string = this.domain +  '/api/movie-group?date=' + date;
+    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+  }
+
   getMoviePosterUrl(imdbId: string) {
     return this.domain + '/api/movie-poster/' + imdbId;
   }

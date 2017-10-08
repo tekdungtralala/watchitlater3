@@ -1,0 +1,8 @@
+:host {
+  width: 100%;
+  padding: 90px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.page-tittle {
+  margin-bottom: 20px;
+}

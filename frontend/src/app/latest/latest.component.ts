@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '../app-util/server.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { ServerService } from '../app-util/server.service';
 
 
 @Component({
@@ -17,6 +18,13 @@ export class LatestComponent implements OnInit {
   }
 
   ngOnInit() {
+    const m: moment.Moment = moment(new Date());
+    const currentDate = m.format('YYYY-MM-DD');
+    this.serverService.getMovieGroupName(currentDate).subscribe(
+      (value) => {
+        console.log(value);
+      }
+    );
   }
 
 }
