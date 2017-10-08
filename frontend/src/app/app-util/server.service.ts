@@ -1,49 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+
 import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+
+import { MovieGroupNameModel, MovieModel} from './movie.model';
+
 
 @Injectable()
 export class ServerService {
   private domain: string = 'http://localhost:8080';
 
-  constructor(private http: Http) {}
+  constructor(private httpClient: HttpClient) {}
 
-  getGitStatus() {
-    const url: string = this.domain +  '/api/git-status';
-    return this.http.get(url, {withCredentials: true});
-  }
-
-  getMovieGroupName(date: string) {
+  getMovieGroupName(date: string): Observable<MovieGroupNameModel> {
     const url: string = this.domain +  '/api/movie-group?date=' + date;
-    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+    return this.httpClient.get<MovieGroupNameModel>(url, {withCredentials: true});
   }
 
   getMoviePosterUrl(imdbId: string) {
     return this.domain + '/api/movie-poster/' + imdbId;
   }
 
-  getTop100Movies() {
+  getTop100Movies() : Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/top-100-movies';
-    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+    return this.httpClient.get<MovieModel[]>(url, {withCredentials: true});
   }
 
-  getLandingPageMovies() {
+  getLandingPageMovies() : Observable<MovieModel[]>{
     const url: string = this.domain +  '/api/movie/random-nine-movies';
-    return this.http.get(url, {withCredentials: true}).map( response => response.json() );
+    return this.httpClient.get<MovieModel[]>(url, {withCredentials: true});
+  }
+
+  getGitStatus() {
+    const url: string = this.domain +  '/api/git-status';
+    return this.httpClient.get(url, {withCredentials: true});
   }
 
   me() {
     const url: string = this.domain +  '/api/auth/me';
-    return this.http.get(url, {withCredentials: true});
+    return this.httpClient.get(url, {withCredentials: true});
   }
 
   login() {
     const url: string = this.domain +  '/api/auth/signin';
-    return this.http.get(url, {withCredentials: true});
+    return this.httpClient.get(url, {withCredentials: true});
   }
 
   logout() {
     const url: string = this.domain +  '/api/auth/signout';
-    return this.http.get(url, {withCredentials: true});
+    return this.httpClient.get(url, {withCredentials: true});
   }
 }

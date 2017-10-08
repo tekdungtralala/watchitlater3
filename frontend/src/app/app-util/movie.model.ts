@@ -10,3 +10,10 @@ export class MovieModel {
 
   imageUrl: string;
 }
+
+export class MovieGroupNameModel {
+  available: boolean;
+  firstDayOfWeek: string;
+  groupName: string;
+  lastDayOfWeek: string;
+}

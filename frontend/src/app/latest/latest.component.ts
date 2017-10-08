@@ -3,6 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
 import { ServerService } from '../app-util/server.service';
+import { MovieGroupNameModel } from '../app-util/movie.model';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class LatestComponent implements OnInit {
     const m: moment.Moment = moment(new Date());
     const currentDate = m.format('YYYY-MM-DD');
     this.serverService.getMovieGroupName(currentDate).subscribe(
-      (value) => {
+      (value: MovieGroupNameModel) => {
         console.log(value);
       }
     );
