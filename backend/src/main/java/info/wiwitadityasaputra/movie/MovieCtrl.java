@@ -67,6 +67,11 @@ public class MovieCtrl extends AbstractCtrl {
 			for (Element e : titles) {
 				String title = e.html();
 				logger.info("title = " + title);
+				int ob = title.indexOf("(");
+				int cb = title.indexOf(")");
+				if (ob >= 0 && cb >= 0 && ob < cb) {
+					title = title.split("\\(")[0].trim();
+				}
 
 				MovieSearch ms = movieSearchRepo.findByQuery(title);
 				if (ms == null) {
