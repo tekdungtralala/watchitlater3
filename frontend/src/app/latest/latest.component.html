@@ -4,10 +4,29 @@
 
   <div class="row">
     <div class="col-sm-3">
-      <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+      <ngb-datepicker #dp
+        [(ngModel)]="selectedDate"
+        (ngModelChange)="onDateChanged()"
+
+        [dayTemplate]="t"
+        [displayMonths]="1"
+        [maxDate]="currentDate"
+        [navigation]="'arrows'"
+        [showWeekNumbers]="true">
+      </ngb-datepicker>
+
+      <ng-template #t let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+        <span class="custom-day"
+              [class.disabled]="disabled"
+              [class.focused]="focused"
+              [class.range]="isFrom(date) || isTo(date) || isInside(date)">
+          {{ date.day }}
+        </span>
+      </ng-template>
+
     </div>
     <div class="col-sm-9">
-      888
+      {{ selectedDate.month }} - {{ selectedDate.day }}
     </div>
 
   </div>
