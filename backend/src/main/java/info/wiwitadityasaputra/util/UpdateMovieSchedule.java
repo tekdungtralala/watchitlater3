@@ -2,6 +2,7 @@ package info.wiwitadityasaputra.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -155,16 +156,52 @@ public class UpdateMovieSchedule {
 					movieSearchRepo.save(ms);
 					continue;
 				}
-				logger.info("create/save new movie");
 
+				String imdbId = json.getString("imdbID");
+				Movie findedMovie = movieRepo.findByImdbId(imdbId);
+				if (findedMovie != null) {
+					logger.info("finded movie");
+					ms.setMovie(findedMovie);
+					ms.setImdbId(imdbId);
+					movieSearchRepo.save(ms);
+					continue;
+				}
+
+				logger.info("create/save new movie");
 				Movie movie = new Movie();
 				movie.setTitle(json.getString("Title"));
-				movie.setImdbId(json.getString("imdbID"));
-				movie.setImdbRating(json.getDouble("imdbRating"));
-				movie.setReleased(MOVIE_RELEASED_FORMAT.parse(json.getString("Released")));
-				movie.setGenre(json.getString("Genre"));
-				movie.setYear(json.getInt("Year"));
-				movie.setPlot(json.getString("Plot"));
+				movie.setImdbId(imdbId);
+
+				try {
+					movie.setImdbRating(json.getDouble("imdbRating"));
+				} catch (Exception e) {
+					movie.setImdbRating(0.0);
+				}
+
+				try {
+					movie.setReleased(MOVIE_RELEASED_FORMAT.parse(json.getString("Released")));
+				} catch (Exception e) {
+					movie.setReleased(new Date());
+				}
+
+				try {
+					movie.setGenre(json.getString("Genre"));
+				} catch (Exception e) {
+					movie.setGenre("");
+				}
+
+				try {
+					movie.setYear(json.getInt("Year"));
+				} catch (Exception e) {
+					movie.setYear(2017);
+				}
+
+				try {
+					movie.setPlot(json.getString("Plot"));
+				} catch (Exception e) {
+					movie.setPlot("");
+				}
+
 				movie.setJson(response);
 				movieRepo.save(movie);
 

@@ -3,7 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
 import { ServerService } from '../app-util/server.service';
-import { MovieGroupNameModel } from '../app-util/movie.model';
+import {MovieGroupNameModel, MovieModel} from '../app-util/movie.model';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -59,6 +59,14 @@ export class LatestComponent implements OnInit {
             month: +ldow[1],
             day: +ldow[2]
           }
+
+          this.serverService.getMovieByGroupName(value.groupName)
+            .subscribe(
+              (movies: MovieModel[]) => {
+                console.log('movies');
+                console.log(movies);
+              }
+            );
         }
       );
     }

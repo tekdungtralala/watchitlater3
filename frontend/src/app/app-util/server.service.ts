@@ -13,6 +13,12 @@ export class ServerService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getMovieByGroupName(groupName: string): Observable<MovieModel[]> {
+    const url: string = this.domain +  '/api/movie/by-group-name';
+    const params: HttpParams = new HttpParams().set('groupName', groupName);
+    return this.httpClient.get<MovieModel[]>(url, {withCredentials: true, params: params});
+  }
+
   getMovieGroupName(date: string): Observable<MovieGroupNameModel> {
     const url: string = this.domain +  '/api/movie-group';
     const params: HttpParams = new HttpParams().set('date', date);
@@ -23,12 +29,12 @@ export class ServerService {
     return this.domain + '/api/movie-poster/' + imdbId;
   }
 
-  getTop100Movies() : Observable<MovieModel[]> {
+  getTop100Movies(): Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/top-100-movies';
     return this.httpClient.get<MovieModel[]>(url, {withCredentials: true});
   }
 
-  getLandingPageMovies() : Observable<MovieModel[]>{
+  getLandingPageMovies(): Observable<MovieModel[]>{
     const url: string = this.domain +  '/api/movie/random-nine-movies';
     return this.httpClient.get<MovieModel[]>(url, {withCredentials: true});
   }
