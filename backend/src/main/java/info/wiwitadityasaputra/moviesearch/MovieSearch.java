@@ -32,6 +32,9 @@ public class MovieSearch extends AbstractEntity {
 	@Column(name = "query")
 	private String query;
 
+	@Column(name = "not_found")
+	private boolean notFound;
+
 	public Integer getId() {
 		return id;
 	}
@@ -62,5 +65,13 @@ public class MovieSearch extends AbstractEntity {
 
 	public void setImdbId(String imdbId) {
 		this.imdbId = imdbId;
+	}
+
+	public boolean isNotFound() {
+		return notFound;
+	}
+
+	public void setNotFound(boolean notFound) {
+		this.notFound = notFound;
 	}
 }

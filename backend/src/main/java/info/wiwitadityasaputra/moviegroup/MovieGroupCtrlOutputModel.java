@@ -5,6 +5,7 @@ public class MovieGroupCtrlOutputModel {
 	private String groupName;
 	private String firstDayOfWeek;
 	private String lastDayOfWeek;
+	private boolean isAvailable;
 
 	public String getGroupName() {
 		return groupName;
@@ -28,5 +29,13 @@ public class MovieGroupCtrlOutputModel {
 
 	public void setLastDayOfWeek(String lastDayOfWeek) {
 		this.lastDayOfWeek = lastDayOfWeek;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 }

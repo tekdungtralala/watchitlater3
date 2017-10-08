@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieSearchRepository extends JpaRepository<MovieSearch, Integer> {
 
-	@Query(value = "FROM MovieSearch ms WHERE ms.movie IS NULL")
+	@Query(value = "FROM MovieSearch ms WHERE ms.movie IS NULL AND notFound = FALSE")
 	List<MovieSearch> findByEmptyMovie();
+
+	MovieSearch findByQuery(String query);
 }

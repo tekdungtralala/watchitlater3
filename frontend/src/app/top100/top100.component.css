@@ -1,8 +1,6 @@
 :host {
   width: 100%;
-  padding-top: 60px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding: 90px;
   background: rgba(0, 0, 0, 0.05);
 }
 .page-tittle {

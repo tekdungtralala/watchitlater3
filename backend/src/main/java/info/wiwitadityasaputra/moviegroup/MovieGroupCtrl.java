@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,9 @@ public class MovieGroupCtrl extends AbstractCtrl {
 	private Logger logger = LogManager.getLogger(MovieGroupCtrl.class);
 
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
+	@Autowired
+	private MovieGroupRepository movieGroupRepo;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public MovieGroupCtrlOutputModel getMovieGroup(@RequestParam(value = "date", required = true) String dateStr)
@@ -64,6 +68,7 @@ public class MovieGroupCtrl extends AbstractCtrl {
 		result.setGroupName(groupName);
 
 		result.setLastDayOfWeek(DATE_FORMAT.format(cal.getTime()));
+		result.setAvailable(movieGroupRepo.findByName(groupName) != null);
 		return result;
 	}
 }
