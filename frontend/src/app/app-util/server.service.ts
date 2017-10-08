@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -14,8 +14,9 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {}
 
   getMovieGroupName(date: string): Observable<MovieGroupNameModel> {
-    const url: string = this.domain +  '/api/movie-group?date=' + date;
-    return this.httpClient.get<MovieGroupNameModel>(url, {withCredentials: true});
+    const url: string = this.domain +  '/api/movie-group';
+    const params: HttpParams = new HttpParams().set('date', date);
+    return this.httpClient.get<MovieGroupNameModel>(url, {withCredentials: true, params: params});
   }
 
   getMoviePosterUrl(imdbId: string) {
