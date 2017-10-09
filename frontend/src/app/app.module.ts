@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -15,8 +15,9 @@ import { LatestComponent } from './latest/latest.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MovieDetailComponent } from './app-shared-component/movie-detail.component/movie-detail.component';
-
-
+import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner.component/loading-spinner.component';
+import { SpinnerService } from './app-shared-component/loading-spinner.component/spinner.service';
+import { LoadingInterceptor } from './app-shared-component/loading-spinner.component/spinner.interceptor';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,25 +30,31 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+
     HomeComponent,
     Top100Component,
     LatestComponent,
     RegisterComponent,
     LoginComponent,
 
-    MovieDetailComponent
+    MovieDetailComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
     NgbModule.forRoot(),
-    NgsRevealModule.forRoot()
+    NgsRevealModule.forRoot(),
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [MovieDetailComponent],
-  providers: [ServerService],
+  entryComponents: [ MovieDetailComponent ],
+  providers: [
+    ServerService,
+    SpinnerService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
