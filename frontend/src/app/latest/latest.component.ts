@@ -3,7 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
 import { ServerService } from '../app-util/server.service';
-import {MovieGroupNameModel, MovieModel} from '../app-util/movie.model';
+import {MovieGroupNameModel, MovieModel} from '../app-util/server.model';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;

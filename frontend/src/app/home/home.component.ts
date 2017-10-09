@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ServerService } from '../app-util/server.service';
-import { MovieModel } from '../app-util/movie.model';
+import { MovieModel } from '../app-util/server.model';
 
 @Component({
   selector: 'app-home',

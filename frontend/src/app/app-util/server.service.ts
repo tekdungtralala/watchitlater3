@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { MovieGroupNameModel, MovieModel} from './movie.model';
+import { MovieGroupNameModel, MovieModel} from './server.model';
 
 
 @Injectable()

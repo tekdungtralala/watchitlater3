@@ -3,7 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng
 
 
 import { ServerService} from '../app-util/server.service';
-import { MovieModel } from '../app-util/movie.model';
+import { MovieModel } from '../app-util/server.model';
 
 @Component({
   selector: 'app-top100',
