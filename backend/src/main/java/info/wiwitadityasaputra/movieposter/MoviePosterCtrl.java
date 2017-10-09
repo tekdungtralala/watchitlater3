@@ -1,5 +1,7 @@
 package info.wiwitadityasaputra.movieposter;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,21 @@ public class MoviePosterCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{imdbId}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public byte[] getPosterByImdbId(@PathVariable("imdbId") String imdbId) throws Exception {
-		// logger.info("GET " + AbstractCtrl.API_PATH_MOVIE_POSTER + "/" + imdbId);
+		logger.info("GET " + AbstractCtrl.API_PATH_MOVIE_POSTER + "/" + imdbId);
 
-		MoviePoster moviePoster = moviePosterRepo.findByImdbId(imdbId);
-		if (moviePoster == null)
+		List<MoviePoster> list = moviePosterRepo.findByImdbId(imdbId);
+		if (list == null || list.size() == 0)
 			throw new NotFoundException();
+
+		MoviePoster moviePoster = null;
+		for (MoviePoster mp : list) {
+			if (mp.isMain())
+				moviePoster = mp;
+		}
+
+		if (moviePoster == null)
+			moviePoster = list.get(0);
+
 		return moviePoster.getImgByte();
 	}
 }

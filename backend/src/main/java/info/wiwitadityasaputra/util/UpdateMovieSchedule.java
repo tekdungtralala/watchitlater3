@@ -1,16 +1,20 @@
 package info.wiwitadityasaputra.util;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +39,7 @@ public class UpdateMovieSchedule {
 
 	private Logger logger = LogManager.getLogger(UpdateMovieSchedule.class);
 
+	private static String DEFAULT_IMAGE = "java-assets/img_not_found.jpg";
 	private static final DateFormat MOVIE_RELEASED_FORMAT = new SimpleDateFormat("dd MMM yyyy");
 	private boolean stillRunnig = false;
 
@@ -59,7 +64,7 @@ public class UpdateMovieSchedule {
 			logger.info("start(), stillRunnig: " + stillRunnig);
 
 			processMovieSearch();
-			processMoviePoster();
+			processMoviePoster(true);
 			updateTop100Movies();
 
 			logger.info(" end");
@@ -82,7 +87,7 @@ public class UpdateMovieSchedule {
 		movieGroupRepo.save(movieGroup);
 	}
 
-	public void processMoviePoster() {
+	public void processMoviePoster(boolean updateSecondaryImg) throws IOException {
 		logger.info(" iterate MoviePoster to find Movie by movie_id");
 		for (MoviePoster mp : moviePosterRepo.findAll()) {
 			Movie movie = movieRepo.findByImdbId(mp.getImdbId());
@@ -95,7 +100,13 @@ public class UpdateMovieSchedule {
 		logger.info(" iterate Movie to find empty MoviePoster");
 		for (Movie movie : movieRepo.findAll()) {
 			List<MoviePoster> list = moviePosterRepo.findByMovie(movie);
-			if (list == null || list.size() == 0) {
+			boolean emptyPoster = list == null || list.size() == 0;
+			boolean secondaryPoster = list != null && list.size() == 1 && !list.get(0).isMain();
+			if (emptyPoster || (secondaryPoster && updateSecondaryImg)) {
+				MoviePoster mp = new MoviePoster();
+				mp.setMovie(movie);
+				mp.setImdbId(movie.getImdbId());
+
 				try {
 					logger.info("fetch poster movie: " + movie.getImdbId());
 
@@ -106,14 +117,20 @@ public class UpdateMovieSchedule {
 					ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, null, byte[].class);
 					MediaType contentType = response.getHeaders().getContentType();
 
-					MoviePoster mp = new MoviePoster();
-					mp.setMovie(movie);
-					mp.setImdbId(movie.getImdbId());
 					mp.setImgByte(response.getBody());
-					mp.setMain(true);
 					mp.setFileType(contentType.getType() + "/" + contentType.getSubtype());
+					mp.setMain(true);
 					moviePosterRepo.save(mp);
 				} catch (Exception e) {
+
+					if (!secondaryPoster) {
+						Resource resource = new ClassPathResource(DEFAULT_IMAGE);
+						mp.setImgByte(IOUtils.toByteArray(resource.getInputStream()));
+						mp.setFileType(MediaType.IMAGE_JPEG_VALUE);
+						mp.setMain(false);
+						moviePosterRepo.save(mp);
+					}
+
 					logger.error(movie.getImdbId() + ", " + e.getMessage());
 				}
 

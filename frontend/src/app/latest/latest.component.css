@@ -30,3 +30,39 @@
   background: #f4f4f4;
   color: #c6c9cc;
 }
+
+ngb-datepicker {
+  outline: none;
+}
+
+.page-tittle {
+  margin-bottom: 20px;
+}
+
+.movie-poster {
+  position: relative;
+  max-width: 200px;
+  max-height: 100px
+}
+
+.movie-info {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.modal-header button {
+  cursor: pointer;
+}
+
+.modal-body .image-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-footer button {
+  cursor: pointer;
+}

@@ -26,6 +26,7 @@ export class LatestComponent implements OnInit {
   selectedDate: NgbDateStruct;
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
+  movies: MovieModel[] = [];
 
   constructor(private serverService: ServerService) {
   }
@@ -49,11 +50,13 @@ export class LatestComponent implements OnInit {
         (value: MovieGroupNameModel) => {
           const fdow: string[] = value.firstDayOfWeek.split('-');
           const ldow: string[] = value.lastDayOfWeek.split('-');
+
           this.fromDate = {
             year: +fdow[0],
             month: +fdow[1],
             day: +fdow[2]
           }
+
           this.toDate = {
             year: +ldow[0],
             month: +ldow[1],
@@ -63,8 +66,10 @@ export class LatestComponent implements OnInit {
           this.serverService.getMovieByGroupName(value.groupName)
             .subscribe(
               (movies: MovieModel[]) => {
-                console.log('movies');
-                console.log(movies);
+                movies.forEach((movie => {
+                  movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
+                }));
+                this.movies = movies;
               }
             );
         }

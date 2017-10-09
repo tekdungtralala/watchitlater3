@@ -86,7 +86,7 @@ public class MovieCtrl extends AbstractCtrl {
 			updateMovieSchedule.processMovieSearch();
 
 			// Fetch/create MoviePoster by Movie
-			updateMovieSchedule.processMoviePoster();
+			updateMovieSchedule.processMoviePoster(false);
 
 			JSONArray arr = new JSONArray();
 			List<Movie> result = new ArrayList<Movie>();

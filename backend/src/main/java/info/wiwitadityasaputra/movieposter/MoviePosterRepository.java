@@ -12,5 +12,5 @@ public interface MoviePosterRepository extends JpaRepository<MoviePoster, Intege
 
 	public List<MoviePoster> findByMovie(Movie movie);
 
-	public MoviePoster findByImdbId(String imdbId);
+	public List<MoviePoster> findByImdbId(String imdbId);
 }
