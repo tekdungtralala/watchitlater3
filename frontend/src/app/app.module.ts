@@ -16,8 +16,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MovieDetailComponent } from './app-shared-component/movie-detail.component/movie-detail.component';
 import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner.component/loading-spinner.component';
-import { SpinnerService } from './app-shared-component/loading-spinner.component/spinner.service';
-import { LoadingInterceptor } from './app-shared-component/loading-spinner.component/spinner.interceptor';
+import { LoadingSpinnerService } from './app-shared-component/loading-spinner.component/loading-spinner.service';
+import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner.component/loading-spinner.interceptor';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,8 +52,8 @@ const appRoutes: Routes = [
   entryComponents: [ MovieDetailComponent ],
   providers: [
     ServerService,
-    SpinnerService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    LoadingSpinnerService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingSpinnerInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

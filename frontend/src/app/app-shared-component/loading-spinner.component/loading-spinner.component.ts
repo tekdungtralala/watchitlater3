@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SpinnerStateModel, SpinnerService } from './spinner.service';
-
 import * as _ from 'lodash';
+
+import { LoadingSpinnerService } from './loading-spinner.service';
+import { LoadingSpinnerModel } from './loading-spinner.model';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -10,23 +11,23 @@ import * as _ from 'lodash';
 })
 export class LoadingSpinnerComponent implements OnInit {
   isShown: boolean = false;
-  spinnerState: SpinnerStateModel[] = [];
+  spinnerState: LoadingSpinnerModel[] = [];
 
-  constructor(private spinnerService: SpinnerService) {
+  constructor(private spinnerService: LoadingSpinnerService) {
   }
 
   ngOnInit() {
     this.spinnerService.spinnerActivated.subscribe(
-      (value: SpinnerStateModel) => {
+      (value: LoadingSpinnerModel) => {
         if ( !value.isShown ) {
-          _.remove(this.spinnerState, (state: SpinnerStateModel) => {
+          _.remove(this.spinnerState, (state: LoadingSpinnerModel) => {
             return state.key === value.key;
           });
         } else if ( value.isShown ) {
           this.spinnerState.push(value);
         }
 
-        const finded: SpinnerStateModel = _.find(this.spinnerState, (state: SpinnerStateModel) => {
+        const finded: LoadingSpinnerModel = _.find(this.spinnerState, (state: LoadingSpinnerModel) => {
           return state.isShown === true;
         });
         this.isShown = finded ? true : false;
