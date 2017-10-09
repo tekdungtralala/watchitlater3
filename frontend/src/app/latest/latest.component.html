@@ -47,17 +47,17 @@
             <img [src]="m.imageUrl" class="img-thumbnail rounded movie-poster" height="10px"/>
           </td>
           <td>
-            <span class="movie-info" (click)="open(content, m)">
+            <span class="movie-info" (click)="open(m)">
               {{ m.title }}
             </span>
           </td>
           <td>
-          <span class="movie-info" (click)="open(content, m)">
+          <span class="movie-info" (click)="open(m)">
             {{ m.released }}
           </span>
           </td>
           <td class="text-center">
-          <span class="movie-info" (click)="open(content, m)">
+          <span class="movie-info" (click)="open(m)">
             {{ m.imdbRating }}
           </span>
           </td>

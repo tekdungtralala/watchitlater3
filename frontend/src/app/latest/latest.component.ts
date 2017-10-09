@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
 import { ServerService } from '../app-util/server.service';
 import {MovieGroupNameModel, MovieModel} from '../app-util/server.model';
+import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -28,7 +29,7 @@ export class LatestComponent implements OnInit {
   toDate: NgbDateStruct;
   movies: MovieModel[] = [];
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -77,9 +78,17 @@ export class LatestComponent implements OnInit {
     }
   }
 
-
   isInside = date => after(date, this.fromDate) && before(date, this.toDate);
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
+
+  open(movie: MovieModel) {
+    const options: NgbModalOptions = {
+      backdrop: 'static',
+      size: 'lg'
+    };
+    const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
+    modalRef.componentInstance.movie = movie;
+  }
 
 }

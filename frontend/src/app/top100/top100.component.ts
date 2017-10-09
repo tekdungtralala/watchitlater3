@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { ServerService} from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
+import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
 
 @Component({
   selector: 'app-top100',
@@ -13,7 +14,6 @@ import { MovieModel } from '../app-util/server.model';
 export class Top100Component implements OnInit {
 
   top100Movies: MovieModel[];
-  selectedMovie: MovieModel;
 
   constructor(private serverService: ServerService,
               private modalService: NgbModal) {
@@ -30,13 +30,13 @@ export class Top100Component implements OnInit {
     )
   }
 
-  open(content, movie: MovieModel) {
-    this.selectedMovie = movie;
+  open(movie: MovieModel) {
     const options: NgbModalOptions = {
       backdrop: 'static',
       size: 'lg'
     };
-    this.modalService.open(content, options);
+    const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
+    modalRef.componentInstance.movie = movie;
   }
 
 }

@@ -1,0 +1,11 @@
+.modal-header button {
+  cursor: pointer;
+}
+.modal-body .image-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-footer button {
+  cursor: pointer;
+}

@@ -14,6 +14,7 @@ import { Top100Component } from './top100/top100.component';
 import { LatestComponent } from './latest/latest.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { MovieDetailComponent } from './app-shared-component/movie-detail.component/movie-detail.component';
 
 
 
@@ -32,7 +33,9 @@ const appRoutes: Routes = [
     Top100Component,
     LatestComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+
+    MovieDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     NgsRevealModule.forRoot()
   ],
+  entryComponents: [MovieDetailComponent],
   providers: [ServerService],
   bootstrap: [AppComponent]
 })

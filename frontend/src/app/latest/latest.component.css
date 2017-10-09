@@ -53,16 +53,3 @@ ngb-datepicker {
 .table > tbody > tr > td {
   vertical-align: middle;
 }
-
-.modal-header button {
-  cursor: pointer;
-}
-
-.modal-body .image-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal-footer button {
-  cursor: pointer;
-}
