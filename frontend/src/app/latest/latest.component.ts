@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
+import * as _ from 'lodash';
 
 import { ServerService } from '../app-util/server.service';
-import {MovieGroupNameModel, MovieModel} from '../app-util/server.model';
-import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
+import { MovieGroupNameModel, MovieModel } from '../app-util/server.model';
+import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -71,6 +71,7 @@ export class LatestComponent implements OnInit {
                   movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
                 }));
                 this.movies = movies;
+                this.movies = _.orderBy(this.movies, ['imdbRating'], ['desc']);
               }
             );
         }

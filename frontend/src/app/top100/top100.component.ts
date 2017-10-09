@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import * as _ from 'lodash';
 
 import { ServerService} from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
@@ -26,6 +26,7 @@ export class Top100Component implements OnInit {
           movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
         }));
         this.top100Movies = response;
+        this.top100Movies = _.orderBy(this.top100Movies, ['imdbRating'], ['desc']);
       }
     )
   }
