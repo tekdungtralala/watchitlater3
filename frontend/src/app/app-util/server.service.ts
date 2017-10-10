@@ -12,9 +12,7 @@ import { environment } from '../../environments/environment';
 export class ServerService {
   private domain: string = environment.W3_API_URL;
 
-  constructor(private httpClient: HttpClient) {
-    console.log('domain : ', this.domain);
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getMovieByGroupName(groupName: string): Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/by-group-name';
