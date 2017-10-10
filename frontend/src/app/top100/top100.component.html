@@ -15,7 +15,7 @@
       <tr *ngFor="let m of top100Movies; let i = index">
         <th scope="row"> {{ i + 1}} </th>
         <td>
-          <img [src]="m.imageUrl" class="img-thumbnail rounded movie-poster" height="20px"/>
+          <img (click)="open(m)" [src]="m.imageUrl" class="img-thumbnail rounded movie-poster" height="20px"/>
         </td>
         <td>
           <span class="movie-info" (click)="open(m)">
