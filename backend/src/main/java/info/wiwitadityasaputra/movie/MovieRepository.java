@@ -11,6 +11,9 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
 	public Movie findByImdbId(String imdbId);
 
-	@Query(value = "SELECT * FROM movie ORDER BY imdb_rating DESC limit 100" + "", nativeQuery = true)
+	@Query(value = "SELECT * FROM movie ORDER BY imdb_rating DESC limit 100", nativeQuery = true)
 	public List<Movie> findTop100Movies();
+
+	@Query(value = "SELECT * FROM movie WHERE imdb_rating = 0", nativeQuery = true)
+	public List<Movie> findEmptyRatingMovies();
 }

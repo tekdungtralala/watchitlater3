@@ -15,7 +15,6 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit() {
     this.movie.jsonObj = JSON.parse(this.movie.json);
-    console.log(this.movie.jsonObj)
   }
 
   toggleShowMore() {

@@ -57,7 +57,8 @@ public class UpdateMovieSchedule {
 
 	// 10000 = 10 second
 	// 900000 = 15 minute
-	@Scheduled(fixedRateString = "900000", initialDelay = 1000)
+	// 3600000 = 60 minute
+	@Scheduled(fixedRateString = "3600000", initialDelay = 1000)
 	public void start() throws Exception {
 		if (!stillRunnig) {
 			stillRunnig = true;
@@ -66,9 +67,38 @@ public class UpdateMovieSchedule {
 			processMovieSearch();
 			processMoviePoster(true);
 			updateTop100Movies();
+			updateRatingMovie();
 
 			logger.info(" end");
 			stillRunnig = false;
+		}
+	}
+
+	public void updateRatingMovie() {
+		logger.info(" update rating movie");
+		List<Movie> listMovie = movieRepo.findEmptyRatingMovies();
+		logger.info("  listMovie.size() = " + listMovie.size());
+		for (Movie movie : listMovie) {
+			try {
+				String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId() + "&plot=full";
+				logger.info("url: " + url);
+
+				RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+				String response = restTemplate.getForObject(url, String.class);
+				JSONObject json = new JSONObject(response);
+				logger.info(response);
+
+				try {
+					movie.setImdbRating(json.getDouble("imdbRating"));
+					movieRepo.save(movie);
+					logger.info("   success update rating");
+				} catch (Exception e) {
+					logger.error("  failed update rating, " + e.getMessage());
+				}
+
+			} catch (Exception e) {
+				logger.error("  failed update rating, " + e.getMessage());
+			}
 		}
 	}
 
