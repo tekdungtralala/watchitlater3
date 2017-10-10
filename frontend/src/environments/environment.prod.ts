@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  W3_API_URL: ''
 };

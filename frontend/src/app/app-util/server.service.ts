@@ -5,13 +5,16 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import { MovieGroupNameModel, MovieModel} from './server.model';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
 export class ServerService {
-  private domain: string = 'http://localhost:8080';
+  private domain: string = environment.W3_API_URL;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    console.log('domain : ', this.domain);
+  }
 
   getMovieByGroupName(groupName: string): Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/by-group-name';
