@@ -1,7 +1,13 @@
-form {
-  margin-top: 40px;
+:host {
+  width: 100%;
+  padding: 90px;
+  background: rgba(0, 0, 0, 0.05);
 }
 
-button {
-  cursor: pointer;
+h3 {
+  padding-bottom: 20px;
+}
+
+.form-submited input.ng-invalid {
+  border: 1px solid red;
 }

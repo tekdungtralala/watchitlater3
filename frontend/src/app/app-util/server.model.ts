@@ -1,3 +1,17 @@
+export class UserModel {
+  userId: string;
+  email: string;
+  fullName: string;
+  password: string;
+  rePassword: string;
+
+  constructor(email: string, fullName: string, password: string) {
+    this.email = email;
+    this.fullName = fullName;
+    this.password = password;
+    this.rePassword = password;
+  }
+}
 export class MovieModelRating {
   Source: string;
   Value: string;
