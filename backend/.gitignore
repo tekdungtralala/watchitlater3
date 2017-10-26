@@ -4,3 +4,6 @@ src/main/resources/static
 .project
 .settings
 bin/*
+
+watchitlater.iml
+.idea/*

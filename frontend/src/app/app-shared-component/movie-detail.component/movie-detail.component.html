@@ -8,6 +8,15 @@
 </div>
 
 <div class="modal-body">
+  <div class="container row" [hidden]="movies == null || movies.length == 0">
+    <div class="col">
+      <button (click)="onPrevMovie()" type="button" class="btn btn-link">Previous</button>
+    </div>
+    <div class="col text-right">
+      <button (click)="onNextMovie()" type="button" class="btn btn-link">Next</button>
+    </div>
+  </div>
+
   <div class="container row">
     <div class="col-sm-4">
       <div class="image-area">

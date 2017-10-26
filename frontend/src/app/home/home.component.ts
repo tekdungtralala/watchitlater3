@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
     };
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
+    modalRef.componentInstance.movies = this.listMovieModel;
   }
 
   onLoadTop100() {
