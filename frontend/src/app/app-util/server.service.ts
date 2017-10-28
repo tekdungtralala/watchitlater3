@@ -45,18 +45,23 @@ export class ServerService {
     return this.httpClient.get(url, {withCredentials: true});
   }
 
+  getRandomUser() {
+    const url: string = this.domain +  '/api/user/random';
+    return this.httpClient.get(url, {withCredentials: true});
+  }
+
   me() {
-    const url: string = this.domain +  '/api/auth/me';
+    const url: string = this.domain +  '/api/user/auth/me';
     return this.httpClient.get(url, {withCredentials: true});
   }
 
   login() {
-    const url: string = this.domain +  '/api/auth/signin';
+    const url: string = this.domain +  '/api/user/auth/signin';
     return this.httpClient.get(url, {withCredentials: true});
   }
 
   logout() {
-    const url: string = this.domain +  '/api/auth/signout';
+    const url: string = this.domain +  '/api/user/auth/signout';
     return this.httpClient.get(url, {withCredentials: true});
   }
 }

@@ -15,29 +15,29 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping(value = AbstractCtrl.API_PATH_USER_RANDOM)
 public class RandomUserCtrl extends AbstractCtrl {
 
-    private Logger logger = LogManager.getLogger(RandomUserCtrl.class);
+	private Logger logger = LogManager.getLogger(RandomUserCtrl.class);
 
-    @RequestMapping(method = RequestMethod.GET)
-    public RandomUserOutput getRandomUser() throws JSONException {
-        logger.info("GET " + AbstractCtrl.API_PATH_USER_RANDOM);
+	@RequestMapping(method = RequestMethod.GET)
+	public RandomUserOutput getRandomUser() throws JSONException {
+		logger.info("GET " + AbstractCtrl.API_PATH_USER_RANDOM);
 
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://randomuser.me/api";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "https://randomuser.me/api";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-        JSONObject json = new JSONObject(response.getBody());
-        JSONObject person0 = json.getJSONArray("results").getJSONObject(0);
-        JSONObject person0Name = person0.getJSONObject("name");
+		JSONObject json = new JSONObject(response.getBody());
+		JSONObject person0 = json.getJSONArray("results").getJSONObject(0);
+		JSONObject person0Name = person0.getJSONObject("name");
 
-        String fn = person0Name.getString("first").toLowerCase();
-        String ln = person0Name.getString("last").toLowerCase();
-        fn = fn.substring(0, 1).toUpperCase() + fn.substring(1).toLowerCase();
-        ln = ln.substring(0, 1).toUpperCase() + ln.substring(1).toLowerCase();
+		String fn = person0Name.getString("first").toLowerCase();
+		String ln = person0Name.getString("last").toLowerCase();
+		fn = fn.substring(0, 1).toUpperCase() + fn.substring(1).toLowerCase();
+		ln = ln.substring(0, 1).toUpperCase() + ln.substring(1).toLowerCase();
 
-        RandomUserOutput result = new RandomUserOutput();
-        result.setEmailAddress(person0.getString("email"));
-        result.setFullName(fn + " " + ln);
+		RandomUserOutput result = new RandomUserOutput();
+		result.setEmail(person0.getString("email"));
+		result.setFullName(fn + " " + ln);
 
-        return result;
-    }
+		return result;
+	}
 }

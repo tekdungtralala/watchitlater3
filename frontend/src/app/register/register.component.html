@@ -40,6 +40,18 @@
           </div>
         </div>
 
+        <div class="form-group row random-user-info" [hidden]="!showRandomUserInfo">
+          <label class="col-sm-4 col-form-label"></label>
+          <div class="col-sm-8">
+            <div class="alert alert-primary" role="alert">
+              Default password is "<strong>password</strong>"
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onRandomUser()" type="button" class="btn btn-default float-left">
+          {{ showRandomUserInfo ? "Another user please." : "I'm Bored!!!" }}
+        </button>
         <button type="submit" class="btn btn-primary float-right">Register</button>
 
       </form>

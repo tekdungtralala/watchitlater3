@@ -13,6 +13,7 @@ import { UserModel } from '../app-util/server.model';
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   userModel: UserModel;
+  showRandomUserInfo = false;
 
   constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute) {
   }
@@ -20,13 +21,21 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.userModel = new UserModel(params['emailAddress'], params['fullName'], params['password']);
-      console.log(this.userModel);
     });
   }
 
   onSubmit() {
-    console.log()
+    console.log("register");
     // this.registerForm.controls['rePassword'].setErrors({});
+  }
+
+  onRandomUser() {
+    this.serverService.getRandomUser().subscribe((randomUser: UserModel) => {
+      this.showRandomUserInfo = true;
+      this.userModel = randomUser;
+      this.userModel.password = 'password';
+      this.userModel.rePassword = 'password';
+    });
   }
 
 }

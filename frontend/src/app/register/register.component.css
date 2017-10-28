@@ -11,3 +11,7 @@ h3 {
 .form-submited input.ng-invalid {
   border: 1px solid red;
 }
+
+.random-user-info > div {
+  padding-left: 15px;
+}

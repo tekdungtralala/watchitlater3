@@ -1,22 +1,22 @@
 package info.wiwitadityasaputra.user.randomUser;
 
 public class RandomUserOutput {
-    private String fullName;
-    private String emailAddress;
+	private String fullName;
+	private String email;
 
-    public String getFullName() {
-        return fullName;
-    }
+	public String getFullName() {
+		return fullName;
+	}
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
