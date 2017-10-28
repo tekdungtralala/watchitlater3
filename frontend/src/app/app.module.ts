@@ -18,6 +18,7 @@ import { MovieDetailComponent } from './app-shared-component/movie-detail.compon
 import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner.component/loading-spinner.component';
 import { LoadingSpinnerService } from './app-shared-component/loading-spinner.component/loading-spinner.service';
 import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner.component/loading-spinner.interceptor';
+import { NoEmptyValueValidatorDirective } from './app-shared-component/validator/no-empty-value-validator/no-empty-value-validator.directive';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     LoginComponent,
 
     MovieDetailComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NoEmptyValueValidatorDirective
   ],
   imports: [
     BrowserModule,
