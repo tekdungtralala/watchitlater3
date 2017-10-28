@@ -4,13 +4,15 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class AbstractCtrl {
     public final static String API_PATH_GIT_STATUS = "/api/git-status";
-    public final static String API_PATH_AUTH = "/api/auth";
     public final static String API_PATH_MOVIE_POSTER = "/api/movie-poster";
     public final static String API_PATH_MOVIE = "/api/movie";
     public final static String API_PATH_MOVIE_GROUP = "/api/movie-group";
     public final static String API_PATH_USER = "/api/user";
 
-    public final static String API_PATH_AUTH_ME = API_PATH_AUTH + "/me";
+    public final static String API_PATH_USER_AUTH = API_PATH_USER + "/auth";
+    public final static String ME = "/me";
+    public final static String SIGNIN = "/signin";
+    public final static String SIGNOUT = "/signout";
     public final static String API_PATH_USER_RANDOM = API_PATH_USER + "/random";
 
     @Value("${git.commit.id}")
