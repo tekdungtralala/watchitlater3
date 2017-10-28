@@ -2,6 +2,7 @@ package info.wiwitadityasaputra.util.config;
 
 import java.util.Arrays;
 
+import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,9 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/api/auth/me").hasRole("USER")
-				.antMatchers("/api/**").permitAll()				
-				.anyRequest().permitAll()
+				.antMatchers(AbstractCtrl.API_PATH_AUTH_ME)
+					.hasRole("USER")
+				.antMatchers("/api/**")
+					.permitAll()
+				.anyRequest()
+					.permitAll()
 				.and()
 			.cors().and()
 			.csrf().disable()
