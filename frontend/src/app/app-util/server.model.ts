@@ -20,10 +20,12 @@ export class UserModel {
     this.rePassword = null;
   }
 }
+
 export class MovieModelRating {
   Source: string;
   Value: string;
 }
+
 export class MovieModel {
   title: string;
   genre: string;
@@ -72,4 +74,15 @@ export class MovieGroupNameModel {
   firstDayOfWeek: string;
   groupName: string;
   lastDayOfWeek: string;
+}
+
+export class RestException {
+  error: {
+    timestamp: number;
+    status: number;
+    error: string;
+    exception: string;
+    message: string;
+    path: string;
+  }
 }

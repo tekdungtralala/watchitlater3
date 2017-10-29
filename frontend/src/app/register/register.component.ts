@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { ServerService } from '../app-util/server.service';
-import { UserModel } from '../app-util/server.model';
+import {RestException, UserModel} from '../app-util/server.model';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +13,10 @@ import { UserModel } from '../app-util/server.model';
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   userModel: UserModel;
+  errorMsg: string;
   showRandomUserInfo = false;
   showSuccessInfo = false;
+  showErrorInfo = false;
 
   constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute) {
   }
@@ -22,12 +24,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.userModel = new UserModel(params['emailAddress'], params['fullName'], params['password']);
-      console.log(this.userModel)
     });
   }
 
   onSubmit() {
-
     if (!this.registerForm.valid) {
       return;
     }
@@ -39,20 +39,25 @@ export class RegisterComponent implements OnInit {
     }
 
     this.serverService.register(this.userModel).subscribe(() => {
-      this.showRandomUserInfo = false;
-      this.showSuccessInfo = true;
+      this.updateInfo(false, true, false);
       this.userModel.reset();
       this.registerForm.resetForm();
+    }, (error: RestException) => {
+      this.errorMsg = error.error.message;
+      this.updateInfo(false, false, true);
     });
-
   }
 
   onRandomUser() {
     this.serverService.getRandomUser().subscribe((randomUser: UserModel) => {
-      this.showRandomUserInfo = true;
-      this.showSuccessInfo = false;
+      this.updateInfo(true, false, false);
       this.userModel = new UserModel(randomUser.email, randomUser.fullName, 'password');
     });
   }
 
+  private updateInfo(random: boolean, success: boolean, error: boolean): void {
+    this.showRandomUserInfo = random;
+    this.showSuccessInfo = success;
+    this.showErrorInfo = error;
+  }
 }

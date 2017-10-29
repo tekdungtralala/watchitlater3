@@ -78,7 +78,7 @@ public class AuthController extends AbstractCtrl {
 		User user = userRepo.findByEmail(input.getEmail());
 		if (user != null) {
 			logger.info("  duplicated");
-			throw new ConflictException();
+			throw new ConflictException("Duplicate email address");
 		} else {
 			User newUser = new User();
 			newUser.setUserId(UUID.randomUUID().toString());

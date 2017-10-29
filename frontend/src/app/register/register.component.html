@@ -57,10 +57,21 @@
           </div>
         </div>
 
-        <button (click)="onRandomUser()" type="button" class="btn btn-default float-left">
+        <div class="form-group row random-user-info" [hidden]="!showErrorInfo">
+          <div class="col-sm-12">
+            <div class="alert alert-danger" role="alert">
+              {{ errorMsg }}
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onRandomUser()"
+                [hidden]="showSuccessInfo"
+                type="button" class="btn btn-default float-left">
           {{ showRandomUserInfo ? "Another user please." : "I'm Bored!!!" }}
         </button>
-        <button type="submit" class="btn btn-primary float-right">Register</button>
+        <button [hidden]="showSuccessInfo"
+                type="submit" class="btn btn-primary float-right">Register</button>
 
       </form>
     </div>
