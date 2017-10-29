@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   userModel: UserModel;
   showRandomUserInfo = false;
+  showSuccessInfo = false;
 
   constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute) {
   }
@@ -21,20 +22,36 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.userModel = new UserModel(params['emailAddress'], params['fullName'], params['password']);
+      console.log(this.userModel)
     });
   }
 
   onSubmit() {
-    console.log("register");
-    // this.registerForm.controls['rePassword'].setErrors({});
+
+    if (!this.registerForm.valid) {
+      return;
+    }
+
+    if (this.userModel.password !== this.userModel.rePassword) {
+      this.registerForm.controls['password'].setErrors({});
+      this.registerForm.controls['rePassword'].setErrors({});
+      return;
+    }
+
+    this.serverService.register(this.userModel).subscribe(() => {
+      this.showRandomUserInfo = false;
+      this.showSuccessInfo = true;
+      this.userModel.reset();
+      this.registerForm.resetForm();
+    });
+
   }
 
   onRandomUser() {
     this.serverService.getRandomUser().subscribe((randomUser: UserModel) => {
       this.showRandomUserInfo = true;
-      this.userModel = randomUser;
-      this.userModel.password = 'password';
-      this.userModel.rePassword = 'password';
+      this.showSuccessInfo = false;
+      this.userModel = new UserModel(randomUser.email, randomUser.fullName, 'password');
     });
   }
 

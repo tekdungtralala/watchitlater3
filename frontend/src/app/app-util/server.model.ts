@@ -11,6 +11,14 @@ export class UserModel {
     this.password = password;
     this.rePassword = password;
   }
+
+  reset = () => {
+    this.userId = null;
+    this.email = null;
+    this.fullName = null;
+    this.password = null;
+    this.rePassword = null;
+  }
 }
 export class MovieModelRating {
   Source: string;

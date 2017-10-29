@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
-import info.wiwitadityasaputra.util.api.NotFoundException;
+import info.wiwitadityasaputra.util.api.exception.NotFoundException;
 
 @RestController
 @RequestMapping(value = AbstractCtrl.API_PATH_MOVIE_POSTER)

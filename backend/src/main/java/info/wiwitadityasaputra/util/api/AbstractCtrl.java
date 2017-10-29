@@ -12,6 +12,7 @@ public class AbstractCtrl {
     public final static String API_PATH_USER_AUTH = API_PATH_USER + "/auth";
     public final static String ME = "/me";
     public final static String SIGNIN = "/signin";
+    public final static String SIGNUP = "/signup";
     public final static String SIGNOUT = "/signout";
     public final static String API_PATH_USER_RANDOM = API_PATH_USER + "/random";
 

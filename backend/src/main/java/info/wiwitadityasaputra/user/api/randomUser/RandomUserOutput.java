@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.user.randomUser;
+package info.wiwitadityasaputra.user.api.randomUser;
 
 public class RandomUserOutput {
 	private String fullName;

@@ -28,7 +28,7 @@
           <div class="col-sm-8">
             <input type="password" class="form-control" placeholder="Password"
                    name="password" [(ngModel)]="userModel.password"
-                   required>
+                   required noEmptyValue minlength="8">
           </div>
         </div>
 
@@ -37,15 +37,22 @@
           <div class="col-sm-8">
             <input type="password" class="form-control" placeholder="Re-Password"
                    name="rePassword" [(ngModel)]="userModel.rePassword"
-                   required>
+                   required noEmptyValue minlength="8">
           </div>
         </div>
 
         <div class="form-group row random-user-info" [hidden]="!showRandomUserInfo">
-          <label class="col-sm-4 col-form-label"></label>
-          <div class="col-sm-8">
+          <div class="col-sm-12">
             <div class="alert alert-primary" role="alert">
               Default password is "<strong>password</strong>"
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row random-user-info" [hidden]="!showSuccessInfo">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              Success register
             </div>
           </div>
         </div>

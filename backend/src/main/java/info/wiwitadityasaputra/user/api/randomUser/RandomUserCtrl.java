@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.user.randomUser;
+package info.wiwitadityasaputra.user.api.randomUser;
 
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import org.apache.logging.log4j.LogManager;

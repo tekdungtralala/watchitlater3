@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { MovieGroupNameModel, MovieModel} from './server.model';
+import {MovieGroupNameModel, MovieModel, UserModel} from './server.model';
 import { environment } from '../../environments/environment';
 
 
@@ -48,6 +48,11 @@ export class ServerService {
   getRandomUser() {
     const url: string = this.domain +  '/api/user/random';
     return this.httpClient.get(url, {withCredentials: true});
+  }
+
+  register(user: UserModel) {
+    const url: string = this.domain +  '/api/user/auth/signup';
+    return this.httpClient.post(url, user,{withCredentials: true});
   }
 
   me() {
