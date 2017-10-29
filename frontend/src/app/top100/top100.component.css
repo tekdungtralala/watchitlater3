@@ -19,4 +19,6 @@
 .table > tbody > tr > td {
   vertical-align: middle;
 }
-
+.table-striped tbody tr:nth-of-type(even) {
+  background: #ffffff6e;
+}

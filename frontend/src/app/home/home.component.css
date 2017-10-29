@@ -150,3 +150,7 @@ fieldset[disabled] .btn-primary:hover {
 .btn-xl {
   padding: 15px 30px;
 }
+
+header {
+  height: 100vh;
+}
