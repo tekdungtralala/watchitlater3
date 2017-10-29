@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.userModel = new UserModel(params['emailAddress'], params['fullName'], params['password']);
+      this.userModel = new UserModel(params['email'], params['fullName'], params['password']);
     });
   }
 

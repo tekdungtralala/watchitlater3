@@ -12,6 +12,7 @@ import info.wiwitadityasaputra.user.entity.UserRepository;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.exception.BadRequestException;
 import info.wiwitadityasaputra.util.api.exception.ConflictException;
+import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,20 +45,26 @@ public class AuthController extends AbstractCtrl {
 		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = AbstractCtrl.SIGNIN)
-	public void signIn() throws Exception {
+	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNIN)
+	public void signIn(@RequestBody @Valid SignUpInput input) throws Exception {
 		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNIN);
-		String email = "wiwit.aditya.saputra@gmail.com";
-		AuthModel am = new AuthModel(UUID.randomUUID().toString(), email);
+
+		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
+		if (user == null) {
+			logger.info("  cant find user by email & password");
+			throw new ForbiddenException("Unable to find user with " + input.getEmail());
+		}
+
+		AuthModel am = new AuthModel(UUID.randomUUID().toString(), input.getEmail());
 
 		List<GrantedAuthority> grantedAuth = new ArrayList<GrantedAuthority>();
 		grantedAuth.add(new SimpleGrantedAuthority("ROLE_USER"));
 		Authentication auth = new UsernamePasswordAuthenticationToken(am, "password", grantedAuth);
-		logger.info("create auth");
 
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		context.setAuthentication(auth);
 		SecurityContextHolder.setContext(context);
+		logger.info("success login, create auth");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNOUT)

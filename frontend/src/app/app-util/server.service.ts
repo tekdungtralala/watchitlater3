@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {MovieGroupNameModel, MovieModel, UserModel} from './server.model';
 import { environment } from '../../environments/environment';
+import {SignInModel} from "./fe.model";
 
 
 @Injectable()
@@ -60,9 +61,9 @@ export class ServerService {
     return this.httpClient.get(url, {withCredentials: true});
   }
 
-  login() {
+  login(user: SignInModel) {
     const url: string = this.domain +  '/api/user/auth/signin';
-    return this.httpClient.get(url, {withCredentials: true});
+    return this.httpClient.post(url, user,{withCredentials: true});
   }
 
   logout() {
