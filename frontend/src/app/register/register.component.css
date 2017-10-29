@@ -12,6 +12,14 @@ h3 {
   border: 1px solid red;
 }
 
+.random-user-info {
+  margin-bottom: 0px;
+}
 .random-user-info > div {
   padding-left: 15px;
+}
+
+.copy-email-btn {
+  position: relative;
+  top: -3px;
 }

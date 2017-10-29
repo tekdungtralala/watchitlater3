@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { ServerService } from '../app-util/server.service';
-import {RestException, UserModel} from '../app-util/server.model';
+import { RestException, UserModel } from '../app-util/server.model';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +15,13 @@ export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   userModel: UserModel;
   errorMsg: string;
+  lastEmail: string;
   showRandomUserInfo = false;
   showSuccessInfo = false;
   showErrorInfo = false;
+  emailCopied = false;
 
-  constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute) {
+  constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -40,6 +43,7 @@ export class RegisterComponent implements OnInit {
 
     this.serverService.register(this.userModel).subscribe(() => {
       this.updateInfo(false, true, false);
+      this.lastEmail = this.userModel.email;
       this.userModel.reset();
       this.registerForm.resetForm();
     }, (error: RestException) => {
@@ -55,9 +59,36 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onCopyEmail() {
+    this.copyToClipboard(this.lastEmail);
+    this.emailCopied = true;
+    Observable.timer(1000).subscribe(() => {
+      this.emailCopied = false;
+    });
+  }
+
+  onToSignInPage() {
+    this.router.navigate(['/login']);
+  }
+
   private updateInfo(random: boolean, success: boolean, error: boolean): void {
     this.showRandomUserInfo = random;
     this.showSuccessInfo = success;
     this.showErrorInfo = error;
+  }
+
+  private copyToClipboard(text): void {
+    const textarea: any = document.createElement('textarea');
+    textarea.textContent = text;
+    textarea.style.position = 'fixed';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');  // Security exception may be thrown by some browsers.
+    } catch (ex) {
+      console.warn('Copy to clipboard failed.', ex);
+    } finally {
+      document.body.removeChild(textarea);
+    }
   }
 }
