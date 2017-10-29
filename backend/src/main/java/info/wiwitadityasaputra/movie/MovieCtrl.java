@@ -1,10 +1,7 @@
 package info.wiwitadityasaputra.movie;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.plaf.BorderUIResource.TitledBorderUIResource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,6 +50,7 @@ public class MovieCtrl extends AbstractCtrl {
 		logger.info("GET " + AbstractCtrl.API_PATH_MOVIE + PATH_BY_GROUP_NAME + "?groupName=" + groupName);
 		MovieGroup mg = movieGroupRepo.findByName(groupName);
 		if (mg == null) {
+			List<Movie> result = new ArrayList<Movie>();
 			String fdow = groupName.split("_")[0];
 
 			// Get movies title
@@ -81,6 +79,9 @@ public class MovieCtrl extends AbstractCtrl {
 				}
 				listMovieSearch.add(ms);
 			}
+			if (listMovieSearch.size() == 0) {
+				return result;
+			}
 
 			// Fetch/create Movie by MovieSearch
 			updateMovieSchedule.processMovieSearch();
@@ -89,7 +90,6 @@ public class MovieCtrl extends AbstractCtrl {
 			updateMovieSchedule.processMoviePoster(false);
 
 			JSONArray arr = new JSONArray();
-			List<Movie> result = new ArrayList<Movie>();
 			for (MovieSearch ms : listMovieSearch) {
 				ms = movieSearchRepo.findOne(ms.getId());
 				Movie movie = movieRepo.findByImdbId(ms.getImdbId());
