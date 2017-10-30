@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  W3_API_URL: 'http://localhost:8080'
+  W3_API_URL: 'http://localhost:8090'
 };
