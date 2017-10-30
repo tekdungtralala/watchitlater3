@@ -5,14 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import info.wiwitadityasaputra.user.entity.User;
-import info.wiwitadityasaputra.user.entity.UserRepository;
-import info.wiwitadityasaputra.util.api.AbstractCtrl;
-import info.wiwitadityasaputra.util.api.exception.BadRequestException;
-import info.wiwitadityasaputra.util.api.exception.ConflictException;
-import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import info.wiwitadityasaputra.user.entity.User;
+import info.wiwitadityasaputra.user.entity.UserRepository;
+import info.wiwitadityasaputra.util.api.AbstractCtrl;
+import info.wiwitadityasaputra.util.api.exception.BadRequestException;
+import info.wiwitadityasaputra.util.api.exception.ConflictException;
+import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 import info.wiwitadityasaputra.util.config.AuthModel;
 
 @RestController
@@ -68,9 +68,8 @@ public class AuthController extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNOUT)
-	public void signOut(HttpServletRequest request) throws Exception {
+	public void signOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNOUT);
-		request.logout();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNUP)

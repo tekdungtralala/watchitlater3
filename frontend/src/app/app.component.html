@@ -28,13 +28,17 @@
             <a class="nav-link js-scroll-trigger" (click)="onLoadLatest();"
                [ngClass]="{'active': currentRouter === '/latest'}">Latest Movies</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [hidden]="hasUser">
             <a class="nav-link js-scroll-trigger" (click)="onLoadRegister();"
                [ngClass]="{'active': currentRouter === '/register'}">Register </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [hidden]="hasUser">
             <a class="nav-link js-scroll-trigger" (click)="onLoadLogin();"
                [ngClass]="{'active': currentRouter === '/login'}">Signin</a>
+          </li>
+          <li class="nav-item" [hidden]="!hasUser">
+            <a class="nav-link js-scroll-trigger" (click)="onDashboard();"
+               [ngClass]="{'active': currentRouter === '/dashboard'}">My Account</a>
           </li>
         </ul>
       </div>

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,8 +29,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.cors().and()
 			.csrf().disable()
 			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher(AbstractCtrl.API_PATH_USER_AUTH + AbstractCtrl.SIGNOUT))
+				.logoutSuccessUrl("/")
 				.deleteCookies("JSESSIONID")
-				.invalidateHttpSession(true) ;
+				.invalidateHttpSession(true)
+		;
 	}
 	
     @Bean

@@ -4,9 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import {MovieGroupNameModel, MovieModel, UserModel} from './server.model';
+import { MovieGroupNameModel, MovieModel, SignInModel, UserModel } from './server.model';
 import { environment } from '../../environments/environment';
-import {SignInModel} from "./fe.model";
 
 
 @Injectable()
@@ -68,6 +67,7 @@ export class ServerService {
 
   logout() {
     const url: string = this.domain +  '/api/user/auth/signout';
-    return this.httpClient.get(url, {withCredentials: true});
+    // return this.httpClient.get(url,{withCredentials: true});
+    return this.httpClient.post(url, {}, {withCredentials: true});
   }
 }

@@ -1,3 +1,8 @@
+export class SignInModel {
+  email: string;
+  password: string;
+}
+
 export class UserModel {
   userId: string;
   email: string;

@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { ServerService } from '../app-util/server.service';
-import { UserModel } from '../app-util/server.model';
-import { SignInModel } from '../app-util/fe.model';
+import { SignInModel, UserModel } from '../app-util/server.model';
+import { RootScopeService } from '../app-util/root-scope.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,10 @@ export class LoginComponent implements OnInit {
   showErrorInfo = false;
   emailCopied = false;
 
-  constructor(private serverService: ServerService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private serverService: ServerService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private rootScope: RootScopeService) {
   }
 
   ngOnInit() {
@@ -32,9 +35,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.serverService.login(this.userModel).subscribe( () => {
-        console.log('success');
+        this.rootScope.setHasUser(true);
+        this.router.navigate(['/dashboard']);
       }, () => {
-        console.log('error');
+        this.rootScope.setHasUser(false);
       });
     }
   }
