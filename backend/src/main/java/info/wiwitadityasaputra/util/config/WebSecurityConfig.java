@@ -28,11 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.cors().and()
 			.csrf().disable()
-			.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher(AbstractCtrl.API_PATH_USER_AUTH + AbstractCtrl.SIGNOUT))
-				.logoutSuccessUrl("/")
-				.deleteCookies("JSESSIONID")
-				.invalidateHttpSession(true)
+//			.logout()
+//				.logoutRequestMatcher(new AntPathRequestMatcher(AbstractCtrl.API_PATH_USER_AUTH + AbstractCtrl.SIGNOUT))
+//				.logoutSuccessUrl("/")
+//				.deleteCookies("JSESSIONID")
+//				.invalidateHttpSession(true)
 		;
 	}
 	

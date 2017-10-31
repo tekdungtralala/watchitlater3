@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -70,6 +72,15 @@ public class AuthController extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNOUT)
 	public void signOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNOUT);
+		HttpSession session = request.getSession(false);
+		SecurityContextHolder.clearContext();
+		session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		for (Cookie cookie : request.getCookies()) {
+			cookie.setMaxAge(0);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNUP)
