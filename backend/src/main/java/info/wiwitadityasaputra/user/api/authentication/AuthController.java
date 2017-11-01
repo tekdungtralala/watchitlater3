@@ -30,7 +30,6 @@ import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.exception.BadRequestException;
 import info.wiwitadityasaputra.util.api.exception.ConflictException;
 import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
-import info.wiwitadityasaputra.util.config.AuthModel;
 
 @RestController
 @RequestMapping(value = AbstractCtrl.API_PATH_USER_AUTH)
@@ -57,11 +56,9 @@ public class AuthController extends AbstractCtrl {
 			throw new ForbiddenException("Unable to find user with " + input.getEmail());
 		}
 
-		AuthModel am = new AuthModel(UUID.randomUUID().toString(), input.getEmail());
-
 		List<GrantedAuthority> grantedAuth = new ArrayList<GrantedAuthority>();
 		grantedAuth.add(new SimpleGrantedAuthority("ROLE_USER"));
-		Authentication auth = new UsernamePasswordAuthenticationToken(am, "password", grantedAuth);
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, "password", grantedAuth);
 
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		context.setAuthentication(auth);

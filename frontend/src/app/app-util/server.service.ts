@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { MovieGroupNameModel, MovieModel, SignInModel, UserModel } from './server.model';
+import { MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel, UserModel } from './server.model';
 import { environment } from '../../environments/environment';
 
 
@@ -13,6 +13,11 @@ export class ServerService {
   private domain: string = environment.W3_API_URL;
 
   constructor(private httpClient: HttpClient) {}
+
+  getMovieFavorite() {
+    const url: string = this.domain +  '/api/movie-favorite';
+    return this.httpClient.get<MovieFavoriteModel[]>(url, {withCredentials: true});
+  }
 
   getMovieByGroupName(groupName: string): Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/by-group-name';

@@ -10,6 +10,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
@@ -27,6 +29,7 @@ public abstract class AbstractEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdatedDt;
 
+	@JsonIgnore
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -35,6 +38,7 @@ public abstract class AbstractEntity implements Serializable {
 		this.createdBy = createdBy;
 	}
 
+	@JsonIgnore
 	public Date getCreatedDt() {
 		return createdDt;
 	}
@@ -43,6 +47,7 @@ public abstract class AbstractEntity implements Serializable {
 		this.createdDt = createdDt;
 	}
 
+	@JsonIgnore
 	public String getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
@@ -51,6 +56,7 @@ public abstract class AbstractEntity implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
+	@JsonIgnore
 	public Date getLastUpdatedDt() {
 		return lastUpdatedDt;
 	}

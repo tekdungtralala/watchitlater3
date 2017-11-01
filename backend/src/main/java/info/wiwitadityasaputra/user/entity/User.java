@@ -1,12 +1,19 @@
 package info.wiwitadityasaputra.user.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
 import info.wiwitadityasaputra.util.AbstractEntity;
 
 @Entity
@@ -29,6 +36,10 @@ public class User extends AbstractEntity {
 
 	@Column(name = "fullName")
 	private String fullName;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MovieFavorite> listMovieFavorite;
 
 	public int getId() {
 		return id;
@@ -68,5 +79,14 @@ public class User extends AbstractEntity {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	@JsonIgnore
+	public Set<MovieFavorite> getListMovieFavorite() {
+		return listMovieFavorite;
+	}
+
+	public void setListMovieFavorite(Set<MovieFavorite> listMovieFavorite) {
+		this.listMovieFavorite = listMovieFavorite;
 	}
 }

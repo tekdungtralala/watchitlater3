@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
 import info.wiwitadityasaputra.movieposter.MoviePoster;
 import info.wiwitadityasaputra.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.util.AbstractEntity;
@@ -61,6 +62,10 @@ public class Movie extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MoviePoster> listMoviePoster;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MovieFavorite> listMovieFavorite;
 
 	@JsonIgnore
 	public Integer getId() {
@@ -135,6 +140,7 @@ public class Movie extends AbstractEntity {
 		this.json = json;
 	}
 
+	@JsonIgnore
 	public Set<MovieSearch> getListMovieSearch() {
 		return listMovieSearch;
 	}
@@ -143,6 +149,7 @@ public class Movie extends AbstractEntity {
 		this.listMovieSearch = listMovieSearch;
 	}
 
+	@JsonIgnore
 	public Set<MoviePoster> getListMoviePoster() {
 		return listMoviePoster;
 	}
@@ -151,28 +158,12 @@ public class Movie extends AbstractEntity {
 		this.listMoviePoster = listMoviePoster;
 	}
 
-	@Override
 	@JsonIgnore
-	public String getCreatedBy() {
-		return super.getCreatedBy();
+	public Set<MovieFavorite> getListMovieFavorite() {
+		return listMovieFavorite;
 	}
 
-	@Override
-	@JsonIgnore
-	public Date getCreatedDt() {
-		return super.getCreatedDt();
+	public void setListMovieFavorite(Set<MovieFavorite> listMovieFavorite) {
+		this.listMovieFavorite = listMovieFavorite;
 	}
-
-	@Override
-	@JsonIgnore
-	public String getLastUpdatedBy() {
-		return super.getLastUpdatedBy();
-	}
-
-	@Override
-	@JsonIgnore
-	public Date getLastUpdatedDt() {
-		return super.getLastUpdatedDt();
-	}
-
 }

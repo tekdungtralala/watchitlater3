@@ -1,3 +1,10 @@
+export class MovieFavoriteModel {
+  id: string;
+  favorite: boolean;
+  position: number;
+  movieId: number;
+}
+
 export class SignInModel {
   email: string;
   password: string;
