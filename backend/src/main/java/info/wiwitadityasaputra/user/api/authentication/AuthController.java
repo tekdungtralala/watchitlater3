@@ -27,12 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 import info.wiwitadityasaputra.user.entity.User;
 import info.wiwitadityasaputra.user.entity.UserRepository;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
+import info.wiwitadityasaputra.util.api.ApiPath;
 import info.wiwitadityasaputra.util.api.exception.BadRequestException;
 import info.wiwitadityasaputra.util.api.exception.ConflictException;
 import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 
 @RestController
-@RequestMapping(value = AbstractCtrl.API_PATH_USER_AUTH)
 public class AuthController extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(AuthController.class);
@@ -40,15 +40,15 @@ public class AuthController extends AbstractCtrl {
 	@Autowired
 	private UserRepository userRepo;
 
-	@RequestMapping(method = RequestMethod.GET, value = AbstractCtrl.ME)
+	@RequestMapping(method = RequestMethod.GET, value = ApiPath.PATH_USER_AUTH_ME)
 	public Object me() throws Exception {
-		logger.info("GET " + AbstractCtrl.API_PATH_USER_AUTH + ME);
+		logger.info("GET " + ApiPath.PATH_USER_AUTH_ME);
 		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNIN)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNIN)
 	public void signIn(@RequestBody @Valid SignUpInput input) throws Exception {
-		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNIN);
+		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
 		if (user == null) {
@@ -66,9 +66,9 @@ public class AuthController extends AbstractCtrl {
 		logger.info("success login, create auth");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNOUT)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNOUT)
 	public void signOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNOUT);
+		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNOUT);
 		HttpSession session = request.getSession(false);
 		SecurityContextHolder.clearContext();
 		session = request.getSession(false);
@@ -80,9 +80,9 @@ public class AuthController extends AbstractCtrl {
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = AbstractCtrl.SIGNUP)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNUP)
 	public void signUp(@RequestBody @Valid NewUserInput input) {
-		logger.info("POST " + AbstractCtrl.API_PATH_USER_AUTH + SIGNUP);
+		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNUP);
 
 		if (!input.getPassword().equals(input.getRePassword())) {
 			logger.info("  password not same");

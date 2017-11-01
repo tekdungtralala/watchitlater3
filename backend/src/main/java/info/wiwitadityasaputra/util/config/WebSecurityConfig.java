@@ -2,12 +2,12 @@ package info.wiwitadityasaputra.util.config;
 
 import java.util.Arrays;
 
-import info.wiwitadityasaputra.util.api.AbstractCtrl;
+import info.wiwitadityasaputra.util.api.ApiPath;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,8 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers(
-					AbstractCtrl.API_PATH_USER_AUTH + AbstractCtrl.ME,
-					AbstractCtrl.API_PATH_MOVIE_FAVORITE
+					ApiPath.PATH_USER_AUTH_ME,
+					ApiPath.API_PATH_MOVIE_FAVORITE
 					).hasRole("USER")
 				.antMatchers("/api/**")
 					.permitAll()

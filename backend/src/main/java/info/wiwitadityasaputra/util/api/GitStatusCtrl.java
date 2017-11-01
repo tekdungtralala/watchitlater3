@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = AbstractCtrl.API_PATH_GIT_STATUS)
+@RequestMapping(value = ApiPath.API_PATH_GIT_STATUS)
 public class GitStatusCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)

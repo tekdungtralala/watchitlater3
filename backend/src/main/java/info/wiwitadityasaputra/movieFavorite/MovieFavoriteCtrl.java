@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import info.wiwitadityasaputra.user.entity.User;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
+import info.wiwitadityasaputra.util.api.ApiPath;
 
 @RestController
-@RequestMapping(value = AbstractCtrl.API_PATH_MOVIE_FAVORITE)
+@RequestMapping(value = ApiPath.API_PATH_MOVIE_FAVORITE)
 public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieFavoriteCtrl.class);
@@ -25,7 +26,7 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieFavorite> getMovieFavorites() {
-		logger.info("GET " + AbstractCtrl.API_PATH_MOVIE_FAVORITE);
+		logger.info("GET " + ApiPath.API_PATH_MOVIE_FAVORITE);
 		List<MovieFavorite> result = new ArrayList<MovieFavorite>();
 
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
