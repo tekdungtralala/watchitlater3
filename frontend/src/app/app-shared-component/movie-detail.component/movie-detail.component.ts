@@ -20,7 +20,7 @@ export class MovieDetailComponent implements OnInit {
 
     if ( this.movies != null ) {
       _.forEach(this.movies, (m: MovieModel) => {
-        m.jsonObj = JSON.parse(this.movie.json);
+        m.jsonObj = JSON.parse(m.json);
       })
     }
   }
