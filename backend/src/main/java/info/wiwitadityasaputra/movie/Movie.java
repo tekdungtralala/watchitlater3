@@ -67,7 +67,6 @@ public class Movie extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MovieFavorite> listMovieFavorite;
 
-	@JsonIgnore
 	public Integer getId() {
 		return id;
 	}

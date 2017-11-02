@@ -75,8 +75,6 @@ export class AuthGuard implements CanActivate {
     }, () => {
       this.completeAuthGuard();
     });
-
-
   }
 
   private completeAuthGuard(): void {

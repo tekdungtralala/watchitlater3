@@ -23,9 +23,14 @@
         <img class="img-thumbnail" [src]="this.movie.imageUrl" />
       </div>
       <br/>
-      <button (click)="toggleShowMore();" type="button" class="btn btn-sm btn-outline-primary">
-        {{ isShowMore ? 'Show less' : 'Show more' }}
-      </button>
+      <div class="col-xs-12">
+        <button (click)="toggleShowMore();" type="button" class="btn btn-sm btn-outline-primary">
+          {{ isShowMore ? 'Show less' : 'Show more' }}
+        </button>
+
+        <i [ngClass]="{'fa-bookmark': isFavorite, 'fa-bookmark-o': !isFavorite}"
+           class="fa float-right bookmark-btn" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="col-sm-8">
       <form>

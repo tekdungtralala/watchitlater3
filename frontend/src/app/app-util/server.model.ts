@@ -39,6 +39,7 @@ export class MovieModelRating {
 }
 
 export class MovieModel {
+  id: number;
   title: string;
   genre: string;
   imdbId: string;

@@ -11,7 +11,8 @@ import { MovieModel } from '../../app-util/server.model';
 export class MovieDetailComponent implements OnInit {
   @Input() movie: MovieModel;
   @Input() movies: MovieModel[];
-  isShowMore: boolean = false;
+  @Input() isFavorite: boolean;
+  isShowMore: boolean;
 
   constructor(public activeModal: NgbActiveModal) {}
 

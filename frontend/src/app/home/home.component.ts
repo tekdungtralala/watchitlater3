@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { ServerService } from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
@@ -33,8 +34,6 @@ export class HomeComponent implements OnInit {
         this.listMovieModel = response;
       }
     );
-
-    console.log(this.rootScope.getFavoriteMovie());
   }
 
   open(movie: MovieModel) {
@@ -45,6 +44,9 @@ export class HomeComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.listMovieModel;
+    modalRef.componentInstance.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
+      return movie.id === m.id;
+    }) != null;
   }
 
   onLoadTop100() {

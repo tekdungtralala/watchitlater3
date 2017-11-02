@@ -9,3 +9,10 @@
 .modal-footer button {
   cursor: pointer;
 }
+
+.bookmark-btn {
+  position: relative;
+  top: 6px;
+  font-size: 20px;
+  cursor: pointer;
+}

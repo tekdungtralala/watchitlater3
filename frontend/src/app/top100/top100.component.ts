@@ -23,7 +23,7 @@ export class Top100Component implements OnInit {
 
   ngOnInit() {
     this.serverService.getTop100Movies().subscribe(
-      ( response: MovieModel[])=> {
+      ( response: MovieModel[]) => {
         response.forEach((movie => {
           movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
         }));
@@ -43,6 +43,9 @@ export class Top100Component implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.top100Movies;
+    modalRef.componentInstance.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
+      return movie.id === m.id;
+    }) != null;
   }
 
 }

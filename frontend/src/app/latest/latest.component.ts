@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { ServerService } from '../app-util/server.service';
 import { MovieGroupNameModel, MovieModel } from '../app-util/server.model';
 import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
+import { RootScopeService } from '../app-util/root-scope.service';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -29,12 +30,12 @@ export class LatestComponent implements OnInit {
   toDate: NgbDateStruct;
   movies: MovieModel[] = [];
 
-  constructor(private serverService: ServerService, private modalService: NgbModal) {
+  constructor(private serverService: ServerService,
+              private modalService: NgbModal,
+              private rootScope: RootScopeService) {
   }
 
   ngOnInit() {
-    // const m: moment.Moment = moment(new Date());
-    // const currentDate = m.format('YYYY-MM-DD');
     const now = new Date();
     this.selectedDate = {
       year: now.getFullYear(),
@@ -91,6 +92,9 @@ export class LatestComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.movies;
+    modalRef.componentInstance.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
+      return movie.id === m.id;
+    }) != null;
   }
 
 }
