@@ -1,6 +1,6 @@
 package info.wiwitadityasaputra.moviegroup;
 
-public class MovieGroupCtrlOutput {
+public class MovieGroupOutput {
 
 	private String groupName;
 	private String firstDayOfWeek;

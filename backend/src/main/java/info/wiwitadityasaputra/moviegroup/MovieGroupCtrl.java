@@ -29,10 +29,10 @@ public class MovieGroupCtrl extends AbstractCtrl {
 	private MovieGroupRepository movieGroupRepo;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public MovieGroupCtrlOutput getMovieGroup(@RequestParam(value = "date", required = true) String dateStr)
+	public MovieGroupOutput getMovieGroup(@RequestParam(value = "date", required = true) String dateStr)
 			throws ParseException {
 		logger.info("GET " + ApiPath.API_PATH_MOVIE_GROUP + "?date=" + dateStr);
-		MovieGroupCtrlOutput result = new MovieGroupCtrlOutput();
+		MovieGroupOutput result = new MovieGroupOutput();
 		Date date = DATE_FORMAT.parse(dateStr);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
