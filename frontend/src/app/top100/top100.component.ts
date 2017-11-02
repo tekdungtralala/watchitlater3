@@ -4,7 +4,8 @@ import * as _ from 'lodash';
 
 import { ServerService} from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
-import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
+import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
+import { RootScopeService } from '../app-util/root-scope.service';
 
 @Component({
   selector: 'app-top100',
@@ -16,7 +17,8 @@ export class Top100Component implements OnInit {
   top100Movies: MovieModel[];
 
   constructor(private serverService: ServerService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private rootScope: RootScopeService) {
   }
 
   ngOnInit() {
@@ -29,6 +31,8 @@ export class Top100Component implements OnInit {
         this.top100Movies = _.orderBy(this.top100Movies, ['imdbRating'], ['desc']);
       }
     )
+
+    console.log(this.rootScope.getFavoriteMovie());
   }
 
   open(movie: MovieModel) {

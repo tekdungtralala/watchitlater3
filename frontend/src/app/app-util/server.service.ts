@@ -14,7 +14,13 @@ export class ServerService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getMovieFavorite() {
+  getMovieByMovieIds(movieIds: number[]): Observable<MovieModel[]> {
+    const url: string = this.domain +  '/api/movie/by-movie-ids';
+    const data = { movieIds: movieIds };
+    return this.httpClient.post<MovieModel[]>(url, data,{withCredentials: true});
+  }
+
+  getMovieFavorite(): Observable<MovieFavoriteModel[]> {
     const url: string = this.domain +  '/api/movie-favorite';
     return this.httpClient.get<MovieFavoriteModel[]>(url, {withCredentials: true});
   }

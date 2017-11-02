@@ -5,6 +5,7 @@ import { ServerService } from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
+import { RootScopeService } from '../app-util/root-scope.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private serverService: ServerService,
     private router: Router,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private rootScope: RootScopeService) {
 
   }
 
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
         this.listMovieModel = response;
       }
     );
+
+    console.log(this.rootScope.getFavoriteMovie());
   }
 
   open(movie: MovieModel) {
