@@ -4,14 +4,14 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
 
-import { ServerService } from './server.service';
-import { RootScopeService } from './root-scope.service';
-import { Observer } from 'rxjs/Observer';
-import {MovieFavoriteModel, MovieModel} from "./server.model";
+import {ServerService} from './server.service';
+import {RootScopeService} from './root-scope.service';
+import {Observer} from 'rxjs/Observer';
+import {MovieFavoriteModel, MovieModel, UserModel} from './server.model';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,26 +32,32 @@ export class AuthGuard implements CanActivate {
     const anyUserUrls = ['/', '/top100', '/latest'];
     const url = state.url;
 
-    this.mustHasUser = _.find(hasUserUrls, (x: string) => { return url.indexOf(x) === 0; }) != null;
-    this.mustEmptyUser = _.find(emptyUserUrls, (x: string) => { return url.indexOf(x) === 0; }) != null;
-    this.inAnyPath = _.find(anyUserUrls, (x: string) => { return url === x; }) != null;
+    this.mustHasUser = _.find(hasUserUrls, (x: string) => {
+      return url.indexOf(x) === 0;
+    }) != null;
+    this.mustEmptyUser = _.find(emptyUserUrls, (x: string) => {
+      return url.indexOf(x) === 0;
+    }) != null;
+    this.inAnyPath = _.find(anyUserUrls, (x: string) => {
+      return url === x;
+    }) != null;
 
     return new Observable<boolean>((obs: Observer<boolean>) => {
       this.observer = obs;
-      this.serverService.me().subscribe(() => {
-        this.afterGetUser(true);
+      this.serverService.me().subscribe((loggedUser: UserModel) => {
+        this.afterGetUser(loggedUser);
       }, () => {
-        this.afterGetUser(false);
+        this.afterGetUser(null);
       });
     });
   }
 
-  private afterGetUser(val: boolean): void {
-    this.hasLoggedUser = val;
+  private afterGetUser(loggedUser: UserModel): void {
+    this.hasLoggedUser = loggedUser != null;
     this.hasAccess = (this.inAnyPath || (this.hasLoggedUser && this.mustHasUser) ||
       (!this.hasLoggedUser && this.mustEmptyUser)) ? true : false;
 
-    this.rootScope.setHasUser(this.hasLoggedUser);
+    this.rootScope.setUser(loggedUser);
     if (this.hasLoggedUser && this.rootScope.emptyFavoriteMovie()) {
       this.serverService.getMovieFavorite().subscribe((result: MovieFavoriteModel[]) => {
         this.afterGetMovieFavorite(result);
@@ -81,8 +87,8 @@ export class AuthGuard implements CanActivate {
     this.observer.next(this.hasAccess);
     this.observer.complete();
 
-    if ( !this.hasAccess ) {
-      if ( this.hasLoggedUser ) {
+    if (!this.hasAccess) {
+      if (this.hasLoggedUser) {
         this.router.navigate(['/dashboard']);
       } else {
         this.router.navigate(['/login']);

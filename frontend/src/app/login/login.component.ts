@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import { ServerService } from '../app-util/server.service';
-import { SignInModel, UserModel } from '../app-util/server.model';
-import { RootScopeService } from '../app-util/root-scope.service';
+import {ServerService} from '../app-util/server.service';
+import {SignInModel, UserModel} from '../app-util/server.model';
+import {RootScopeService} from '../app-util/root-scope.service';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.serverService.login(this.userModel).subscribe( () => {
-        this.rootScope.setHasUser(true);
+      this.serverService.login(this.userModel).subscribe((loggedUser: UserModel) => {
+        this.rootScope.setUser(loggedUser);
         this.router.navigate(['/dashboard']);
       }, () => {
-        this.rootScope.setHasUser(false);
+        this.rootScope.setUser(null);
       });
     }
   }

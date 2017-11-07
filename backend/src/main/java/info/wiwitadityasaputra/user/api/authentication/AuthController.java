@@ -47,7 +47,7 @@ public class AuthController extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNIN)
-	public void signIn(@RequestBody @Valid SignUpInput input) throws Exception {
+	public User signIn(@RequestBody @Valid SignUpInput input) throws Exception {
 		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
@@ -64,6 +64,7 @@ public class AuthController extends AbstractCtrl {
 		context.setAuthentication(auth);
 		SecurityContextHolder.setContext(context);
 		logger.info("success login, create auth");
+		return user;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNOUT)

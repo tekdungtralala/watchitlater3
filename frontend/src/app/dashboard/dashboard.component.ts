@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
-import { ServerService } from '../app-util/server.service';
-import { RootScopeService } from '../app-util/root-scope.service';
-import {MovieFavoriteModel, MovieModel} from '../app-util/server.model';
+import {ServerService} from '../app-util/server.service';
+import {RootScopeService} from '../app-util/root-scope.service';
+import {MovieFavoriteModel, MovieModel, UserModel} from '../app-util/server.model';
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
 
@@ -15,6 +15,7 @@ import {MovieDetailComponent} from "../app-shared-component/movie-detail.compone
 })
 export class DashboardComponent implements OnInit {
   movies: MovieModel[];
+  loggedUser: UserModel;
 
   constructor(private serverService: ServerService,
               private router: Router,
@@ -23,21 +24,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.serverService.getMovieFavorite().subscribe((response: MovieFavoriteModel[]) => {
-    //   const movieIds: number[] = [];
-    //   _.forEach(response, (m: MovieFavoriteModel) => {
-    //     movieIds.push(m.movieId);
-    //   });
-    //
-    //   this.serverService.getMovieByMovieIds(movieIds).subscribe((result: MovieModel[]) => {
-    //     this.rootScope.setFavoriteMovie(result);
-    //   });
-    // });
-
     this.movies = this.rootScope.getFavoriteMovie();
     this.movies.forEach((movie => {
       movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
     }));
+
+    this.loggedUser = this.rootScope.getUser();
   }
 
   onSignOut() {

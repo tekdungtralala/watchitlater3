@@ -1,28 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { isUndefined } from 'util';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {isUndefined} from 'util';
 
-import { RootScopeKey, RootScopeModel } from './fe.model';
-import { MovieModel } from './server.model';
+import {RootScopeKey, RootScopeModel} from './fe.model';
+import {MovieModel, UserModel} from './server.model';
 
 @Injectable()
 export class RootScopeService {
 
   private favoriteMovie: MovieModel[];
-  private hasUser: boolean;
+  private loggedUser: UserModel;
   private subject: Subject<RootScopeModel>;
 
   constructor() {
     this.subject = new Subject();
   }
 
-  setHasUser(val: boolean) {
-    this.hasUser = val;
-    this.subject.next({ key: RootScopeKey.HAS_USER, value: val });
+  setUser(val: UserModel) {
+    this.loggedUser = val;
+    this.subject.next({key: RootScopeKey.HAS_USER, value: val});
   }
 
   isHasUser(): boolean {
-    return this.hasUser;
+    return this.loggedUser !== null;
+  }
+
+  getUser(): UserModel {
+    return this.loggedUser;
   }
 
   emptyFavoriteMovie(): boolean {

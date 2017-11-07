@@ -1,8 +1,9 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
-import { NavigationEnd, Router} from '@angular/router';
-import { RootScopeService } from './app-util/root-scope.service';
-import { RootScopeKey, RootScopeModel } from './app-util/fe.model';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import {DOCUMENT} from '@angular/platform-browser';
+import {NavigationEnd, Router} from '@angular/router';
+import {RootScopeService} from './app-util/root-scope.service';
+import {RootScopeKey, RootScopeModel} from './app-util/fe.model';
+import {UserModel} from './app-util/server.model';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,10 @@ export class AppComponent implements OnInit {
   currentRouter: string;
   hasUser: boolean;
 
-  @HostListener('window:scroll', []) onScrollEvent() {
+  @HostListener('window:scroll', [])
+  onScrollEvent() {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isHeaderShrink = this.mustShrink || number > 100 ? true: false;
+    this.isHeaderShrink = this.mustShrink || number > 100 ? true : false;
   }
 
   constructor(private router: Router, private rootScope: RootScopeService) {
@@ -37,9 +39,9 @@ export class AppComponent implements OnInit {
     );
 
     this.rootScope.getSubject().subscribe((model: RootScopeModel) => {
-      if ( model.key === RootScopeKey.HAS_USER ) {
-        const value: boolean = <boolean>model.value;
-        this.hasUser = value;
+      if (model.key === RootScopeKey.HAS_USER) {
+        const loggedUser: UserModel = <UserModel> model.value;
+        this.hasUser = loggedUser != null;
       }
     });
   }
