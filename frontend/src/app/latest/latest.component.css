@@ -39,22 +39,24 @@ ngb-datepicker {
   margin-bottom: 20px;
 }
 
+.row-movie-index {
+  width: 60px;
+  vertical-align: middle;
+  text-align: center;
+}
 .movie-poster {
   cursor: pointer;
   position: relative;
-  max-width: 200px;
+  max-width: 60px;
   max-height: 100px
 }
-
 .movie-info {
   font-size: 20px;
   cursor: pointer;
 }
-
 .table > tbody > tr > td {
   vertical-align: middle;
 }
-
 .table-striped tbody tr:nth-of-type(even) {
   background: #ffffff6e;
 }

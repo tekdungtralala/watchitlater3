@@ -1,8 +1,8 @@
 <div class="container">
-  <h2 class="page-tittle">Profile</h2>
 
   <div class="profile-area">
     <div class="profile-info">
+      <h2 class="page-tittle">Profile</h2>
       <form>
 
         <div class="form-group row">
@@ -21,11 +21,60 @@
           </div>
         </div>
 
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <button (click)="onSignOut()" type="button" class="btn btn-primary">Sign Out</button>
+          </div>
+        </div>
+
       </form>
     </div>
+
     <div class="profile-image"></div>
   </div>
 
-  <br/>
-  <button (click)="onSignOut()" type="button" class="btn btn-primary">Sign Out</button>
+  <div class="clearfix"></div>
+
+  <div>
+    <h3 class="">Favorite Movies</h3>
+
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th class="text-center">#</th>
+        <th></th>
+        <th class="text-left">Title</th>
+        <th class="text-left">Released</th>
+        <th class="text-center">IMDB Rating</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let m of movies; let i = index">
+        <th class="row-movie-index" scope="row">
+          {{ i + 1}}
+        </th>
+        <td class="row-movie-poster">
+          <img (click)="open(m)" [src]="m.imageUrl" class="img-thumbnail rounded movie-poster" height="10px"/>
+        </td>
+        <td class="text-left row-movie-name">
+              <span class="movie-info" (click)="open(m)">
+                {{ m.title }}
+              </span>
+        </td>
+        <td class="text-left row-movie-released">
+              <span class="movie-info" (click)="open(m)">
+                {{ m.released }}
+              </span>
+        </td>
+        <td class="text-center row-movie-rating">
+              <span class="movie-info" (click)="open(m)">
+                {{ m.imdbRating }}
+              </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
 </div>
