@@ -29,6 +29,8 @@
         </button>
 
         <i [ngClass]="{'fa-bookmark': isFavorite, 'fa-bookmark-o': !isFavorite}"
+           [hidden]="!hasLoggedUser"
+           (click)="toggleFavorite()"
            class="fa float-right bookmark-btn" aria-hidden="true"></i>
       </div>
     </div>

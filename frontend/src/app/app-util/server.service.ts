@@ -4,7 +4,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel, UserModel } from './server.model';
+import {
+  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel,
+  UserModel
+} from './server.model';
 import { environment } from '../../environments/environment';
 
 
@@ -13,6 +16,11 @@ export class ServerService {
   private domain: string = environment.W3_API_URL;
 
   constructor(private httpClient: HttpClient) {}
+
+  updateMovieFavorite(data: MovieFavoriteInput): void {
+    const url: string = this.domain +  '/api/movie-favorite';
+    this.httpClient.post<MovieModel[]>(url, data,{withCredentials: true}).subscribe();
+  }
 
   getMovieByMovieIds(movieIds: number[]): Observable<MovieModel[]> {
     const url: string = this.domain +  '/api/movie/by-movie-ids';

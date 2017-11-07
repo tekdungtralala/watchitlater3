@@ -92,9 +92,6 @@ export class LatestComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.movies;
-    modalRef.componentInstance.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
-      return movie.id === m.id;
-    }) != null;
   }
 
 }

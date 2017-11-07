@@ -1,3 +1,8 @@
+export class MovieFavoriteInput {
+  movieId: number;
+  favorite: boolean;
+}
+
 export class MovieFavoriteModel {
   id: string;
   favorite: boolean;

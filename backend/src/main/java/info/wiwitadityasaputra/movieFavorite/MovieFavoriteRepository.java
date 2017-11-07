@@ -11,7 +11,7 @@ import info.wiwitadityasaputra.user.entity.User;
 @Repository
 public interface MovieFavoriteRepository extends JpaRepository<MovieFavorite, Integer> {
 
-	public List<MovieFavorite> findByUser(User user);
+	public List<MovieFavorite> findByUserAndFavorite(User user, boolean favorite);
 
 	public MovieFavorite findByUserAndMovie(User user, Movie movie);
 }

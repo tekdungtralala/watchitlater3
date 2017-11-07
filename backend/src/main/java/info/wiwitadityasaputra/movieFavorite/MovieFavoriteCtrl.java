@@ -36,13 +36,14 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		List<MovieFavorite> result = new ArrayList<MovieFavorite>();
-		result = movieFavRepo.findByUser(user);
+		result = movieFavRepo.findByUserAndFavorite(user, true);
 		return result;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void postMovieFavorite(@RequestBody MovieFavoriteInput data) {
 		logger.info("POST " + ApiPath.API_PATH_MOVIE_FAVORITE);
+		logger.info("  movieId = " + data.getMovieId() + ",  isFavorite = " + data.isFavorite());
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Movie movie = movieRepo.findOne(data.getMovieId());
 		if (movie == null)
@@ -54,8 +55,9 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 		mf.setUser(user);
 		mf.setMovie(movie);
-		mf.setFavorite(data.isFavorite);
+		mf.setFavorite(data.isFavorite());
 		mf.setPosition(0);
 		movieFavRepo.save(mf);
+		logger.info("  id = " + mf.getId());
 	}
 }

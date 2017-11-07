@@ -31,6 +31,7 @@ public class User extends AbstractEntity {
 	@Column(name = "email")
 	private String email;
 
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 

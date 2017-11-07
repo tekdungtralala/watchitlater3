@@ -30,7 +30,7 @@ public class MoviePosterCtrl extends AbstractCtrl {
 
 		List<MoviePoster> list = moviePosterRepo.findByImdbId(imdbId);
 		if (list == null || list.size() == 0)
-			throw new NotFoundException();
+			throw new NotFoundException("Can't find image with imdbId = " + imdbId);
 
 		MoviePoster moviePoster = null;
 		for (MoviePoster mp : list) {

@@ -31,8 +31,6 @@ export class Top100Component implements OnInit {
         this.top100Movies = _.orderBy(this.top100Movies, ['imdbRating'], ['desc']);
       }
     )
-
-    console.log(this.rootScope.getFavoriteMovie());
   }
 
   open(movie: MovieModel) {
@@ -43,9 +41,6 @@ export class Top100Component implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.top100Movies;
-    modalRef.componentInstance.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
-      return movie.id === m.id;
-    }) != null;
   }
 
 }

@@ -37,6 +37,10 @@ export class RootScopeService {
     this.favoriteMovie = val;
   }
 
+  addToFavoriteMovie(val: MovieModel) {
+    this.favoriteMovie.push(val);
+  }
+
   getSubject(): Subject<RootScopeModel> {
     return this.subject;
   }

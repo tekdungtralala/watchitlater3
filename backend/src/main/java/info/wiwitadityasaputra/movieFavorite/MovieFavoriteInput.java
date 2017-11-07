@@ -2,8 +2,8 @@ package info.wiwitadityasaputra.movieFavorite;
 
 public class MovieFavoriteInput {
 
-	int movieId;
-	boolean isFavorite;
+	private int movieId;
+	private boolean favorite;
 
 	public int getMovieId() {
 		return movieId;
@@ -14,10 +14,10 @@ public class MovieFavoriteInput {
 	}
 
 	public boolean isFavorite() {
-		return isFavorite;
+		return favorite;
 	}
 
-	public void setFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
 	}
 }
