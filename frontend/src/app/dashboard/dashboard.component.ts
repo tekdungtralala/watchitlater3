@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
@@ -16,6 +16,8 @@ import {MovieDetailComponent} from '../app-shared-component/movie-detail.compone
 export class DashboardComponent implements OnInit {
   movies: MovieModel[];
   loggedUser: UserModel;
+  @ViewChild('initialit') private initialRef: ElementRef;
+  editInitial: boolean;
 
   constructor(private serverService: ServerService,
               private router: Router,
@@ -49,6 +51,20 @@ export class DashboardComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.movies;
+  }
+
+  toggleEditInitial(): void {
+    this.editInitial = !this.editInitial;
+
+    if (this.editInitial) {
+      this.initialRef.nativeElement.focus();
+    }
+  }
+
+  saveInitial(): void {
+    this.serverService.editUser({initial: this.loggedUser.initial}).subscribe(() => {
+      this.editInitial = false;
+    });
   }
 
 }

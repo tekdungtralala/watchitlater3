@@ -8,7 +8,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import info.wiwitadityasaputra.user.api.UserHelper;
 import info.wiwitadityasaputra.user.entity.User;
 import info.wiwitadityasaputra.user.entity.UserRepository;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
@@ -39,15 +39,17 @@ public class AuthController extends AbstractCtrl {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private UserHelper userHelper;
 
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_USER_AUTH_ME)
 	public Object me() throws Exception {
 		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
-		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userHelper.getLoggedUser();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNIN)
-	public User signIn(@RequestBody @Valid SignUpInput input) throws Exception {
+	public User signIn(@RequestBody SignUpInput input) throws Exception {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
@@ -82,7 +84,7 @@ public class AuthController extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNUP)
-	public void signUp(@RequestBody @Valid NewUserInput input) {
+	public void signUp(@RequestBody NewUserInput input) {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNUP);
 
 		if (!input.getPassword().equals(input.getRePassword())) {

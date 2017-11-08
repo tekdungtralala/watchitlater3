@@ -11,10 +11,13 @@
 .profile-area {
 
 }
+
 .profile-info {
   width: calc(100% - 200px);
   float: left;
+  padding-right: 50px;
 }
+
 .profile-image {
   min-height: 200px;
   background: blue;
@@ -22,11 +25,36 @@
   float: right;
   width: 200px;
 }
+
 .profile-value {
   background: inherit;
   position: relative;
   top: -3px;
   width: 100%;
+  padding-left: 20px;
+}
+
+.profile-value.edit {
+  background: #FFFFFF;
+}
+
+.profile-value.editable {
+
+}
+
+.profile-info .cancel-btn,
+.profile-info .edit-btn,
+.profile-info .save-btn {
+  position: absolute;
+  top: 11px;
+  right: 28px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.profile-info .save-btn {
+  right: 55px;
 }
 
 .row-movie-index {
@@ -34,19 +62,23 @@
   vertical-align: middle;
   text-align: center;
 }
+
 .movie-poster {
   cursor: pointer;
   position: relative;
   max-width: 60px;
   max-height: 100px
 }
+
 .movie-info {
   font-size: 20px;
   cursor: pointer;
 }
+
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
 .table-striped tbody tr:nth-of-type(even) {
   background: #ffffff6e;
 }

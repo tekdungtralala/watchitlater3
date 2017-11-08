@@ -38,6 +38,9 @@ public class User extends AbstractEntity {
 	@Column(name = "fullName")
 	private String fullName;
 
+	@Column(name = "initial")
+	private String initial;
+
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MovieFavorite> listMovieFavorite;
@@ -80,6 +83,14 @@ public class User extends AbstractEntity {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getInitial() {
+		return initial;
+	}
+
+	public void setInitial(String initial) {
+		this.initial = initial;
 	}
 
 	@JsonIgnore

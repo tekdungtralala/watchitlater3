@@ -5,7 +5,7 @@ import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 
 import {
-  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel, UserModel
+  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel, UserInput, UserModel
 } from './server.model';
 import {environment} from '../../environments/environment';
 
@@ -66,6 +66,11 @@ export class ServerService {
   getRandomUser() {
     const url: string = this.domain + '/api/user/random';
     return this.httpClient.get(url, {withCredentials: true});
+  }
+
+  editUser(data: UserInput) {
+    const url: string = this.domain + '/api/user';
+    return this.httpClient.put(url, data, {withCredentials: true});
   }
 
   register(user: UserModel) {

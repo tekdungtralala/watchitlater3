@@ -15,12 +15,17 @@ export class SignInModel {
   password: string;
 }
 
+export class UserInput {
+  initial: string;
+}
+
 export class UserModel {
   userId: string;
   email: string;
   fullName: string;
   password: string;
   rePassword: string;
+  initial: string;
 
   constructor(email: string, fullName: string, password: string) {
     this.email = email;
