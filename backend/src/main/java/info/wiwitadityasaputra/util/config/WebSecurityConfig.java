@@ -20,8 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers(
-					ApiPath.PATH_USER_AUTH_ME,
-					ApiPath.API_PATH_MOVIE_FAVORITE
+					ApiPath.API_USER_AUTH_ME,
+					ApiPath.API_MOVIEFAVORITE
 					).hasRole("USER")
 				.antMatchers("/api/**")
 					.permitAll()

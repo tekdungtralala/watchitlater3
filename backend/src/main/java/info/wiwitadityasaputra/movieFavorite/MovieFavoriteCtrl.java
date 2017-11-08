@@ -20,7 +20,7 @@ import info.wiwitadityasaputra.util.api.ApiPath;
 import info.wiwitadityasaputra.util.api.exception.NotFoundException;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_MOVIE_FAVORITE)
+@RequestMapping(value = ApiPath.API_MOVIEFAVORITE)
 public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieFavoriteCtrl.class);
@@ -32,7 +32,7 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieFavorite> getMovieFavorites() {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE_FAVORITE);
+		logger.info("GET " + ApiPath.API_MOVIEFAVORITE);
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		List<MovieFavorite> result = new ArrayList<MovieFavorite>();
@@ -42,7 +42,7 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void postMovieFavorite(@RequestBody MovieFavoriteInput data) {
-		logger.info("POST " + ApiPath.API_PATH_MOVIE_FAVORITE);
+		logger.info("POST " + ApiPath.API_MOVIEFAVORITE);
 		logger.info("  movieId = " + data.getMovieId() + ",  isFavorite = " + data.isFavorite());
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Movie movie = movieRepo.findOne(data.getMovieId());

@@ -21,7 +21,7 @@ import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_MOVIE_BY_MOVIEIDS)
+@RequestMapping(value = ApiPath.API_MOVIE_BYMOVIEIDS)
 public class MovieByMovieIdsCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieByMovieIdsCtrl.class);
@@ -31,7 +31,7 @@ public class MovieByMovieIdsCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public List<Movie> getMovieByIds(@RequestBody @Valid MovieIdsInput data) throws JSONException {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE_BY_MOVIEIDS);
+		logger.info("GET " + ApiPath.API_MOVIE_BYMOVIEIDS);
 		logger.info("  movieIds size = " + data.getMovieIds().length);
 
 		JSONArray movieIds = new JSONArray();

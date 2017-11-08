@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_USER_RANDOM)
+@RequestMapping(value = ApiPath.API_USER_RANDOM)
 public class RandomUserCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(RandomUserCtrl.class);
 
 	@RequestMapping(method = RequestMethod.GET)
 	public RandomUserOutput getRandomUser() throws JSONException {
-		logger.info("GET " + ApiPath.API_PATH_USER_RANDOM);
+		logger.info("GET " + ApiPath.API_USER_RANDOM);
 
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "https://randomuser.me/api";

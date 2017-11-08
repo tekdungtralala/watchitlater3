@@ -22,7 +22,7 @@ import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_MOVIE)
+@RequestMapping(value = ApiPath.API_MOVIE)
 public class MovieCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieCtrl.class);
@@ -35,9 +35,9 @@ public class MovieCtrl extends AbstractCtrl {
 	@Autowired
 	private MovieService movieService;
 
-	@RequestMapping(method = RequestMethod.GET, value = ApiPath.PATH_MOVIE_RANDOM_SIX_MOVIES)
+	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_MOVIE_RANDOMSIXMOVIES)
 	public List<Movie> getRandom9Movies() {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE + ApiPath.PATH_MOVIE_RANDOM_SIX_MOVIES);
+		logger.info("GET " + ApiPath.API_MOVIE + ApiPath.API_MOVIE_RANDOMSIXMOVIES);
 		List<Movie> list = movieRepo.findAll();
 		int max = list.size() - 1;
 		int min = 0;
@@ -53,9 +53,9 @@ public class MovieCtrl extends AbstractCtrl {
 		return results;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = ApiPath.PATH_MOVIE_TOP100_MOVIES)
+	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_MOVIE_TOP100MOVIES)
 	public List<Movie> getTop100Movies() throws JSONException {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE + ApiPath.PATH_MOVIE_TOP100_MOVIES);
+		logger.info("GET " + ApiPath.API_MOVIE + ApiPath.API_MOVIE_TOP100MOVIES);
 		MovieGroup mg = movieGroupRepo.findByName(MovieGroupName.TOP_100.toString());
 		JSONArray movieIds = new JSONArray(mg.getMovieIds());
 		return movieService.findMovieByIds(movieIds);

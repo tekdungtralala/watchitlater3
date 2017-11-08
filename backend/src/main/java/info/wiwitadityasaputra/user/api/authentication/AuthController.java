@@ -40,15 +40,15 @@ public class AuthController extends AbstractCtrl {
 	@Autowired
 	private UserRepository userRepo;
 
-	@RequestMapping(method = RequestMethod.GET, value = ApiPath.PATH_USER_AUTH_ME)
+	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_USER_AUTH_ME)
 	public Object me() throws Exception {
-		logger.info("GET " + ApiPath.PATH_USER_AUTH_ME);
+		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
 		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNIN)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNIN)
 	public User signIn(@RequestBody @Valid SignUpInput input) throws Exception {
-		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNIN);
+		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
 		if (user == null) {
@@ -67,9 +67,9 @@ public class AuthController extends AbstractCtrl {
 		return user;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNOUT)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNOUT)
 	public void signOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNOUT);
+		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNOUT);
 		HttpSession session = request.getSession(false);
 		SecurityContextHolder.clearContext();
 		session = request.getSession(false);
@@ -81,9 +81,9 @@ public class AuthController extends AbstractCtrl {
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = ApiPath.PATH_USER_AUTH_SIGNUP)
+	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNUP)
 	public void signUp(@RequestBody @Valid NewUserInput input) {
-		logger.info("POST " + ApiPath.PATH_USER_AUTH_SIGNUP);
+		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNUP);
 
 		if (!input.getPassword().equals(input.getRePassword())) {
 			logger.info("  password not same");

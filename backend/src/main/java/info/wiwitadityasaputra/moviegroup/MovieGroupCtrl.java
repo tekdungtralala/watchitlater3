@@ -18,7 +18,7 @@ import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_MOVIE_GROUP)
+@RequestMapping(value = ApiPath.API_MOVIEGROUP)
 public class MovieGroupCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieGroupCtrl.class);
@@ -31,7 +31,7 @@ public class MovieGroupCtrl extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.GET)
 	public MovieGroupOutput getMovieGroup(@RequestParam(value = "date", required = true) String dateStr)
 			throws ParseException {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE_GROUP + "?date=" + dateStr);
+		logger.info("GET " + ApiPath.API_MOVIEGROUP + "?date=" + dateStr);
 		MovieGroupOutput result = new MovieGroupOutput();
 		Date date = DATE_FORMAT.parse(dateStr);
 		Calendar cal = Calendar.getInstance();

@@ -28,7 +28,7 @@ import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
 @RestController
-@RequestMapping(value = ApiPath.API_PATH_MOVIE_BY_GROUP_NAME)
+@RequestMapping(value = ApiPath.API_MOVIE_BYGROUPNAME)
 public class MovieByGroupNameCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieByGroupNameCtrl.class);
@@ -48,7 +48,7 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Movie> getMovieByGroupName(@RequestParam(value = "groupName", required = true) String groupName)
 			throws Exception {
-		logger.info("GET " + ApiPath.API_PATH_MOVIE_BY_GROUP_NAME + "?groupName=" + groupName);
+		logger.info("GET " + ApiPath.API_MOVIE_BYGROUPNAME + "?groupName=" + groupName);
 		MovieGroup mg = movieGroupRepo.findByName(groupName);
 		if (mg == null) {
 			List<Movie> result = new ArrayList<Movie>();
