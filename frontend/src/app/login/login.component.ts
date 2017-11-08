@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {ServerService} from '../app-util/server.service';
-import {SignInModel, UserModel} from '../app-util/server.model';
+import {RestException, SignInModel, UserModel} from '../app-util/server.model';
 import {RootScopeService} from '../app-util/root-scope.service';
 
 @Component({
@@ -33,11 +33,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showErrorInfo = false;
     if (this.loginForm.valid) {
       this.serverService.login(this.userModel).subscribe((loggedUser: UserModel) => {
         this.rootScope.setUser(loggedUser);
         this.router.navigate(['/dashboard']);
-      }, () => {
+      }, (error: RestException) => {
+        this.errorMsg = error.error.message;
+        this.showErrorInfo = true;
         this.rootScope.setUser(null);
       });
     }

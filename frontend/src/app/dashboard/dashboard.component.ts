@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import {ServerService} from '../app-util/server.service';
 import {RootScopeService} from '../app-util/root-scope.service';
-import {MovieFavoriteModel, MovieModel, UserModel} from '../app-util/server.model';
+import {MovieFavoriteModel, MovieModel, RestException, UserModel} from '../app-util/server.model';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MovieDetailComponent} from '../app-shared-component/movie-detail.component/movie-detail.component';
 
@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   loggedUser: UserModel;
   @ViewChild('initialit') private initialRef: ElementRef;
   editInitial: boolean;
+  errorMsg: string;
 
   constructor(private serverService: ServerService,
               private router: Router,
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
     }));
 
     this.movies = _.orderBy(this.movies, ['imdbRating'], ['desc']);
-    this.loggedUser = this.rootScope.getUser();
+    this.loggedUser = _.cloneDeep(this.rootScope.getUser());
   }
 
   onSignOut() {
@@ -58,12 +59,19 @@ export class DashboardComponent implements OnInit {
 
     if (this.editInitial) {
       this.initialRef.nativeElement.focus();
+    } else {
+      this.loggedUser = _.cloneDeep(this.rootScope.getUser());
+      this.errorMsg = null;
     }
   }
 
   saveInitial(): void {
+    this.errorMsg = null;
     this.serverService.editUser({initial: this.loggedUser.initial}).subscribe(() => {
       this.editInitial = false;
+      this.rootScope.setUser(this.loggedUser);
+    }, (error: RestException) => {
+      this.errorMsg = error.error.message;
     });
   }
 

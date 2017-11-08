@@ -49,13 +49,17 @@ public class AuthController extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNIN)
-	public User signIn(@RequestBody SignUpInput input) throws Exception {
+	public void signIn(@RequestBody SignUpInput input) throws Exception {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
 		if (user == null) {
+			throw new ForbiddenException("Cant find user by email & password above.");
+		}
+
+		if (!user.getPassword().equals(input.getPassword())) {
 			logger.info("  cant find user by email & password");
-			throw new ForbiddenException("Unable to find user with " + input.getEmail());
+			throw new ForbiddenException("Cant find user by email & password above.");
 		}
 
 		List<GrantedAuthority> grantedAuth = new ArrayList<GrantedAuthority>();
@@ -66,7 +70,6 @@ public class AuthController extends AbstractCtrl {
 		context.setAuthentication(auth);
 		SecurityContextHolder.setContext(context);
 		logger.info("success login, create auth");
-		return user;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNOUT)
@@ -88,13 +91,11 @@ public class AuthController extends AbstractCtrl {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNUP);
 
 		if (!input.getPassword().equals(input.getRePassword())) {
-			logger.info("  password not same");
-			throw new BadRequestException();
+			throw new BadRequestException("password not same");
 		}
 
 		User user = userRepo.findByEmail(input.getEmail());
 		if (user != null) {
-			logger.info("  duplicated");
 			throw new ConflictException("Duplicate email address");
 		} else {
 			User newUser = new User();
@@ -102,6 +103,7 @@ public class AuthController extends AbstractCtrl {
 			newUser.setEmail(input.getEmail());
 			newUser.setPassword(input.getPassword());
 			newUser.setFullName(input.getFullName());
+			newUser.setInitial(null);
 			userRepo.save(newUser);
 			logger.info("  new user created");
 		}

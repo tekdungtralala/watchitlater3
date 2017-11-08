@@ -35,8 +35,7 @@ public class UserCtrl extends AbstractCtrl {
 
 		boolean validInitial = findedUser == null || findedUser.getId() == loggedUser.getId();
 		if (!validInitial) {
-			logger.info("  initial already taken");
-			throw new BadRequestException();
+			throw new BadRequestException("Initial already taken.");
 		}
 
 		loggedUser.setInitial(userInput.getInitial());
