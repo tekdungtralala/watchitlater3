@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 
-import { MovieFavoriteInput, MovieModel } from '../../app-util/server.model';
-import { ServerService } from '../../app-util/server.service';
-import { RootScopeService } from '../../app-util/root-scope.service';
+import {MovieFavoriteInput, MovieModel} from '../../app-util/server.model';
+import {ServerService} from '../../app-util/server.service';
+import {RootScopeService} from '../../app-util/root-scope.service';
 
 @Component({
   templateUrl: './movie-detail.component.html',
@@ -19,22 +19,20 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private serverService: ServerService,
-              private rootScope: RootScopeService) {}
+              private rootScope: RootScopeService) {
+  }
 
   ngOnInit() {
     this.movie.jsonObj = JSON.parse(this.movie.json);
 
-    if ( this.movies != null ) {
+    if (this.movies != null) {
       _.forEach(this.movies, (m: MovieModel) => {
         m.jsonObj = JSON.parse(m.json);
       })
     }
 
     this.hasLoggedUser = this.rootScope.isHasUser();
-
-    this.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
-      return this.movie.id === m.id;
-    }) != null;
+    this.updateFavoriteFlag();
   }
 
   toggleShowMore(): void {
@@ -51,15 +49,20 @@ export class MovieDetailComponent implements OnInit {
 
   updateCurrentMovie(index: number): void {
     const total = this.movies.length
-    if ( index < 0 ) { index = total - 1; }
-    if ( index >= total ) { index = 0; }
+    if (index < 0) {
+      index = total - 1;
+    }
+    if (index >= total) {
+      index = 0;
+    }
 
     this.movie = this.movies[index];
+    this.updateFavoriteFlag();
   }
 
   toggleFavorite(): void {
     this.isFavorite = !this.isFavorite;
-    const data: MovieFavoriteInput = { movieId: this.movie.id, favorite: this.isFavorite };
+    const data: MovieFavoriteInput = {movieId: this.movie.id, favorite: this.isFavorite};
     this.serverService.updateMovieFavorite(data);
 
     if (this.isFavorite) {
@@ -68,6 +71,12 @@ export class MovieDetailComponent implements OnInit {
       const favMovies: MovieModel[] = this.rootScope.getFavoriteMovie();
       _.remove(favMovies, (m: MovieModel) => m.id === this.movie.id);
     }
+  }
+
+  private updateFavoriteFlag(): void {
+    this.isFavorite = _.find(this.rootScope.getFavoriteMovie(), (m: MovieModel) => {
+      return this.movie.id === m.id;
+    }) != null;
   }
 
   private findMovieIndex(): number {
