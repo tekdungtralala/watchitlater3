@@ -5,8 +5,8 @@ import * as _ from 'lodash';
 import {ServerService} from '../app-util/server.service';
 import {RootScopeService} from '../app-util/root-scope.service';
 import {MovieFavoriteModel, MovieModel, UserModel} from '../app-util/server.model';
-import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {MovieDetailComponent} from "../app-shared-component/movie-detail.component/movie-detail.component";
+import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {MovieDetailComponent} from '../app-shared-component/movie-detail.component/movie-detail.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
       movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
     }));
 
+    this.movies = _.orderBy(this.movies, ['imdbRating'], ['desc']);
     this.loggedUser = this.rootScope.getUser();
   }
 
