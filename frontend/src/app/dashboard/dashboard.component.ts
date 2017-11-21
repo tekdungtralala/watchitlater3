@@ -66,6 +66,10 @@ export class DashboardComponent implements OnInit {
   }
 
   saveInitial(): void {
+    if (this.loggedUser.initial == null || this.loggedUser.initial.trim() === '') {
+      this.errorMsg = 'Please fill initial field.';
+      return;
+    }
     this.errorMsg = null;
     this.serverService.editUser({initial: this.loggedUser.initial}).subscribe(() => {
       this.editInitial = false;
