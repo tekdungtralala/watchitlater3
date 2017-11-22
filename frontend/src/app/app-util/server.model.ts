@@ -16,7 +16,9 @@ export class SignInModel {
 }
 
 export class UserInput {
-  initial: string;
+  initial?: string;
+  base64ProfilePicture?: string;
+  fileType?: string;
 }
 
 export class UserModel {

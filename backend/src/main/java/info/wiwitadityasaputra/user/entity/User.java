@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,6 +41,15 @@ public class User extends AbstractEntity {
 
 	@Column(name = "initial")
 	private String initial;
+
+	@JsonIgnore
+	@Lob
+	@Column(name = "profile_picture")
+	private byte[] profilePicture;
+
+	@JsonIgnore
+	@Column(name = "file_type")
+	private String fileType;
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
@@ -91,6 +101,22 @@ public class User extends AbstractEntity {
 
 	public void setInitial(String initial) {
 		this.initial = initial;
+	}
+
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
 
 	@JsonIgnore

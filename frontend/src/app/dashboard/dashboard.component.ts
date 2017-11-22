@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   errorMsg: string;
   errorMsgPP: string;
   private validFormat: string[] = ['image/gif', 'image/jpeg', 'image/png'];
-
+  private fileType: string;
 
   constructor(private serverService: ServerService,
               private router: Router,
@@ -69,18 +69,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.errorMsgPP = 'Max size only 2MB!';
       }
       if (!this.errorMsgPP) {
-        console.log('do upload');
-
+        this.fileType = file.type;
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsBinaryString(file);
       }
-
     }
   }
 
   handleReaderLoaded(readerEvt): void {
     const binaryString = readerEvt.target.result;
-    console.log(btoa(binaryString));
+    const stringBase64 = btoa(binaryString);
+    this.serverService.editUser({
+      fileType: this.fileType,
+      base64ProfilePicture: stringBase64
+    }).subscribe(() => {
+      console.log('finish');
+    });
   }
 
   onSignOut() {
