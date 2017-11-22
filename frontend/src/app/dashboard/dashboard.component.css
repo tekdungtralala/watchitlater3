@@ -20,10 +20,16 @@
 
 .profile-image {
   min-height: 200px;
-  background: blue;
+  background: darkgray;
+  cursor: pointer;
+  position: relative;
 
   float: right;
   width: 200px;
+}
+
+.profile-image .upload-btn {
+
 }
 
 .profile-value {
@@ -81,4 +87,43 @@
 
 .table-striped tbody tr:nth-of-type(even) {
   background: #ffffff6e;
+}
+
+
+.input-image {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.input-image + .input-label {
+  font-weight: 700;
+  color: white;
+  background-color: #007bff;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.input-image:focus + .input-label,
+.input-image + .input-label:hover {
+
+}
+.input-image + label {
+  cursor: pointer;
+}
+.input-label {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.input-image:focus + .input-label {
+  outline: 1px dotted #007bff;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.profile-image .alert {
+  position: absolute;
+  bottom: 0px;
 }

@@ -18,9 +18,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   movies: MovieModel[];
   loggedUser: UserModel;
-  @ViewChild('initialit') private initialRef: ElementRef;
+  @ViewChild('initialIt') private initialRef: ElementRef;
+  @ViewChild('fileInput') private fileInput;
   editInitial: boolean;
   errorMsg: string;
+  errorMsgPP: string;
+  private validFormat: string[] = ['image/gif', 'image/jpeg', 'image/png'];
+
 
   constructor(private serverService: ServerService,
               private router: Router,
@@ -30,7 +34,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private initMovies(): void {
-    console.log('init')
     this.movies = this.rootScope.getFavoriteMovie();
     this.movies.forEach((movie => {
       movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
@@ -49,6 +52,35 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dashboardScope.removeScope();
+  }
+
+  onFileChange(event): void {
+    this.errorMsgPP = null;
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const isValid = _.find(this.validFormat, (f: string) => f === file.type);
+      const isToLarge = file.size > 1500000;
+
+      if (!isValid) {
+        this.errorMsgPP = 'Image type only!';
+      }
+      if (isToLarge) {
+        this.errorMsgPP = 'Max size only 2MB!';
+      }
+      if (!this.errorMsgPP) {
+        console.log('do upload');
+
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+      }
+
+    }
+  }
+
+  handleReaderLoaded(readerEvt): void {
+    const binaryString = readerEvt.target.result;
+    console.log(btoa(binaryString));
   }
 
   onSignOut() {
