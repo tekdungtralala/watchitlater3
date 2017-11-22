@@ -23,15 +23,21 @@
         <img class="img-thumbnail" [src]="this.movie.imageUrl" />
       </div>
       <br/>
-      <div class="col-xs-12">
+      <div class="col-xs-12 action-area">
         <button (click)="toggleShowMore();" type="button" class="btn btn-sm btn-outline-primary">
           {{ isShowMore ? 'Show less' : 'Show more' }}
         </button>
 
-        <i [ngClass]="{'fa-bookmark': isFavorite, 'fa-bookmark-o': !isFavorite}"
-           [hidden]="!hasLoggedUser"
-           (click)="toggleFavorite()"
-           class="fa float-right bookmark-btn" aria-hidden="true"></i>
+        <button type="button" class="btn btn-light comment-btn">
+          <i class="fa fa-comment float-right " aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="btn btn-info bookmark-btn"
+                [hidden]="!hasLoggedUser"
+                (click)="toggleFavorite();">
+          <i [ngClass]="{'fa-bookmark': isFavorite, 'fa-bookmark-o': !isFavorite}"
+             class="fa float-right " aria-hidden="true"></i>
+        </button>
       </div>
     </div>
     <div class="col-sm-8">

@@ -10,9 +10,18 @@
   cursor: pointer;
 }
 
+.action-area {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.comment-btn {
+  float: right;
+  cursor: pointer;
+}
+
 .bookmark-btn {
-  position: relative;
-  top: 6px;
-  font-size: 20px;
+  margin-right: 10px;
+  float: right;
   cursor: pointer;
 }
