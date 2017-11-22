@@ -4,7 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {ServerService} from '../app-util/server.service';
 import {RestException, SignInModel, UserModel} from '../app-util/server.model';
-import {RootScopeService} from '../app-util/root-scope.service';
+import {AppScope} from '../app.scope.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private serverService: ServerService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private rootScope: RootScopeService) {
+              private rootScope: AppScope) {
   }
 
   ngOnInit() {

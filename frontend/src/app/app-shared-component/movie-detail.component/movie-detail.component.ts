@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import {MovieFavoriteInput, MovieModel} from '../../app-util/server.model';
 import {ServerService} from '../../app-util/server.service';
-import {RootScopeService} from '../../app-util/root-scope.service';
+import {AppScope} from '../../app.scope.service';
 import {DashboardScope} from '../../dashboard/dashboard.scope.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private serverService: ServerService,
-              private rootScope: RootScopeService,
+              private rootScope: AppScope,
               private dashboardScope: DashboardScope) {
   }
 

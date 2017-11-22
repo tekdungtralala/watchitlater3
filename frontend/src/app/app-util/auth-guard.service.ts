@@ -9,7 +9,7 @@ import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
 
 import {ServerService} from './server.service';
-import {RootScopeService} from './root-scope.service';
+import {AppScope} from '../app.scope.service';
 import {Observer} from 'rxjs/Observer';
 import {MovieFavoriteModel, MovieModel, UserModel} from './server.model';
 
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
   hasAccess: boolean;
 
 
-  constructor(private serverService: ServerService, private router: Router, private rootScope: RootScopeService) {
+  constructor(private serverService: ServerService, private router: Router, private rootScope: AppScope) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {

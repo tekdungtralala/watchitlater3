@@ -3,23 +3,23 @@ import {Subject} from 'rxjs/Subject';
 import {isUndefined} from 'util';
 import * as _ from 'lodash';
 
-import {RootScopeKey, RootScopeModel} from './fe.model';
-import {MovieModel, UserModel} from './server.model';
+import {RootScopeKey, RootScopeModel} from './app-util/fe.model';
+import {MovieModel, UserModel} from './app-util/server.model';
 
 @Injectable()
-export class RootScopeService {
+export class AppScope {
 
   private favoriteMovie: MovieModel[];
   private loggedUser: UserModel;
-  private subject: Subject<RootScopeModel>;
+  private scope: Subject<RootScopeModel>;
 
   constructor() {
-    this.subject = new Subject();
+    this.scope = new Subject();
   }
 
   setUser(val: UserModel) {
     this.loggedUser = val;
-    this.subject.next({key: RootScopeKey.HAS_USER, value: val});
+    this.scope.next({key: RootScopeKey.HAS_USER, value: val});
   }
 
   isHasUser(): boolean {
@@ -50,7 +50,7 @@ export class RootScopeService {
     _.remove(this.favoriteMovie, (m: MovieModel) => m.id === movie.id);
   }
 
-  getSubject(): Subject<RootScopeModel> {
-    return this.subject;
+  getScope(): Subject<RootScopeModel> {
+    return this.scope;
   }
 }

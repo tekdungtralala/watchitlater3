@@ -1,7 +1,7 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/platform-browser';
 import {NavigationEnd, Router} from '@angular/router';
-import {RootScopeService} from './app-util/root-scope.service';
+import {AppScope} from './app.scope.service';
 import {RootScopeKey, RootScopeModel} from './app-util/fe.model';
 import {UserModel} from './app-util/server.model';
 
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.isHeaderShrink = this.mustShrink || number > 100 ? true : false;
   }
 
-  constructor(private router: Router, private rootScope: RootScopeService) {
+  constructor(private router: Router, private rootScope: AppScope) {
     this.mustShrink = false;
     this.isHeaderShrink = false;
     this.currentRouter = '/';
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       }
     );
 
-    this.rootScope.getSubject().subscribe((model: RootScopeModel) => {
+    this.rootScope.getScope().subscribe((model: RootScopeModel) => {
       if (model.key === RootScopeKey.HAS_USER) {
         const loggedUser: UserModel = <UserModel> model.value;
         this.hasUser = loggedUser != null;

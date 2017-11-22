@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { ServerService } from '../app-util/server.service';
 import { MovieGroupNameModel, MovieModel } from '../app-util/server.model';
 import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
-import { RootScopeService } from '../app-util/root-scope.service';
+import { AppScope } from '../app.scope.service';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -32,7 +32,7 @@ export class LatestComponent implements OnInit {
 
   constructor(private serverService: ServerService,
               private modalService: NgbModal,
-              private rootScope: RootScopeService) {
+              private rootScope: AppScope) {
   }
 
   ngOnInit() {

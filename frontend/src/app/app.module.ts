@@ -23,7 +23,7 @@ import {
   NoEmptyValueValidatorDirective
 } from './app-shared-component/validator/no-empty-value-validator/no-empty-value-validator.directive';
 import { AuthGuard } from './app-util/auth-guard.service';
-import { RootScopeService } from './app-util/root-scope.service';
+import { AppScope } from './app.scope.service';
 import { DashboardScope } from './dashboard/dashboard.scope.service';
 
 const appRoutes: Routes = [
@@ -65,7 +65,7 @@ const appRoutes: Routes = [
     LoadingSpinnerService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingSpinnerInterceptor, multi: true },
     AuthGuard,
-    RootScopeService,
+    AppScope,
     DashboardScope
   ],
   bootstrap: [AppComponent]

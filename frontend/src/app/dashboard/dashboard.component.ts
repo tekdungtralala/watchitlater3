@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
 import {ServerService} from '../app-util/server.service';
-import {RootScopeService} from '../app-util/root-scope.service';
+import {AppScope} from '../app.scope.service';
 import {MovieFavoriteModel, MovieModel, RestException, UserModel} from '../app-util/server.model';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MovieDetailComponent} from '../app-shared-component/movie-detail.component/movie-detail.component';
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private serverService: ServerService,
               private router: Router,
               private modalService: NgbModal,
-              private rootScope: RootScopeService,
+              private rootScope: AppScope,
               private dashboardScope: DashboardScope) {
   }
 
