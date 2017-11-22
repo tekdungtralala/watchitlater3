@@ -1,3 +1,15 @@
+:host(.isShowMore) {
+  max-width: 1000px;
+  width: 1000px;
+}
+
+:host {
+  max-width: 800px;
+  width: 800px;
+  margin: auto;
+  background: #ffffff;
+}
+
 .modal-header button {
   cursor: pointer;
 }

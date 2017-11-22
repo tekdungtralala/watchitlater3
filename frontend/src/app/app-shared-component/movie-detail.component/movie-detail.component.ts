@@ -9,7 +9,8 @@ import {DashboardScope} from '../../dashboard/dashboard.scope.service';
 
 @Component({
   templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.css']
+  styleUrls: ['./movie-detail.component.css'],
+  host: { '[class.isShowMore]': 'isShowMore' }
 })
 export class MovieDetailComponent implements OnInit {
   @Input() movie: MovieModel;

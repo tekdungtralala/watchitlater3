@@ -1,7 +1,9 @@
 /* app css */
 .movie-detail-window .modal-dialog {
+  max-width: 100% !important;
 }
 .movie-detail-window .modal-dialog .modal-content {
+  background: transparent;
 }
 
 
