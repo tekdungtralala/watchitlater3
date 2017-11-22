@@ -11,6 +11,7 @@ public class ApiPath {
 
 	// /api/user/**
 	public final static String API_USER_RANDOM = API_USER + "/random";
+	public final static String API_USER_PROFILEPICTURE = API_USER + "/profile-picture";
 
 	// /api/user/auth/**
 	public final static String API_USER_AUTH_ME = API_USER + "/auth/me";
