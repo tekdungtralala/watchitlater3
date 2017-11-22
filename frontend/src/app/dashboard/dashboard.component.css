@@ -96,7 +96,10 @@
   opacity: 0;
   overflow: hidden;
   position: absolute;
-  z-index: -1;
+  z-index: 2;
+}
+.input-label {
+  z-index: 2;
 }
 .input-image + .input-label {
   font-weight: 700;
@@ -105,10 +108,8 @@
   border-radius: 5px;
   display: inline-block;
 }
-
 .input-image:focus + .input-label,
 .input-image + .input-label:hover {
-
 }
 .input-image + label {
   cursor: pointer;
@@ -126,4 +127,11 @@
 .profile-image .alert {
   position: absolute;
   bottom: 0px;
+  z-index: 2;
+}
+.profile-image img {
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  z-index: 1;
 }

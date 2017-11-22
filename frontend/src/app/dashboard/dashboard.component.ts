@@ -19,10 +19,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   movies: MovieModel[];
   loggedUser: UserModel;
   @ViewChild('initialIt') private initialRef: ElementRef;
-  @ViewChild('fileInput') private fileInput;
+  userId: string;
   editInitial: boolean;
   errorMsg: string;
   errorMsgPP: string;
+  isHideUploadBtn: boolean = true;
   private validFormat: string[] = ['image/gif', 'image/jpeg', 'image/png'];
   private fileType: string;
 
@@ -48,10 +49,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardScope.getScope().subscribe(() => {
       this.initMovies();
     });
+
+    this.userId = this.serverService.getDomain() + '/api/user/profile-picture/' + this.rootScope.getUser().userId;
   }
 
   ngOnDestroy(): void {
     this.dashboardScope.removeScope();
+  }
+
+  toggleUploadBtn($event) {
+    this.isHideUploadBtn = $event.type !== 'mouseover';
   }
 
   onFileChange(event): void {
@@ -83,7 +90,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       fileType: this.fileType,
       base64ProfilePicture: stringBase64
     }).subscribe(() => {
-      console.log('finish');
+      this.userId = this.serverService.getDomain() + '/api/user/profile-picture/default';
+      this.serverService.me().subscribe((loggedUser: UserModel) => {
+        this.userId = this.serverService.getDomain() + '/api/user/profile-picture/' + loggedUser.userId;
+      });
     });
   }
 

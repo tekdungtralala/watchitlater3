@@ -16,6 +16,10 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getDomain(): string {
+    return this.domain;
+  }
+
   updateMovieFavorite(data: MovieFavoriteInput): void {
     const url: string = this.domain + '/api/movie-favorite';
     this.httpClient.post<MovieModel[]>(url, data, {withCredentials: true}).subscribe();

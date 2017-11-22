@@ -61,17 +61,19 @@
       </form>
     </div>
 
-    <div class="profile-image d-flex align-items-center justify-content-center h-100">
+    <div class="profile-image d-flex align-items-center justify-content-center h-100"
+         (mouseover)="toggleUploadBtn($event)" (mouseout)="toggleUploadBtn($event)">
+      <img [src]="userId"/>
       <input type="file" name="file" id="file" class="input-image"
-             (change)="onFileChange($event)" #fileInput/>
-      <label for="file" class="input-label">
+             (change)="onFileChange($event)"
+             [hidden]="isHideUploadBtn"/>
+      <label for="file" class="input-label" [hidden]="isHideUploadBtn">
         Upload <i class="fa fa-upload" aria-hidden="true"></i>
       </label>
       <div class="alert alert-danger" role="alert" [hidden]="!this.errorMsgPP">
         {{ this.errorMsgPP }}
       </div>
     </div>
-
   </div>
 
   <div class="clearfix"></div>
