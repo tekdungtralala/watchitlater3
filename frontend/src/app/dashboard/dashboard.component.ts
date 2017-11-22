@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
@@ -7,13 +7,15 @@ import {RootScopeService} from '../app-util/root-scope.service';
 import {MovieFavoriteModel, MovieModel, RestException, UserModel} from '../app-util/server.model';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MovieDetailComponent} from '../app-shared-component/movie-detail.component/movie-detail.component';
+import {DashboardScope} from './dashboard.scope.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+
   movies: MovieModel[];
   loggedUser: UserModel;
   @ViewChild('initialit') private initialRef: ElementRef;
@@ -23,17 +25,30 @@ export class DashboardComponent implements OnInit {
   constructor(private serverService: ServerService,
               private router: Router,
               private modalService: NgbModal,
-              private rootScope: RootScopeService) {
+              private rootScope: RootScopeService,
+              private dashboardScope: DashboardScope) {
   }
 
-  ngOnInit() {
+  private initMovies(): void {
+    console.log('init')
     this.movies = this.rootScope.getFavoriteMovie();
     this.movies.forEach((movie => {
       movie.imageUrl = this.serverService.getMoviePosterUrl(movie.imdbId);
     }));
-
     this.movies = _.orderBy(this.movies, ['imdbRating'], ['desc']);
+  }
+
+  ngOnInit(): void {
+    this.initMovies();
     this.loggedUser = _.cloneDeep(this.rootScope.getUser());
+
+    this.dashboardScope.getScope().subscribe(() => {
+      this.initMovies();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.dashboardScope.removeScope();
   }
 
   onSignOut() {

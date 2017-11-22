@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {isUndefined} from 'util';
+import * as _ from 'lodash';
 
 import {RootScopeKey, RootScopeModel} from './fe.model';
 import {MovieModel, UserModel} from './server.model';
@@ -43,6 +44,10 @@ export class RootScopeService {
 
   addToFavoriteMovie(val: MovieModel) {
     this.favoriteMovie.push(val);
+  }
+
+  removeFromFavoriteMovie(movie: MovieModel) {
+    _.remove(this.favoriteMovie, (m: MovieModel) => m.id === movie.id);
   }
 
   getSubject(): Subject<RootScopeModel> {

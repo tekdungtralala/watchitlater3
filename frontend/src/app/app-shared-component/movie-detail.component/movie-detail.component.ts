@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import {MovieFavoriteInput, MovieModel} from '../../app-util/server.model';
 import {ServerService} from '../../app-util/server.service';
 import {RootScopeService} from '../../app-util/root-scope.service';
+import {DashboardScope} from '../../dashboard/dashboard.scope.service';
 
 @Component({
   templateUrl: './movie-detail.component.html',
@@ -19,7 +20,8 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private serverService: ServerService,
-              private rootScope: RootScopeService) {
+              private rootScope: RootScopeService,
+              private dashboardScope: DashboardScope) {
   }
 
   ngOnInit() {
@@ -65,12 +67,12 @@ export class MovieDetailComponent implements OnInit {
     const data: MovieFavoriteInput = {movieId: this.movie.id, favorite: this.isFavorite};
     this.serverService.updateMovieFavorite(data);
 
-    if (this.isFavorite) {
+    if ( this.isFavorite ) {
       this.rootScope.addToFavoriteMovie(this.movie);
     } else {
-      const favMovies: MovieModel[] = this.rootScope.getFavoriteMovie();
-      _.remove(favMovies, (m: MovieModel) => m.id === this.movie.id);
+      this.rootScope.removeFromFavoriteMovie(this.movie);
     }
+    this.dashboardScope.updateFavMovies();
   }
 
   private updateFavoriteFlag(): void {
