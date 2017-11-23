@@ -31,6 +31,8 @@ public class UserCtrl extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.PUT)
 	public void editUser(@RequestBody UserInput userInput) {
 		logger.info("PUT " + ApiPath.API_USER);
+		userHelper.mustHasLoggedUser();
+
 		logger.info(" initial = " + userInput.getInitial());
 		logger.info(" fileType = " + userInput.getFileType());
 

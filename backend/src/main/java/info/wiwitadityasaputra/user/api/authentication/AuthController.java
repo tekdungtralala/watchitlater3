@@ -45,6 +45,9 @@ public class AuthController extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_USER_AUTH_ME)
 	public Object me() throws Exception {
 		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
+
+		userHelper.mustHasLoggedUser();
+
 		return userHelper.getLoggedUser();
 	}
 

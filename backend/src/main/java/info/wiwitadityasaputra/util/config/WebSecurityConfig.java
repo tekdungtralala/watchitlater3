@@ -2,8 +2,6 @@ package info.wiwitadityasaputra.util.config;
 
 import java.util.Arrays;
 
-import info.wiwitadityasaputra.util.api.ApiPath;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,15 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(
-					ApiPath.API_USER,
-					ApiPath.API_USER_AUTH_ME,
-					ApiPath.API_MOVIEFAVORITE
-					).hasRole("USER")
-				.antMatchers("/api/**")
-					.permitAll()
-				.anyRequest()
-					.permitAll()
+				.anyRequest().permitAll()
 				.and()
 			.cors().and()
 			.csrf().disable();
