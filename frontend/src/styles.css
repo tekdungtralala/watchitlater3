@@ -1,6 +1,7 @@
 /* app css */
 .movie-detail-window .modal-dialog {
   max-width: 100% !important;
+  width: 100%;
 }
 .movie-detail-window .modal-dialog .modal-content {
   background: transparent;

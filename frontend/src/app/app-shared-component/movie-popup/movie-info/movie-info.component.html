@@ -1,0 +1,177 @@
+<div class="container row" [hidden]="movies == null || movies.length == 0">
+  <div class="col">
+    <button (click)="onPrevMovie()" type="button" class="btn btn-link">Previous</button>
+  </div>
+  <div class="col text-right">
+    <button (click)="onNextMovie()" type="button" class="btn btn-link">Next</button>
+  </div>
+</div>
+
+<div class="container row">
+  <div class="col-sm-4">
+    <div class="image-area">
+      <img class="img-thumbnail" [src]="this.movie.imageUrl"/>
+    </div>
+    <br/>
+    <div class="col-xs-12 action-area">
+      <button (click)="toggleShowMore();" type="button" class="btn btn-sm btn-outline-primary">
+        {{ isShowMore ? 'Show less' : 'Show more' }}
+      </button>
+
+      <button type="button" class="btn btn-light comment-btn">
+        <i class="fa fa-comment float-right " aria-hidden="true"></i>
+      </button>
+
+      <button type="button" class="btn btn-info bookmark-btn"
+              [hidden]="!hasLoggedUser"
+              (click)="toggleFavorite();">
+        <i [ngClass]="{'fa-bookmark': isFavorite, 'fa-bookmark-o': !isFavorite}"
+           class="fa float-right " aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <form>
+
+      <div class="form-group" [hidden]="isShowMore">
+        <label class="col-sm-12 col-form-label">Title</label>
+        <div class="col-sm-12">
+          <input type="text" readonly class="form-control" name="title" [(ngModel)]="this.movie.title"/>
+        </div>
+      </div>
+
+      <div class="form-group" [hidden]="isShowMore">
+        <label class="col-sm-12 col-form-label">Released</label>
+        <div class="col-sm-12">
+          <input type="text" readonly class="form-control" name="released" [(ngModel)]="this.movie.released"/>
+        </div>
+      </div>
+
+      <div class="form-group" [hidden]="isShowMore">
+        <label class="col-sm-12 col-form-label">IMDB Rating</label>
+        <div class="col-sm-12">
+          <input type="text" readonly class="form-control" name="imdbRating" [(ngModel)]="this.movie.imdbRating"/>
+        </div>
+      </div>
+
+      <div class="form-group" [hidden]="isShowMore">
+        <label class="col-sm-12 col-form-label">Plot Twist</label>
+        <div class="col-sm-12">
+          <textarea readonly class="form-control" rows="4" name="plot" [(ngModel)]="this.movie.plot"></textarea>
+        </div>
+      </div>
+
+
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Title</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Title" [(ngModel)]="this.movie.jsonObj.Title"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Genre</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Genre" [(ngModel)]="this.movie.jsonObj.Genre"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Language</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Language" [(ngModel)]="this.movie.jsonObj.Language"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Released</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Language" [(ngModel)]="this.movie.jsonObj.Released"/>
+        </div>
+      </div>
+
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Director</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Director" [(ngModel)]="this.movie.jsonObj.Director"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Writer</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Writer" [(ngModel)]="this.movie.jsonObj.Writer"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Actors</label>
+        <div class="col-sm-9">
+            <textarea readonly class="form-control" rows="2" name="Actors"
+                      [(ngModel)]="this.movie.jsonObj.Actors"></textarea>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Country</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Country" [(ngModel)]="this.movie.jsonObj.Country"/>
+        </div>
+      </div>
+
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Runtime</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Runtime" [(ngModel)]="this.movie.jsonObj.Runtime"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Year</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="Year" [(ngModel)]="this.movie.jsonObj.Year"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">IMDB ID</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="IMDB ID" [(ngModel)]="this.movie.jsonObj.imdbID"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">IMDB Votes</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="IMDB Votes"
+                 [(ngModel)]="this.movie.jsonObj.imdbVotes"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">IMDB Rating</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="IMDB Rating"
+                 [(ngModel)]="this.movie.jsonObj.imdbRating"/>
+        </div>
+      </div>
+
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Awards</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="awards" [(ngModel)]="this.movie.jsonObj.Awards"/>
+        </div>
+      </div>
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-3 col-form-label">Meta Score</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control" name="metascore"
+                 [(ngModel)]="this.movie.jsonObj.Metascore"/>
+        </div>
+      </div>
+
+      <div class="form-group row" [hidden]="!isShowMore">
+        <label class="col-sm-12 col-form-label">Ratings</label>
+        <div class="col-sm-12 form-group row" *ngFor="let r of this.movie.jsonObj.Ratings; let i = index">
+          <label class="col-sm-5 col-form-label">
+            {{ i + 1 }}. {{ r.Source }}
+          </label>
+          <div class="col-sm-3">
+            <input type="text" readonly class="form-control" name="value-{{i}}" [(ngModel)]="r.Value"/>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

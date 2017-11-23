@@ -9,31 +9,3 @@
   margin: auto;
   background: #ffffff;
 }
-
-.modal-header button {
-  cursor: pointer;
-}
-.modal-body .image-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal-footer button {
-  cursor: pointer;
-}
-
-.action-area {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.comment-btn {
-  float: right;
-  cursor: pointer;
-}
-
-.bookmark-btn {
-  margin-right: 10px;
-  float: right;
-  cursor: pointer;
-}
