@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { ServerService } from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { MoviePopupComponent } from '../app-shared-component/movie-popup.component/movie-popup.component';
+import { MoviePopupComponent } from '../app-shared-component/movie-popup/movie-popup.component';
 import { AppScope } from '../app.scope.service';
 
 @Component({

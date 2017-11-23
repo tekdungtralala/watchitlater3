@@ -15,7 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { MoviePopupComponent } from './app-shared-component/movie-popup.component/movie-popup.component';
+import { MoviePopupComponent } from './app-shared-component/movie-popup/movie-popup.component';
 import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner/loading-spinner.component';
 import { LoadingSpinnerService } from './app-shared-component/loading-spinner/loading-spinner.service';
 import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner/loading-spinner.interceptor';
