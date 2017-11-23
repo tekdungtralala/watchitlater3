@@ -14,6 +14,7 @@ import {DashboardScope} from '../../../dashboard/dashboard.scope.service';
 export class MovieInfoComponent implements OnInit {
 
   @Output() toggleShowMoreOutput: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggleShowReviewOutput: EventEmitter<boolean> = new EventEmitter();
 
   @Input() movie: MovieModel;
   @Input() movies: MovieModel[];
@@ -42,6 +43,10 @@ export class MovieInfoComponent implements OnInit {
   toggleShowMore(): void {
     this.isShowMore = !this.isShowMore;
     this.toggleShowMoreOutput.emit(this.isShowMore);
+  }
+
+  showReview(): void {
+    this.toggleShowReviewOutput.emit(true);
   }
 
   onPrevMovie(): void {

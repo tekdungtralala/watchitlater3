@@ -3,9 +3,18 @@
   width: 1000px;
 }
 
+:host(.isShowReview) {
+  max-width: 1200px;
+  width: 1200px;
+}
+
 :host {
   max-width: 800px;
   width: 800px;
   margin: auto;
   background: #ffffff;
+}
+
+.close-btn {
+  cursor: pointer;
 }

@@ -26,6 +26,7 @@ import { AuthGuard } from './app-util/auth-guard.service';
 import { AppScope } from './app.scope.service';
 import { DashboardScope } from './dashboard/dashboard.scope.service';
 import { MovieInfoComponent } from './app-shared-component/movie-popup/movie-info/movie-info.component';
+import { MovieReviewComponent } from './app-shared-component/movie-popup/movie-review/movie-review.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     LoadingSpinnerComponent,
     NoEmptyValueValidatorDirective,
     DashboardComponent,
-    MovieInfoComponent
+    MovieInfoComponent,
+    MovieReviewComponent
   ],
   imports: [
     BrowserModule,
