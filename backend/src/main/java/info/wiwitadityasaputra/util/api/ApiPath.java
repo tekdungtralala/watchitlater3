@@ -7,6 +7,7 @@ public class ApiPath {
 	public final static String API_MOVIE = "/api/movie";
 	public final static String API_MOVIEGROUP = "/api/movie-group";
 	public final static String API_MOVIEFAVORITE = "/api/movie-favorite";
+	public final static String API_MOVIEREVIEW = "/api/movie-review";
 	public final static String API_USER = "/api/user";
 
 	// /api/user/**

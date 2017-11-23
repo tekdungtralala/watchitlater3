@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
+import info.wiwitadityasaputra.moviereview.MovieReview;
 import info.wiwitadityasaputra.util.AbstractEntity;
 
 @Entity
@@ -54,6 +55,10 @@ public class User extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MovieFavorite> listMovieFavorite;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MovieReview> listMovieReview;
 
 	public int getId() {
 		return id;
@@ -126,5 +131,14 @@ public class User extends AbstractEntity {
 
 	public void setListMovieFavorite(Set<MovieFavorite> listMovieFavorite) {
 		this.listMovieFavorite = listMovieFavorite;
+	}
+
+	@JsonIgnore
+	public Set<MovieReview> getListMovieReview() {
+		return listMovieReview;
+	}
+
+	public void setListMovieReview(Set<MovieReview> listMovieReview) {
+		this.listMovieReview = listMovieReview;
 	}
 }

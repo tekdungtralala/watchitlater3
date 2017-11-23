@@ -47,7 +47,7 @@ public class UserProfilePictureCtrl extends AbstractCtrl {
 			headers.setContentType(MediaType.valueOf(user.getFileType()));
 			bytes = user.getProfilePicture();
 		}
-		return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+		return new ResponseEntity(bytes, headers, HttpStatus.OK);
 	}
 
 	private byte[] getDefaultImage() throws IOException {

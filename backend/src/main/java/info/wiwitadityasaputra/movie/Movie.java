@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
 import info.wiwitadityasaputra.movieposter.MoviePoster;
+import info.wiwitadityasaputra.moviereview.MovieReview;
 import info.wiwitadityasaputra.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.util.AbstractEntity;
 
@@ -66,6 +67,10 @@ public class Movie extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
 	private Set<MovieFavorite> listMovieFavorite;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+	private Set<MovieReview> listMovieReview;
 
 	public Integer getId() {
 		return id;
@@ -164,5 +169,14 @@ public class Movie extends AbstractEntity {
 
 	public void setListMovieFavorite(Set<MovieFavorite> listMovieFavorite) {
 		this.listMovieFavorite = listMovieFavorite;
+	}
+
+	@JsonIgnore
+	public Set<MovieReview> getListMovieReview() {
+		return listMovieReview;
+	}
+
+	public void setListMovieReview(Set<MovieReview> listMovieReview) {
+		this.listMovieReview = listMovieReview;
 	}
 }
