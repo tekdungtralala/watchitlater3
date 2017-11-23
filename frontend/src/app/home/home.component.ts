@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { ServerService } from '../app-util/server.service';
 import { MovieModel } from '../app-util/server.model';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { MovieDetailComponent } from '../app-shared-component/movie-detail.component/movie-detail.component';
+import { MoviePopupComponent } from '../app-shared-component/movie-popup.component/movie-popup.component';
 import { AppScope } from '../app.scope.service';
 
 @Component({
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       backdrop: 'static',
       size: 'lg'
     };
-    const modalRef: NgbModalRef = this.modalService.open(MovieDetailComponent, options);
+    const modalRef: NgbModalRef = this.modalService.open(MoviePopupComponent, options);
     modalRef.componentInstance.movie = movie;
     modalRef.componentInstance.movies = this.listMovieModel;
   }

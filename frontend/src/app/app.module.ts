@@ -15,7 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { MovieDetailComponent } from './app-shared-component/movie-detail.component/movie-detail.component';
+import { MoviePopupComponent } from './app-shared-component/movie-popup.component/movie-popup.component';
 import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner.component/loading-spinner.component';
 import { LoadingSpinnerService } from './app-shared-component/loading-spinner.component/loading-spinner.service';
 import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner.component/loading-spinner.interceptor';
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     LoginComponent,
 
-    MovieDetailComponent,
+    MoviePopupComponent,
     LoadingSpinnerComponent,
     NoEmptyValueValidatorDirective,
     DashboardComponent
@@ -59,7 +59,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [ MovieDetailComponent ],
+  entryComponents: [ MoviePopupComponent ],
   providers: [
     ServerService,
     LoadingSpinnerService,

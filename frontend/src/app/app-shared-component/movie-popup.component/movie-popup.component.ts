@@ -8,11 +8,11 @@ import {AppScope} from '../../app.scope.service';
 import {DashboardScope} from '../../dashboard/dashboard.scope.service';
 
 @Component({
-  templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.css'],
-  host: { '[class.isShowMore]': 'isShowMore' }
+  templateUrl: './movie-popup.component.html',
+  styleUrls: ['./movie-popup.component.css'],
+  host: {'[class.isShowMore]': 'isShowMore'}
 })
-export class MovieDetailComponent implements OnInit {
+export class MoviePopupComponent implements OnInit {
   @Input() movie: MovieModel;
   @Input() movies: MovieModel[];
   isFavorite: boolean;
@@ -68,7 +68,7 @@ export class MovieDetailComponent implements OnInit {
     const data: MovieFavoriteInput = {movieId: this.movie.id, favorite: this.isFavorite};
     this.serverService.updateMovieFavorite(data);
 
-    if ( this.isFavorite ) {
+    if (this.isFavorite) {
       this.rootScope.addToFavoriteMovie(this.movie);
     } else {
       this.rootScope.removeFromFavoriteMovie(this.movie);
