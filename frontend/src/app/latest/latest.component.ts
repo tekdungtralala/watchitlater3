@@ -87,7 +87,8 @@ export class LatestComponent implements OnInit {
   open(movie: MovieModel) {
     const options: NgbModalOptions = {
       backdrop: 'static',
-      size: 'lg'
+      size: 'lg',
+      windowClass: 'movie-detail-window'
     };
     const modalRef: NgbModalRef = this.modalService.open(MoviePopupComponent, options);
     modalRef.componentInstance.movie = movie;
