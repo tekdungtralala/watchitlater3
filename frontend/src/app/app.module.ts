@@ -16,9 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { MoviePopupComponent } from './app-shared-component/movie-popup.component/movie-popup.component';
-import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner.component/loading-spinner.component';
-import { LoadingSpinnerService } from './app-shared-component/loading-spinner.component/loading-spinner.service';
-import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner.component/loading-spinner.interceptor';
+import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerService } from './app-shared-component/loading-spinner/loading-spinner.service';
+import { LoadingSpinnerInterceptor } from './app-shared-component/loading-spinner/loading-spinner.interceptor';
 import {
   NoEmptyValueValidatorDirective
 } from './app-shared-component/validator/no-empty-value-validator/no-empty-value-validator.directive';
