@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import info.wiwitadityasaputra.user.entity.User;
+import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 
 @Component
 public class UserHelper {
@@ -16,5 +17,11 @@ public class UserHelper {
 
 		}
 		return null;
+	}
+
+	public void mustHasLoggedUser() {
+		User user = getLoggedUser();
+		if (user == null)
+			throw new ForbiddenException("Must login");
 	}
 }
