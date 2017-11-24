@@ -102,6 +102,7 @@ export class MovieReviewOutput extends MovieModel {
   initial: string;
 
   userAvatarUrl: string;
+  isHideSigninBtn: boolean;
 }
 
 export class MovieGroupNameModel {

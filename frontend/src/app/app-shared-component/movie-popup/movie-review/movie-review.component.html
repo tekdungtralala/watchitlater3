@@ -17,18 +17,29 @@
       </div>
       <div class="row point-area">
         <div class="col-3">
-          <button type="button" class="btn btn-light float-right">
+          <button type="button" class="btn btn-light float-right"
+                  (click)="updatePoint(1, m)">
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
           </button>
         </div>
         <div class="col-6 align-self-center text-center">
-            {{ m.point }}
+          {{ m.point }}
         </div>
         <div class="col-3">
-          <button type="button" class="btn btn-light">
+          <button type="button" class="btn btn-light"
+                  (click)="updatePoint(-1, m)">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
           </button>
         </div>
+
+        <div class="col-12 text-center" [hidden]="m.isHideSigninBtn"
+             (click)="toLoginPage();">
+          <button type="button" class="btn btn-sm btn-primary">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            Please Sign In
+          </button>
+        </div>
+
       </div>
     </div>
     <div class="col-10 review-area">
