@@ -26,6 +26,8 @@ public class MovieReviewOutput {
 
 	public static MovieReviewOutput toOutput(MovieReview mr) {
 		MovieReviewOutput o = new MovieReviewOutput();
+		if (mr == null)
+			return o;
 		o.setReview(mr.getReview());
 		o.setPoint(mr.getPoint());
 

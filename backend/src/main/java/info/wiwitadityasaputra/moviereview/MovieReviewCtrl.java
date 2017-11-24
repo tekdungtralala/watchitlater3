@@ -17,6 +17,7 @@ import info.wiwitadityasaputra.movie.Movie;
 import info.wiwitadityasaputra.movie.MovieRepository;
 import info.wiwitadityasaputra.user.api.UserHelper;
 import info.wiwitadityasaputra.user.entity.User;
+import info.wiwitadityasaputra.user.entity.UserRepository;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
@@ -31,9 +32,11 @@ public class MovieReviewCtrl extends AbstractCtrl {
 	@Autowired
 	private MovieReviewRepository movieReviewRepo;
 	@Autowired
-	private UserHelper userHelper;
-	@Autowired
 	private MovieRepository movieRepo;
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private UserHelper userHelper;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{movieId}/me")
 	public MovieReviewOutput getOwnReview(@PathVariable("movieId") int movieId) {
@@ -41,9 +44,9 @@ public class MovieReviewCtrl extends AbstractCtrl {
 		userHelper.mustHasLoggedUser();
 
 		Movie movie = movieRepo.findOne(movieId);
-		User user = userHelper.getLoggedUser();
+		User loggedUser = userHelper.getLoggedUser();
 
-		MovieReview mr = movieReviewRepo.findByMovieAndUserAndLatest(user, movie, true);
+		MovieReview mr = movieReviewRepo.findByUserAndMovieAndLatest(loggedUser, movie, true);
 		return MovieReviewOutput.toOutput(mr);
 	}
 

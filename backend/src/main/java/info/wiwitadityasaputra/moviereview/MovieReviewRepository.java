@@ -17,5 +17,5 @@ public interface MovieReviewRepository extends JpaRepository<MovieReview, Intege
 	@Query(value = "SELECT * FROM movie_review WHERE movie_id = ?1 AND latest = true ORDER BY point DESC LIMIT ?2 OFFSET ?3", nativeQuery = true)
 	public List<MovieReview> findByMovieId(int movieId, int limit, int offset);
 
-	public MovieReview findByMovieAndUserAndLatest(User user, Movie movie, boolean latest);
+	public MovieReview findByUserAndMovieAndLatest(User user, Movie movie, boolean latest);
 }
