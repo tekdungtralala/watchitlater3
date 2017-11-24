@@ -60,7 +60,7 @@ public class UpdateMovieSchedule {
 	// 3600000 = 60 minute
 	@Scheduled(fixedRateString = "3600000", initialDelay = 1000)
 	public void start() throws Exception {
-		if (!stillRunnig) {
+		if (!stillRunnig && false) {
 			stillRunnig = true;
 			logger.info("start(), stillRunnig: " + stillRunnig);
 

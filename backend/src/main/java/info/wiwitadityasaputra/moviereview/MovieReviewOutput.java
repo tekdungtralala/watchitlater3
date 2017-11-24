@@ -21,7 +21,7 @@ public class MovieReviewOutput {
 	private String plot;
 	private String json;
 
-	private Integer userId;
+	private String userId;
 	private String initial;
 
 	public static MovieReviewOutput toOutput(MovieReview mr) {
@@ -41,7 +41,7 @@ public class MovieReviewOutput {
 		o.setJson(m.getJson());
 
 		User u = mr.getUser();
-		o.setUserId(u.getId());
+		o.setUserId(u.getUserId());
 		o.setInitial(StringUtils.isEmpty(u.getInitial()) ? "Anonymous" : u.getInitial());
 		return o;
 	}
@@ -134,11 +134,11 @@ public class MovieReviewOutput {
 		this.json = json;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

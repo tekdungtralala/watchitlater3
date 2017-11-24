@@ -40,7 +40,7 @@ public class UserProfilePictureCtrl extends AbstractCtrl {
 
 		User user = userRepo.findByUserId(userId);
 		byte[] bytes = null;
-		if (user == null) {
+		if (user == null || user.getProfilePicture() == null || user.getProfilePicture().length == 0) {
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			bytes = getDefaultImage();
 		} else {

@@ -1,3 +1,46 @@
-<p>
-  movie-review works!
-</p>
+<div>
+  <div class="action-btns">
+    <button type="button" class="btn btn-secondary btn-sm"
+            (click)="toggleShowReview()">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      Back
+    </button>
+  </div>
+
+  <div class="row reviews" *ngFor="let m of listData">
+    <div class="col-2">
+      <h5>
+        {{ m.initial }}
+      </h5>
+      <div class="image-area">
+        <img class="img-thumbnail" [src]="m.userAvatarUrl"/>
+      </div>
+      <div class="row point-area">
+        <div class="col-3">
+          <button type="button" class="btn btn-light float-right">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="col-6 align-self-center text-center">
+            {{ m.point }}
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-light">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-10 review-area">
+      {{ m.review }}
+    </div>
+
+    <div class="row" [hidden]="listData.length > 0">
+      EMpty
+    </div>
+  </div>
+
+  <div class="row" [hidden]="isHideLoadMore">
+    <button (click)="loadReview()" type="button" class="btn btn-dark mx-auto">Load More</button>
+  </div>
+</div>

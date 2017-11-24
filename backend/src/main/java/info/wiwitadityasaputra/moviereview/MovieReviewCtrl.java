@@ -36,7 +36,7 @@ public class MovieReviewCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieReviewOutput> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
-			@RequestParam(value = "movieId", required = true) int movieId) {
+			@RequestParam(value = "movieId", required = true) int movieId) throws InterruptedException {
 		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "?offset=" + offset + "&movieId=" + movieId);
 
 		List<MovieReview> list = movieReviewRepo.findByMovieId(movieId, MOVIEREVIEW_LIMIT, offset);

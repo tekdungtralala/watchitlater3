@@ -5,7 +5,8 @@ import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 
 import {
-  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, SignInModel, UserInput, UserModel
+  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, MovieReviewOutput, SignInModel, UserInput,
+  UserModel
 } from './server.model';
 import {environment} from '../../environments/environment';
 
@@ -14,6 +15,14 @@ export class ServerService {
   private domain: string = environment.W3_API_URL;
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  getMovieReview(movieId: number, offset: number): Observable<MovieReviewOutput[]> {
+    let qp: string = '?';
+    qp += '&offset=' + offset;
+    qp += '&movieId=' + movieId;
+    const url: string = this.domain + '/api/movie-review' + qp;
+    return this.httpClient.get<MovieReviewOutput[]>(url, {withCredentials: true});
   }
 
   getDomain(): string {
@@ -67,6 +76,10 @@ export class ServerService {
     return this.httpClient.get(url, {withCredentials: true});
   }
 
+  getUserProfilePictureUrl(userId: string): string {
+    return this.domain + '/api/user/profile-picture/' + userId;
+  }
+
   getRandomUser() {
     const url: string = this.domain + '/api/user/random';
     return this.httpClient.get(url, {withCredentials: true});
@@ -94,7 +107,6 @@ export class ServerService {
 
   logout() {
     const url: string = this.domain + '/api/user/auth/signout';
-    // return this.httpClient.get(url,{withCredentials: true});
     return this.httpClient.post(url, {}, {withCredentials: true});
   }
 }

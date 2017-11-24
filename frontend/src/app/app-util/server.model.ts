@@ -94,6 +94,16 @@ export class MovieModel {
   }
 }
 
+export class MovieReviewOutput extends MovieModel {
+  review: string;
+  point: number;
+  movieId: number;
+  userId: string;
+  initial: string;
+
+  userAvatarUrl: string;
+}
+
 export class MovieGroupNameModel {
   available: boolean;
   firstDayOfWeek: string;

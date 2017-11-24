@@ -1,0 +1,22 @@
+.action-btns {
+  padding-bottom: 20px;
+}
+.reviews {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid black;
+}
+.image-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.point-area {
+  padding-top: 10px;
+}
+.point-area > div {
+  padding: 0px;
+}
+.review-area {
+  padding-top: 30px;
+}

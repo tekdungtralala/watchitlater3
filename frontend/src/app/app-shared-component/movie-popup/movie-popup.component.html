@@ -9,10 +9,12 @@
 
 <div class="modal-body">
   <app-movie-review
-    [hidden]="!isShowReview">
+    *ngIf="isShowReview"
+    [movie]="movie"
+    (toggleShowReviewOutput)="toggleShowReview($event)">
   </app-movie-review>
   <app-movie-info
-    [hidden]="isShowReview"
+    *ngIf="!isShowReview"
     [movie]="movie"
     [movies]="movies"
     (toggleShowMoreOutput)="toggleShowMore($event)"
