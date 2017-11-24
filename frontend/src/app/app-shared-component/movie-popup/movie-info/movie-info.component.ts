@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import {MovieFavoriteInput, MovieModel} from '../../../app-util/server.model';
 import {ServerService} from '../../../app-util/server.service';
 import {AppScope} from '../../../app.scope.service';
-import {DashboardScope} from '../../../dashboard/dashboard.scope.service';
+import {DashboardScope} from '../../../views/dashboard/dashboard.scope.service';
 import {MovieReviewEventEmiter} from '../../../app-util/fe.model';
 
 @Component({

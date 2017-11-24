@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 
-import { ServerService} from '../app-util/server.service';
-import { MovieModel } from '../app-util/server.model';
-import { MoviePopupComponent } from '../app-shared-component/movie-popup/movie-popup.component';
-import { AppScope } from '../app.scope.service';
+import { ServerService} from '../../app-util/server.service';
+import { MovieModel } from '../../app-util/server.model';
+import { MoviePopupComponent } from '../../app-shared-component/movie-popup/movie-popup.component';
+import { AppScope } from '../../app.scope.service';
 
 @Component({
   selector: 'app-top100',

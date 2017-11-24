@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-
-import { ServerService } from '../app-util/server.service';
-import { RestException, UserModel } from '../app-util/server.model';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {RestException, UserModel} from '../../app-util/server.model';
+import {ServerService} from '../../app-util/server.service';
 
 @Component({
   selector: 'app-register',

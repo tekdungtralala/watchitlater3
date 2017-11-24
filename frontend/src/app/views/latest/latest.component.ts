@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 
-import { ServerService } from '../app-util/server.service';
-import { MovieGroupNameModel, MovieModel } from '../app-util/server.model';
-import { MoviePopupComponent } from '../app-shared-component/movie-popup/movie-popup.component';
-import { AppScope } from '../app.scope.service';
+import { ServerService } from '../../app-util/server.service';
+import { MovieGroupNameModel, MovieModel } from '../../app-util/server.model';
+import { MoviePopupComponent } from '../../app-shared-component/movie-popup/movie-popup.component';
+import { AppScope } from '../../app.scope.service';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;

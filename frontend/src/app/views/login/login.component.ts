@@ -2,9 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {ServerService} from '../app-util/server.service';
-import {RestException, SignInModel, UserModel} from '../app-util/server.model';
-import {AppScope} from '../app.scope.service';
+import {ServerService} from '../../app-util/server.service';
+import {RestException, SignInModel, UserModel} from '../../app-util/server.model';
+import {AppScope} from '../../app.scope.service';
 
 @Component({
   selector: 'app-login',

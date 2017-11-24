@@ -8,12 +8,12 @@ import { NgsRevealModule } from 'ng-scrollreveal';
 
 import { AppComponent } from './app.component';
 import { ServerService } from './app-util/server.service';
-import { HomeComponent } from './home/home.component';
-import { Top100Component } from './top100/top100.component';
-import { LatestComponent } from './latest/latest.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './views/home/home.component';
+import { Top100Component } from './views/top100/top100.component';
+import { LatestComponent } from './views/latest/latest.component';
+import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from './views/login/login.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 import { MoviePopupComponent } from './app-shared-component/movie-popup/movie-popup.component';
 import { LoadingSpinnerComponent } from './app-shared-component/loading-spinner/loading-spinner.component';
@@ -24,7 +24,7 @@ import {
 } from './app-shared-component/validator/no-empty-value-validator/no-empty-value-validator.directive';
 import { AuthGuard } from './app-util/auth-guard.service';
 import { AppScope } from './app.scope.service';
-import { DashboardScope } from './dashboard/dashboard.scope.service';
+import { DashboardScope } from './views/dashboard/dashboard.scope.service';
 import { MovieInfoComponent } from './app-shared-component/movie-popup/movie-info/movie-info.component';
 import { MovieReviewComponent } from './app-shared-component/movie-popup/movie-review/movie-review.component';
 
