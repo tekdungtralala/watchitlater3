@@ -46,6 +46,9 @@ public class UpdateMovieSchedule {
 	@Value("${com.omdbapi.apikey}")
 	protected String apiKey;
 
+	@Value("${app.config.runUpdateMovie}")
+	protected boolean runUpdateMovie;
+
 	@Autowired
 	private MovieRepository movieRepo;
 	@Autowired
@@ -60,9 +63,9 @@ public class UpdateMovieSchedule {
 	// 3600000 = 60 minute
 	@Scheduled(fixedRateString = "3600000", initialDelay = 1000)
 	public void start() throws Exception {
-		if (!stillRunnig && false) {
+		logger.info("start(), stillRunnig: " + stillRunnig + ", runUpdateMovie: " + runUpdateMovie);
+		if (!stillRunnig && runUpdateMovie) {
 			stillRunnig = true;
-			logger.info("start(), stillRunnig: " + stillRunnig);
 
 			processMovieSearch();
 			processMoviePoster(true);
