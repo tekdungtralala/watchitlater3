@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {MovieModel} from '../../app-util/server.model';
+import {MovieReviewEventEmiter} from "../../app-util/fe.model";
 
 @Component({
   templateUrl: './movie-popup.component.html',
@@ -25,9 +26,10 @@ export class MoviePopupComponent implements OnInit {
     this.isShowReview = false;
   }
 
-  toggleShowReview(isShowReview: boolean): void {
-    this.isShowReview = isShowReview;
+  toggleShowReview(val: MovieReviewEventEmiter): void {
+    this.isShowReview = val.isShowReview;
     this.isShowMore = false;
+    this.movie = val.movie;
   }
 
 }

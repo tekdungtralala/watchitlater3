@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 
 import {ServerService} from '../../../app-util/server.service';
 import {MovieModel, MovieReviewOutput} from '../../../app-util/server.model';
+import {MovieReviewEventEmiter} from '../../../app-util/fe.model';
 
 @Component({
   selector: 'app-movie-review',
@@ -13,7 +14,7 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
 
 
   @Input() movie: MovieModel;
-  @Output() toggleShowReviewOutput: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggleShowReviewOutput: EventEmitter<MovieReviewEventEmiter> = new EventEmitter();
   private static MOVIEREVIEW_LIMIT: number = 3;
   private offset: number = 0;
   listData: MovieReviewOutput[] = [];
@@ -33,7 +34,7 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   }
 
   toggleShowReview(): void {
-    this.toggleShowReviewOutput.emit(false);
+    this.toggleShowReviewOutput.emit({isShowReview: false, movie: this.movie});
   }
 
   loadReview(): void {

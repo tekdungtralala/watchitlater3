@@ -1,4 +1,4 @@
-import {UserModel} from './server.model';
+import {MovieModel, UserModel} from './server.model';
 
 export enum RootScopeKey {
   HAS_USER
@@ -7,4 +7,9 @@ export enum RootScopeKey {
 export class RootScopeModel {
   key: RootScopeKey;
   value: UserModel | string;
+}
+
+export class MovieReviewEventEmiter {
+  movie: MovieModel;
+  isShowReview: boolean;
 }

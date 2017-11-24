@@ -5,6 +5,7 @@ import {MovieFavoriteInput, MovieModel} from '../../../app-util/server.model';
 import {ServerService} from '../../../app-util/server.service';
 import {AppScope} from '../../../app.scope.service';
 import {DashboardScope} from '../../../dashboard/dashboard.scope.service';
+import {MovieReviewEventEmiter} from '../../../app-util/fe.model';
 
 @Component({
   selector: 'app-movie-info',
@@ -14,7 +15,7 @@ import {DashboardScope} from '../../../dashboard/dashboard.scope.service';
 export class MovieInfoComponent implements OnInit {
 
   @Output() toggleShowMoreOutput: EventEmitter<boolean> = new EventEmitter();
-  @Output() toggleShowReviewOutput: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggleShowReviewOutput: EventEmitter<MovieReviewEventEmiter> = new EventEmitter();
 
   @Input() movie: MovieModel;
   @Input() movies: MovieModel[];
@@ -33,7 +34,7 @@ export class MovieInfoComponent implements OnInit {
     if (this.movies != null) {
       _.forEach(this.movies, (m: MovieModel) => {
         m.jsonObj = JSON.parse(m.json);
-      })
+      });
     }
 
     this.hasLoggedUser = this.rootScope.isHasUser();
@@ -46,7 +47,7 @@ export class MovieInfoComponent implements OnInit {
   }
 
   showReview(): void {
-    this.toggleShowReviewOutput.emit(true);
+    this.toggleShowReviewOutput.emit({isShowReview: true, movie: this.movie});
   }
 
   onPrevMovie(): void {

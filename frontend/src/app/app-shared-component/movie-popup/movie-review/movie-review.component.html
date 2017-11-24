@@ -34,10 +34,10 @@
     <div class="col-10 review-area">
       {{ m.review }}
     </div>
+  </div>
 
-    <div class="row" [hidden]="listData.length > 0">
-      EMpty
-    </div>
+  <div class="container" [hidden]="listData.length > 0">
+    No review yet
   </div>
 
   <div class="row" [hidden]="isHideLoadMore">
