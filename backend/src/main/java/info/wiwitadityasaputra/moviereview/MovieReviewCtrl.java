@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +34,18 @@ public class MovieReviewCtrl extends AbstractCtrl {
 	private UserHelper userHelper;
 	@Autowired
 	private MovieRepository movieRepo;
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{movieId}/me")
+	public MovieReviewOutput getOwnReview(@PathVariable("movieId") int movieId) {
+		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "/" + movieId + "/me");
+		userHelper.mustHasLoggedUser();
+
+		Movie movie = movieRepo.findOne(movieId);
+		User user = userHelper.getLoggedUser();
+
+		MovieReview mr = movieReviewRepo.findByMovieAndUserAndLatest(user, movie, true);
+		return MovieReviewOutput.toOutput(mr);
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieReviewOutput> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
