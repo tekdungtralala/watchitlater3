@@ -8,6 +8,7 @@ import info.wiwitadityasaputra.user.entity.User;
 
 public class MovieReviewOutput {
 
+	private int id;
 	private String review;
 	private int point;
 
@@ -28,6 +29,8 @@ public class MovieReviewOutput {
 		MovieReviewOutput o = new MovieReviewOutput();
 		if (mr == null)
 			return o;
+
+		o.setId(mr.getId());
 		o.setReview(mr.getReview());
 		o.setPoint(mr.getPoint());
 
@@ -46,6 +49,14 @@ public class MovieReviewOutput {
 		o.setUserId(u.getUserId());
 		o.setInitial(StringUtils.isEmpty(u.getInitial()) ? "Anonymous" : u.getInitial());
 		return o;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getReview() {

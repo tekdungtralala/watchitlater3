@@ -95,6 +95,7 @@ export class MovieModel {
 }
 
 export class MovieReviewOutput extends MovieModel {
+  id: number;
   review: string;
   point: number;
   movieId: number;

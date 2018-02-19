@@ -1,4 +1,5 @@
 import {AfterContentInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
@@ -6,7 +7,7 @@ import {ServerService} from '../../../app-util/server.service';
 import {MovieModel, MovieReviewOutput} from '../../../app-util/server.model';
 import {MovieReviewEventEmiter} from '../../../app-util/fe.model';
 import {AppScope} from '../../../app.scope.service';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+
 
 @Component({
   selector: 'app-movie-review',
@@ -22,11 +23,15 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   private offset: number = 0;
   listData: MovieReviewOutput[] = [];
   isHideLoadMore: boolean;
+  myReview: MovieReviewOutput;
+  isEditOwnReview: boolean;
+  invalidReview: boolean;
 
   constructor(private rootScope: AppScope,
               private serverService: ServerService,
               private router: Router,
               private activeModal: NgbActiveModal) {
+    this.myReview = new MovieReviewOutput();
   }
 
   ngOnInit(): void {
@@ -52,6 +57,13 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
         this.listData.push(m);
       });
     });
+
+    this.serverService.getOwnMovieReview(this.movie.id).subscribe((result: MovieReviewOutput) => {
+      this.myReview = result;
+      this.isEditOwnReview = this.myReview.id === 0;
+      console.log(this.myReview)
+      console.log('this.isEditOwnReview : ', this.isEditOwnReview)
+    });
   }
 
   updatePoint(point: number, movie: MovieReviewOutput): void {
@@ -66,6 +78,23 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   toLoginPage(): void {
     this.activeModal.close();
     this.router.navigate(['/login']);
+  }
+
+  showEditReview(): void {
+    this.isEditOwnReview = true;
+    this.invalidReview = false;
+  }
+
+  cancelEditReview(): void {
+    this.invalidReview = false;
+    if (this.myReview.id)
+      this.isEditOwnReview = false;
+  }
+
+  saveUserReview(): void {
+    console.log(this.myReview.review)
+    this.invalidReview = true;
+    console.log('saveUserReview')
   }
 
 }

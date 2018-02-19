@@ -20,3 +20,14 @@
 .review-area {
   padding-top: 30px;
 }
+.own-review-label {
+  height: 31px;
+  margin-bottom: 5px;
+}
+.own-review-label span {
+  position: relative;
+  top: 10px;
+}
+.own-review-label button {
+  margin-left: 10px;
+}

@@ -1,10 +1,44 @@
 <div>
-  <div class="action-btns">
-    <button type="button" class="btn btn-secondary btn-sm"
-            (click)="toggleShowReview()">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i>
-      Back
-    </button>
+  <div class="action-btns row">
+    <div class="col-2">
+      <button type="button" class="btn btn-secondary btn-sm"
+              (click)="toggleShowReview()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Back
+      </button>
+    </div>
+    <div class="col-10">
+      <div class="form-group">
+        <div for="own-review" class="own-review-label">
+          <span class="">
+            Write your own review
+          </span>
+          <button type="button" class="btn btn-primary btn-sm float-right"
+                  [hidden]="this.isEditOwnReview"
+                  (click)="showEditReview()">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit
+          </button>
+
+          <button type="button" class="btn btn-sm btn-success float-right save-btn"
+                  [hidden]="!this.isEditOwnReview"
+                  (click)="saveUserReview()">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Save
+          </button>
+          <button type="button" class="btn btn-sm btn-light float-right"
+                  [hidden]="!this.isEditOwnReview || this.myReview.id === 0"
+                  (click)="cancelEditReview()">
+            Cancel
+          </button>
+        </div>
+        <textarea class="form-control" rows="5" name="review"
+                  [disabled]="!this.isEditOwnReview"
+                  [ngClass]="{'is-invalid': this.invalidReview}"
+                  [(ngModel)]="this.myReview.review"></textarea>
+      </div>
+    </div>
+
   </div>
 
   <div class="row reviews" *ngFor="let m of listData">

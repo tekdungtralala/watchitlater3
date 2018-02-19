@@ -17,6 +17,11 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getOwnMovieReview(movieId: number): Observable<MovieReviewOutput> {
+    const url: string = this.domain + '/api/movie-review/' + movieId + '/me';
+    return this.httpClient.get<MovieReviewOutput>(url, {withCredentials: true});
+  }
+
   getMovieReview(movieId: number, offset: number): Observable<MovieReviewOutput[]> {
     let qp: string = '?';
     qp += '&offset=' + offset;
