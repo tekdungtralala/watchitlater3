@@ -12,8 +12,6 @@ import info.wiwitadityasaputra.user.entity.User;
 @Repository
 public interface MovieReviewRepository extends JpaRepository<MovieReview, Integer> {
 
-	public MovieReview findByUserAndMovie(User user, Movie movie);
-
 	@Query(value = "SELECT * FROM movie_review WHERE movie_id = ?1 AND latest = true ORDER BY point DESC LIMIT ?2 OFFSET ?3", nativeQuery = true)
 	public List<MovieReview> findByMovieId(int movieId, int limit, int offset);
 

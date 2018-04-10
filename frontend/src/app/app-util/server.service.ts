@@ -5,7 +5,8 @@ import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 
 import {
-  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, MovieReviewOutput, SignInModel, UserInput,
+  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, MovieReviewOutput, MovieReviewRequest,
+  SignInModel, UserInput,
   UserModel
 } from './server.model';
 import {environment} from '../../environments/environment';
@@ -28,6 +29,15 @@ export class ServerService {
     qp += '&movieId=' + movieId;
     const url: string = this.domain + '/api/movie-review' + qp;
     return this.httpClient.get<MovieReviewOutput[]>(url, {withCredentials: true});
+  }
+
+  postMovieReview(review: string, movieId: number): Observable<any> {
+    const url: string = this.domain + '/api/movie-review';
+    const data: MovieReviewRequest = {
+      movieId: movieId,
+      review: review
+    };
+    return this.httpClient.post<any>(url, data, {withCredentials: true});
   }
 
   getDomain(): string {

@@ -66,26 +66,28 @@ public class MovieReviewCtrl extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.POST)
 	public void createMovieReview(@RequestBody MovieReviewInput input) {
 		logger.info("POST " + ApiPath.API_MOVIEREVIEW);
-		logger.info(" movieId = " + input.getMovieid());
+		logger.info(" movieId = " + input.getMovieId());
 		logger.info(" review = " + input.getReview());
 
 		userHelper.mustHasLoggedUser();
 
 		User loggedUser = userHelper.getLoggedUser();
-		Movie movie = movieRepo.findOne(input.getMovieid());
+		Movie movie = movieRepo.findOne(input.getMovieId());
+		MovieReview newMR = new MovieReview();
 
-		MovieReview mr = movieReviewRepo.findByUserAndMovie(loggedUser, movie);
+		MovieReview mr = movieReviewRepo.findByUserAndMovieAndLatest(loggedUser, movie, true);
 		if (mr != null) {
 			mr.setLatest(false);
 			movieReviewRepo.save(mr);
+			newMR.setPoint(mr.getPoint());
+		} else {
+			newMR.setPoint(0);
 		}
 
-		mr = new MovieReview();
-		mr.setLatest(true);
-		mr.setPoint(0);
-		mr.setReview(input.getReview());
-		mr.setUser(loggedUser);
-		mr.setMovie(movie);
+		newMR.setLatest(true);
+		newMR.setReview(input.getReview());
+		newMR.setUser(loggedUser);
+		newMR.setMovie(movie);
 		movieReviewRepo.save(mr);
 
 	}

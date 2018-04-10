@@ -61,8 +61,6 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
     this.serverService.getOwnMovieReview(this.movie.id).subscribe((result: MovieReviewOutput) => {
       this.myReview = result;
       this.isEditOwnReview = this.myReview.id === 0;
-      console.log(this.myReview)
-      console.log('this.isEditOwnReview : ', this.isEditOwnReview)
     });
   }
 
@@ -92,9 +90,16 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   }
 
   saveUserReview(): void {
-    console.log(this.myReview.review)
-    this.invalidReview = true;
-    console.log('saveUserReview')
+    this.invalidReview = false;
+    if (this.myReview.review) {
+
+      this.serverService.postMovieReview(this.myReview.review, this.movie.id)
+        .subscribe(result => {
+          this.isEditOwnReview = false;
+        });
+    } else {
+      this.invalidReview = true;
+    }
   }
 
 }

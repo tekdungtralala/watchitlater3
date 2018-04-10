@@ -2,15 +2,14 @@ package info.wiwitadityasaputra.moviereview;
 
 public class MovieReviewInput {
 
-	private int movieid;
+	private int movieId;
 	private String review;
 
-	public int getMovieid() {
-		return movieid;
+	public int getMovieId() {
+		return movieId;
 	}
-
-	public void setMovieid(int movieid) {
-		this.movieid = movieid;
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
 	}
 
 	public String getReview() {
