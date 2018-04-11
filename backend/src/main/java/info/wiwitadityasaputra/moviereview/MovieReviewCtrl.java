@@ -26,7 +26,7 @@ public class MovieReviewCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieReviewCtrl.class);
 
-	private static int MOVIEREVIEW_LIMIT = 3;
+	private static final int MOVIEREVIEW_LIMIT = 3;
 
 	@Autowired
 	private MovieReviewRepository movieReviewRepo;
@@ -49,7 +49,7 @@ public class MovieReviewCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieReviewResp> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
-			@RequestParam(value = "movieId", required = true) int movieId) throws InterruptedException {
+			@RequestParam(value = "movieId", required = true) int movieId) {
 		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "?offset=" + offset + "&movieId=" + movieId);
 
 		List<MovieReview> list = movieReviewRepo.findByMovieId(movieId, MOVIEREVIEW_LIMIT, offset);

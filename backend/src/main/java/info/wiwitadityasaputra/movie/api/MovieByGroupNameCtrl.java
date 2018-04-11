@@ -1,11 +1,13 @@
 package info.wiwitadityasaputra.movie.api;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,9 +47,20 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 	@Autowired
 	private MovieService movieService;
 
+	private String getMovieTitle(Element e) {
+		String title = e.html();
+		logger.info("title = " + title);
+		int ob = title.indexOf('(');
+		int cb = title.indexOf(')');
+		if (ob >= 0 && cb >= 0 && ob < cb) {
+			title = title.split("\\(")[0].trim();
+		}
+		return title;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Movie> getMovieByGroupName(@RequestParam(value = "groupName", required = true) String groupName)
-			throws Exception {
+			throws IOException, JSONException {
 		logger.info("GET " + ApiPath.API_MOVIE_BYGROUPNAME + "?groupName=" + groupName);
 		MovieGroup mg = movieGroupRepo.findByName(groupName);
 		if (mg == null) {
@@ -64,14 +77,7 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 			// Create MovieSearch
 			List<MovieSearch> listMovieSearch = new ArrayList<MovieSearch>();
 			for (Element e : titles) {
-				String title = e.html();
-				logger.info("title = " + title);
-				int ob = title.indexOf("(");
-				int cb = title.indexOf(")");
-				if (ob >= 0 && cb >= 0 && ob < cb) {
-					title = title.split("\\(")[0].trim();
-				}
-
+				String title = getMovieTitle(e);
 				MovieSearch ms = movieSearchRepo.findByQuery(title);
 				if (ms == null) {
 					ms = new MovieSearch();
@@ -80,7 +86,7 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 				}
 				listMovieSearch.add(ms);
 			}
-			if (listMovieSearch.size() == 0) {
+			if (listMovieSearch.isEmpty()) {
 				return result;
 			}
 

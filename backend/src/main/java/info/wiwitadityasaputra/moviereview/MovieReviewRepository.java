@@ -16,4 +16,6 @@ public interface MovieReviewRepository extends JpaRepository<MovieReview, Intege
 	public List<MovieReview> findByMovieId(int movieId, int limit, int offset);
 
 	public MovieReview findByUserAndMovieAndLatest(User user, Movie movie, boolean latest);
+	
+	public List<MovieReview> findByUser(User user);
 }

@@ -23,7 +23,7 @@ public class MovieGroupCtrl extends AbstractCtrl {
 
 	private Logger logger = LogManager.getLogger(MovieGroupCtrl.class);
 
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Autowired
 	private MovieGroupRepository movieGroupRepo;
@@ -33,7 +33,7 @@ public class MovieGroupCtrl extends AbstractCtrl {
 			throws ParseException {
 		logger.info("GET " + ApiPath.API_MOVIEGROUP + "?date=" + dateStr);
 		MovieGroupResp result = new MovieGroupResp();
-		Date date = DATE_FORMAT.parse(dateStr);
+		Date date = dateFormat.parse(dateStr);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 
@@ -57,18 +57,20 @@ public class MovieGroupCtrl extends AbstractCtrl {
 		case Calendar.SUNDAY:
 			substractDay = -2;
 			break;
+		default:
+			break;
 		}
 		cal.add(Calendar.DAY_OF_MONTH, substractDay);
-		result.setFirstDayOfWeek(DATE_FORMAT.format(cal.getTime()));
+		result.setFirstDayOfWeek(dateFormat.format(cal.getTime()));
 
-		String groupName = DATE_FORMAT.format(cal.getTime()) + "_";
+		String groupName = dateFormat.format(cal.getTime()) + "_";
 		cal.add(Calendar.DAY_OF_MONTH, 6);
-		groupName = groupName + DATE_FORMAT.format(cal.getTime());
+		groupName = groupName + dateFormat.format(cal.getTime());
 
 		logger.info(" groupName: " + groupName);
 		result.setGroupName(groupName);
 
-		result.setLastDayOfWeek(DATE_FORMAT.format(cal.getTime()));
+		result.setLastDayOfWeek(dateFormat.format(cal.getTime()));
 		result.setAvailable(movieGroupRepo.findByName(groupName) != null);
 		return result;
 	}

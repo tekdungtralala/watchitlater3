@@ -43,7 +43,7 @@ public class AuthenticationCtrl extends AbstractCtrl {
 	private UserHelper userHelper;
 
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_USER_AUTH_ME)
-	public Object me() throws Exception {
+	public Object me() {
 		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
 
 		userHelper.mustHasLoggedUser();
@@ -51,7 +51,7 @@ public class AuthenticationCtrl extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNIN)
-	public void signIn(@RequestBody SignUpInput input) throws Exception {
+	public void signIn(@RequestBody SignUpInput input) {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNIN);
 
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
@@ -75,11 +75,10 @@ public class AuthenticationCtrl extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNOUT)
-	public void signOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void signOut(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNOUT);
-		HttpSession session = request.getSession(false);
 		SecurityContextHolder.clearContext();
-		session = request.getSession(false);
+		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
 		}

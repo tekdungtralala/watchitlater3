@@ -2,6 +2,7 @@ package info.wiwitadityasaputra.movie.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +41,11 @@ public class MovieCtrl extends AbstractCtrl {
 		logger.info("GET " + ApiPath.API_MOVIE + ApiPath.API_MOVIE_RANDOMSIXMOVIES);
 		List<Movie> list = movieRepo.findAll();
 		int max = list.size() - 1;
-		int min = 0;
 
 		List<Movie> results = new ArrayList<Movie>();
 		for (int i = 0; i < 9; i++) {
-			int r = min + (int) (Math.random() * ((max - min) + 1));
+			Random random = new Random();
+			int r = random.nextInt(max);
 			results.add(list.get(r));
 			list.remove(r);
 			max--;

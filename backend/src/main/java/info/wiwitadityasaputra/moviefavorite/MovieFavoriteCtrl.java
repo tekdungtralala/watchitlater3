@@ -1,6 +1,5 @@
 package info.wiwitadityasaputra.moviefavorite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -37,10 +36,7 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 		logger.info("GET " + ApiPath.API_MOVIEFAVORITE);
 		userHelper.mustHasLoggedUser();
 		User user = userHelper.getLoggedUser();
-
-		List<MovieFavorite> result = new ArrayList<MovieFavorite>();
-		result = movieFavRepo.findByUserAndFavorite(user, true);
-		return result;
+		return movieFavRepo.findByUserAndFavorite(user, true);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

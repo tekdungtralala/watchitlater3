@@ -1,5 +1,7 @@
 package info.wiwitadityasaputra.user.api;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +11,13 @@ import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 @Component
 public class UserHelper {
 
+	private Logger logger = LogManager.getLogger(UserHelper.class);
+
 	public User getLoggedUser() {
 		try {
-			User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			return user;
+			return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		} catch (Exception e) {
-
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}

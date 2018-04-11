@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,8 +40,8 @@ public class UpdateMovieSchedule {
 
 	private Logger logger = LogManager.getLogger(UpdateMovieSchedule.class);
 
-	private static String DEFAULT_IMAGE = "java-assets/img_not_found.jpg";
-	private static final DateFormat MOVIE_RELEASED_FORMAT = new SimpleDateFormat("dd MMM yyyy");
+	private static final String DEFAULT_IMAGE = "java-assets/img_not_found.jpg";
+	private final DateFormat movieReleaseFormat = new SimpleDateFormat("dd MMM yyyy");
 	private boolean stillRunnig = false;
 
 	@Value("${com.omdbapi.apikey}")
@@ -62,7 +63,7 @@ public class UpdateMovieSchedule {
 	// 900000 = 15 minute
 	// 3600000 = 60 minute
 	@Scheduled(fixedRateString = "3600000", initialDelay = 1000)
-	public void start() throws Exception {
+	public void start() throws IOException {
 		logger.info("start(), stillRunnig: " + stillRunnig + ", runUpdateMovie: " + runUpdateMovie);
 		if (!stillRunnig && runUpdateMovie) {
 			stillRunnig = true;
@@ -91,17 +92,20 @@ public class UpdateMovieSchedule {
 				JSONObject json = new JSONObject(response);
 				logger.info(response);
 
-				try {
-					movie.setImdbRating(json.getDouble("imdbRating"));
-					movieRepo.save(movie);
-					logger.info("   success update rating");
-				} catch (Exception e) {
-					logger.error("  failed update rating, " + e.getMessage());
-				}
-
+				saveMovie(movie, json);
 			} catch (Exception e) {
 				logger.error("  failed update rating, " + e.getMessage());
 			}
+		}
+	}
+
+	public void saveMovie(Movie movie, JSONObject json) {
+		try {
+			movie.setImdbRating(json.getDouble("imdbRating"));
+			movieRepo.save(movie);
+			logger.info("   success update rating");
+		} catch (Exception e) {
+			logger.error("  failed update rating, " + e.getMessage());
 		}
 	}
 
@@ -120,7 +124,7 @@ public class UpdateMovieSchedule {
 		movieGroupRepo.save(movieGroup);
 	}
 
-	public void processMoviePoster(boolean updateSecondaryImg) throws IOException {
+	private void fillEmptyMoviePoster() {
 		logger.info(" iterate MoviePoster to find Movie by movie_id");
 		for (MoviePoster mp : moviePosterRepo.findAll()) {
 			Movie movie = movieRepo.findByImdbId(mp.getImdbId());
@@ -129,11 +133,15 @@ public class UpdateMovieSchedule {
 				moviePosterRepo.save(mp);
 			}
 		}
+	}
+
+	public void processMoviePoster(boolean updateSecondaryImg) throws IOException {
+		fillEmptyMoviePoster();
 
 		logger.info(" iterate Movie to find empty MoviePoster");
 		for (Movie movie : movieRepo.findAll()) {
 			List<MoviePoster> list = moviePosterRepo.findByMovie(movie);
-			boolean emptyPoster = list == null || list.size() == 0;
+			boolean emptyPoster = list == null || list.isEmpty();
 			boolean secondaryPoster = list != null && list.size() == 1 && !list.get(0).isMain();
 			if (emptyPoster || (secondaryPoster && updateSecondaryImg)) {
 				MoviePoster mp = new MoviePoster();
@@ -204,63 +212,70 @@ public class UpdateMovieSchedule {
 					logger.info("not found");
 					ms.setNotFound(true);
 					movieSearchRepo.save(ms);
-					continue;
+				} else {
+					String imdbId = json.getString("imdbID");
+					Movie findedMovie = movieRepo.findByImdbId(imdbId);
+					if (findedMovie != null) {
+						logger.info("finded movie");
+						ms.setMovie(findedMovie);
+						ms.setImdbId(imdbId);
+						movieSearchRepo.save(ms);
+					} else {
+						logger.info("create/save new movie");
+						Movie movie = new Movie();
+						movie.setTitle(getStringValue(json, "Title"));
+						movie.setImdbId(imdbId);
+						movie.setImdbRating(getDoubleValue(json, "imdbRating", 0.0));
+						movie.setReleased(getDateValue(json, "Released", new Date()));
+						movie.setGenre(getStringValue(json, "Genre"));
+						movie.setYear(getIntValue(json, "Year", 2017));
+						movie.setPlot(getStringValue(json, "Plot"));
+
+						movie.setJson(response);
+						movieRepo.save(movie);
+
+						ms.setMovie(movie);
+						ms.setImdbId(movie.getImdbId());
+						movieSearchRepo.save(ms);
+					}
+
 				}
 
-				String imdbId = json.getString("imdbID");
-				Movie findedMovie = movieRepo.findByImdbId(imdbId);
-				if (findedMovie != null) {
-					logger.info("finded movie");
-					ms.setMovie(findedMovie);
-					ms.setImdbId(imdbId);
-					movieSearchRepo.save(ms);
-					continue;
-				}
-
-				logger.info("create/save new movie");
-				Movie movie = new Movie();
-				movie.setTitle(json.getString("Title"));
-				movie.setImdbId(imdbId);
-
-				try {
-					movie.setImdbRating(json.getDouble("imdbRating"));
-				} catch (Exception e) {
-					movie.setImdbRating(0.0);
-				}
-
-				try {
-					movie.setReleased(MOVIE_RELEASED_FORMAT.parse(json.getString("Released")));
-				} catch (Exception e) {
-					movie.setReleased(new Date());
-				}
-
-				try {
-					movie.setGenre(json.getString("Genre"));
-				} catch (Exception e) {
-					movie.setGenre("");
-				}
-
-				try {
-					movie.setYear(json.getInt("Year"));
-				} catch (Exception e) {
-					movie.setYear(2017);
-				}
-
-				try {
-					movie.setPlot(json.getString("Plot"));
-				} catch (Exception e) {
-					movie.setPlot("");
-				}
-
-				movie.setJson(response);
-				movieRepo.save(movie);
-
-				ms.setMovie(movie);
-				ms.setImdbId(movie.getImdbId());
-				movieSearchRepo.save(ms);
 			} catch (Exception e) {
 				logger.error(ms.getQuery() + ", " + e.getMessage());
 			}
+		}
+	}
+
+	private Date getDateValue(JSONObject json, String key, Date defaultValue) {
+		try {
+			return movieReleaseFormat.parse(json.getString(key));
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
+
+	private double getDoubleValue(JSONObject json, String key, double defaultValue) {
+		try {
+			return json.getDouble(key);
+		} catch (JSONException e) {
+			return defaultValue;
+		}
+	}
+
+	private int getIntValue(JSONObject json, String key, int defaultValue) {
+		try {
+			return json.getInt(key);
+		} catch (JSONException e) {
+			return defaultValue;
+		}
+	}
+
+	private String getStringValue(JSONObject json, String key) {
+		try {
+			return json.getString(key);
+		} catch (JSONException e) {
+			return "";
 		}
 	}
 

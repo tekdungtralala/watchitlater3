@@ -3,8 +3,6 @@ package info.wiwitadityasaputra.user.api;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -27,14 +25,13 @@ import info.wiwitadityasaputra.util.api.ApiPath;
 @RequestMapping(value = ApiPath.API_USER_PROFILEPICTURE)
 public class UserProfilePictureCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(UserProfilePictureCtrl.class);
-	private static String DEFAULT_IMAGE = "default-avatar.png";
+	private static final String DEFAULT_IMAGE = "default-avatar.png";
 
 	@Autowired
 	private UserRepository userRepo;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{userId}")
-	public ResponseEntity<byte[]> getPPByUserId(@PathVariable("userId") String userId) throws Exception {
+	public ResponseEntity<byte[]> getPPByUserId(@PathVariable("userId") String userId) throws IOException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 

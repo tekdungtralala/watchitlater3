@@ -13,6 +13,10 @@
 		<version>1.5.7.RELEASE</version>
 	</parent>
 
+	<properties>
+		<sonar.language>java</sonar.language>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
