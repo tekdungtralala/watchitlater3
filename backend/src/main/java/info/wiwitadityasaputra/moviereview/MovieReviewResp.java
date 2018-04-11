@@ -1,6 +1,5 @@
 package info.wiwitadityasaputra.moviereview;
 
-import java.util.Date;
 import org.springframework.util.StringUtils;
 
 import info.wiwitadityasaputra.movie.Movie;
@@ -14,13 +13,6 @@ public class MovieReviewResp {
 
 	private Integer movieId;
 	private String title;
-	private String imdbId;
-	private Double imdbRating;
-	private Date released;
-	private String genre;
-	private int year;
-	private String plot;
-	private String json;
 
 	private String userId;
 	private String initial;
@@ -37,13 +29,6 @@ public class MovieReviewResp {
 		Movie m = mr.getMovie();
 		o.setMovieId(m.getId());
 		o.setTitle(m.getTitle());
-		o.setImdbId(m.getImdbId());
-		o.setImdbRating(m.getImdbRating());
-		o.setReleased(m.getReleased());
-		o.setGenre(m.getGenre());
-		o.setYear(m.getYear());
-		o.setPlot(m.getPlot());
-		o.setJson(m.getJson());
 
 		User u = mr.getUser();
 		o.setUserId(u.getUserId());
@@ -89,62 +74,6 @@ public class MovieReviewResp {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getImdbId() {
-		return imdbId;
-	}
-
-	public void setImdbId(String imdbId) {
-		this.imdbId = imdbId;
-	}
-
-	public Double getImdbRating() {
-		return imdbRating;
-	}
-
-	public void setImdbRating(Double imdbRating) {
-		this.imdbRating = imdbRating;
-	}
-
-	public Date getReleased() {
-		return released;
-	}
-
-	public void setReleased(Date released) {
-		this.released = released;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public String getPlot() {
-		return plot;
-	}
-
-	public void setPlot(String plot) {
-		this.plot = plot;
-	}
-
-	public String getJson() {
-		return json;
-	}
-
-	public void setJson(String json) {
-		this.json = json;
 	}
 
 	public String getUserId() {
