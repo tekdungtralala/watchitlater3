@@ -1,6 +1,6 @@
 package info.wiwitadityasaputra.user.api;
 
-public class UserInput {
+public class UserReq {
 
 	private String initial;
 	private String base64ProfilePicture;

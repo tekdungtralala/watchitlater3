@@ -17,7 +17,6 @@ import info.wiwitadityasaputra.movie.Movie;
 import info.wiwitadityasaputra.movie.MovieRepository;
 import info.wiwitadityasaputra.user.api.UserHelper;
 import info.wiwitadityasaputra.user.entity.User;
-import info.wiwitadityasaputra.user.entity.UserRepository;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
@@ -34,12 +33,10 @@ public class MovieReviewCtrl extends AbstractCtrl {
 	@Autowired
 	private MovieRepository movieRepo;
 	@Autowired
-	private UserRepository userRepo;
-	@Autowired
 	private UserHelper userHelper;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{movieId}/me")
-	public MovieReviewOutput getOwnReview(@PathVariable("movieId") int movieId) {
+	public MovieReviewResp getOwnReview(@PathVariable("movieId") int movieId) {
 		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "/" + movieId + "/me");
 		userHelper.mustHasLoggedUser();
 
@@ -47,27 +44,27 @@ public class MovieReviewCtrl extends AbstractCtrl {
 		User loggedUser = userHelper.getLoggedUser();
 
 		MovieReview mr = movieReviewRepo.findByUserAndMovieAndLatest(loggedUser, movie, true);
-		return MovieReviewOutput.toOutput(mr);
+		return MovieReviewResp.toOutput(mr);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<MovieReviewOutput> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
+	public List<MovieReviewResp> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
 			@RequestParam(value = "movieId", required = true) int movieId) throws InterruptedException {
 		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "?offset=" + offset + "&movieId=" + movieId);
 
 		List<MovieReview> list = movieReviewRepo.findByMovieId(movieId, MOVIEREVIEW_LIMIT, offset);
-		List<MovieReviewOutput> result = new ArrayList<MovieReviewOutput>();
+		List<MovieReviewResp> result = new ArrayList<MovieReviewResp>();
 		for (MovieReview mr : list) {
-			result.add(MovieReviewOutput.toOutput(mr));
+			result.add(MovieReviewResp.toOutput(mr));
 		}
 		return result;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void createMovieReview(@RequestBody MovieReviewInput input) {
+	public void createMovieReview(@RequestBody MovieReviewReq input) {
 		logger.info("POST " + ApiPath.API_MOVIEREVIEW);
-		logger.info(" movieId = " + input.getMovieId());
-		logger.info(" review = " + input.getReview());
+		logger.info("movieId = " + input.getMovieId());
+		logger.info("review = " + input.getReview());
 
 		userHelper.mustHasLoggedUser();
 
@@ -79,11 +76,9 @@ public class MovieReviewCtrl extends AbstractCtrl {
 		if (mr != null) {
 			mr.setLatest(false);
 			movieReviewRepo.save(mr);
-			newMR.setPoint(mr.getPoint());
-		} else {
-			newMR.setPoint(0);
 		}
 
+		newMR.setPoint(mr != null ? mr.getPoint() : 0);
 		newMR.setLatest(true);
 		newMR.setReview(input.getReview());
 		newMR.setUser(loggedUser);

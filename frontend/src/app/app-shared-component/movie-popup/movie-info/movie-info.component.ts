@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as _ from 'lodash'
 
-import {MovieFavoriteInput, MovieModel} from '../../../app-util/server.model';
+import {MovieFavoriteReq, MovieModel} from '../../../app-util/server.model';
 import {ServerService} from '../../../app-util/server.service';
 import {AppScope} from '../../../app.scope.service';
 import {DashboardScope} from '../../../views/dashboard/dashboard.scope.service';
@@ -73,7 +73,7 @@ export class MovieInfoComponent implements OnInit {
 
   toggleFavorite(): void {
     this.isFavorite = !this.isFavorite;
-    const data: MovieFavoriteInput = {movieId: this.movie.id, favorite: this.isFavorite};
+    const data: MovieFavoriteReq = {movieId: this.movie.id, favorite: this.isFavorite};
     this.serverService.updateMovieFavorite(data);
 
     if (this.isFavorite) {

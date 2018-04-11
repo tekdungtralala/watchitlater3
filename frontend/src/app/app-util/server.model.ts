@@ -1,4 +1,4 @@
-export class MovieFavoriteInput {
+export class MovieFavoriteReq {
   movieId: number;
   favorite: boolean;
 }
@@ -15,7 +15,7 @@ export class SignInModel {
   password: string;
 }
 
-export class UserInput {
+export class UserReq {
   initial?: string;
   base64ProfilePicture?: string;
   fileType?: string;
@@ -99,7 +99,7 @@ export class MovieReviewRequest {
   review: string;
 }
 
-export class MovieReviewOutput extends MovieModel {
+export class MovieReviewResp extends MovieModel {
   id: number;
   review: string;
   point: number;

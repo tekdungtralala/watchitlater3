@@ -33,9 +33,9 @@ import info.wiwitadityasaputra.util.api.exception.ConflictException;
 import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 
 @RestController
-public class AuthController extends AbstractCtrl {
+public class AuthenticationCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(AuthController.class);
+	private Logger logger = LogManager.getLogger(AuthenticationCtrl.class);
 
 	@Autowired
 	private UserRepository userRepo;
@@ -47,7 +47,6 @@ public class AuthController extends AbstractCtrl {
 		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
 
 		userHelper.mustHasLoggedUser();
-
 		return userHelper.getLoggedUser();
 	}
 

@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import * as _ from 'lodash';
 
 import {ServerService} from '../../../app-util/server.service';
-import {MovieModel, MovieReviewOutput} from '../../../app-util/server.model';
+import {MovieModel, MovieReviewResp} from '../../../app-util/server.model';
 import {MovieReviewEventEmiter} from '../../../app-util/fe.model';
 import {AppScope} from '../../../app.scope.service';
 
@@ -21,9 +21,9 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   @Output() toggleShowReviewOutput: EventEmitter<MovieReviewEventEmiter> = new EventEmitter();
   private static MOVIEREVIEW_LIMIT: number = 3;
   private offset: number = 0;
-  listData: MovieReviewOutput[] = [];
+  listData: MovieReviewResp[] = [];
   isHideLoadMore: boolean;
-  myReview: MovieReviewOutput;
+  myReview: MovieReviewResp;
   isEditOwnReview: boolean;
   invalidReview: boolean;
 
@@ -31,7 +31,7 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
               private serverService: ServerService,
               private router: Router,
               private activeModal: NgbActiveModal) {
-    this.myReview = new MovieReviewOutput();
+    this.myReview = new MovieReviewResp();
   }
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
   }
 
   loadReview(): void {
-    this.serverService.getMovieReview(this.movie.id, this.offset).subscribe((results: MovieReviewOutput[]) => {
+    this.serverService.getMovieReview(this.movie.id, this.offset).subscribe((results: MovieReviewResp[]) => {
       this.offset = this.offset + MovieReviewComponent.MOVIEREVIEW_LIMIT;
       this.isHideLoadMore = results.length < MovieReviewComponent.MOVIEREVIEW_LIMIT;
       _.forEach(results, (m) => {
@@ -58,13 +58,13 @@ export class MovieReviewComponent implements OnInit, AfterContentInit {
       });
     });
 
-    this.serverService.getOwnMovieReview(this.movie.id).subscribe((result: MovieReviewOutput) => {
+    this.serverService.getOwnMovieReview(this.movie.id).subscribe((result: MovieReviewResp) => {
       this.myReview = result;
       this.isEditOwnReview = this.myReview.id === 0;
     });
   }
 
-  updatePoint(point: number, movie: MovieReviewOutput): void {
+  updatePoint(point: number, movie: MovieReviewResp): void {
     if (!this.rootScope.getUser()) {
       _.forEach(this.listData, (m) => m.isHideSigninBtn = true);
       movie.isHideSigninBtn = false;

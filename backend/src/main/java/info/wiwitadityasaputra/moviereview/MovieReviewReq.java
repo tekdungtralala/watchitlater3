@@ -1,6 +1,6 @@
 package info.wiwitadityasaputra.moviereview;
 
-public class MovieReviewInput {
+public class MovieReviewReq {
 
 	private int movieId;
 	private String review;

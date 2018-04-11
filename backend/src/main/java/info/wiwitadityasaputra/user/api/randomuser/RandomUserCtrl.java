@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.user.api.randomUser;
+package info.wiwitadityasaputra.user.api.randomuser;
 
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;

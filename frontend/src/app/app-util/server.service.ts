@@ -5,8 +5,8 @@ import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 
 import {
-  MovieFavoriteInput, MovieFavoriteModel, MovieGroupNameModel, MovieModel, MovieReviewOutput, MovieReviewRequest,
-  SignInModel, UserInput,
+  MovieFavoriteReq, MovieFavoriteModel, MovieGroupNameModel, MovieModel, MovieReviewResp, MovieReviewRequest,
+  SignInModel, UserReq,
   UserModel
 } from './server.model';
 import {environment} from '../../environments/environment';
@@ -18,17 +18,17 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getOwnMovieReview(movieId: number): Observable<MovieReviewOutput> {
+  getOwnMovieReview(movieId: number): Observable<MovieReviewResp> {
     const url: string = this.domain + '/api/movie-review/' + movieId + '/me';
-    return this.httpClient.get<MovieReviewOutput>(url, {withCredentials: true});
+    return this.httpClient.get<MovieReviewResp>(url, {withCredentials: true});
   }
 
-  getMovieReview(movieId: number, offset: number): Observable<MovieReviewOutput[]> {
+  getMovieReview(movieId: number, offset: number): Observable<MovieReviewResp[]> {
     let qp: string = '?';
     qp += '&offset=' + offset;
     qp += '&movieId=' + movieId;
     const url: string = this.domain + '/api/movie-review' + qp;
-    return this.httpClient.get<MovieReviewOutput[]>(url, {withCredentials: true});
+    return this.httpClient.get<MovieReviewResp[]>(url, {withCredentials: true});
   }
 
   postMovieReview(review: string, movieId: number): Observable<any> {
@@ -44,7 +44,7 @@ export class ServerService {
     return this.domain;
   }
 
-  updateMovieFavorite(data: MovieFavoriteInput): void {
+  updateMovieFavorite(data: MovieFavoriteReq): void {
     const url: string = this.domain + '/api/movie-favorite';
     this.httpClient.post<MovieModel[]>(url, data, {withCredentials: true}).subscribe();
   }
@@ -100,7 +100,7 @@ export class ServerService {
     return this.httpClient.get(url, {withCredentials: true});
   }
 
-  editUser(data: UserInput) {
+  editUser(data: UserReq) {
     const url: string = this.domain + '/api/user';
     return this.httpClient.put(url, data, {withCredentials: true});
   }

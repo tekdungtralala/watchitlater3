@@ -29,7 +29,7 @@ public class UserCtrl extends AbstractCtrl {
 	private UserHelper userHelper;
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public void editUser(@RequestBody UserInput userInput) {
+	public void editUser(@RequestBody UserReq userInput) {
 		logger.info("PUT " + ApiPath.API_USER);
 		userHelper.mustHasLoggedUser();
 

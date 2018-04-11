@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
+import info.wiwitadityasaputra.moviefavorite.MovieFavorite;
 import info.wiwitadityasaputra.movieposter.MoviePoster;
 import info.wiwitadityasaputra.moviereview.MovieReview;
 import info.wiwitadityasaputra.moviesearch.MovieSearch;

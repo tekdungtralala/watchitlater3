@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import info.wiwitadityasaputra.movie.Movie;
-import info.wiwitadityasaputra.movie.MovieIdsInput;
+import info.wiwitadityasaputra.movie.MovieIdsReq;
 import info.wiwitadityasaputra.movie.MovieService;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
@@ -30,7 +30,7 @@ public class MovieByMovieIdsCtrl extends AbstractCtrl {
 	private MovieService movieService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public List<Movie> getMovieByIds(@RequestBody @Valid MovieIdsInput data) throws JSONException {
+	public List<Movie> getMovieByIds(@RequestBody @Valid MovieIdsReq data) throws JSONException {
 		logger.info("GET " + ApiPath.API_MOVIE_BYMOVIEIDS);
 		logger.info("  movieIds size = " + data.getMovieIds().length);
 

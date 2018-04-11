@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.movieFavorite;
+package info.wiwitadityasaputra.moviefavorite;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.movieFavorite;
+package info.wiwitadityasaputra.moviefavorite;
 
 import java.util.List;
 

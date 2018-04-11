@@ -1,6 +1,6 @@
 package info.wiwitadityasaputra.movie;
 
-public class MovieIdsInput {
+public class MovieIdsReq {
 
 	private int[] movieIds;
 

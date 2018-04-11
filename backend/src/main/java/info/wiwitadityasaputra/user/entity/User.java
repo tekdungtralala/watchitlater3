@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import info.wiwitadityasaputra.movieFavorite.MovieFavorite;
+import info.wiwitadityasaputra.moviefavorite.MovieFavorite;
 import info.wiwitadityasaputra.moviereview.MovieReview;
 import info.wiwitadityasaputra.util.AbstractEntity;
 

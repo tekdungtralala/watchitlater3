@@ -1,6 +1,6 @@
-package info.wiwitadityasaputra.movieFavorite;
+package info.wiwitadityasaputra.moviefavorite;
 
-public class MovieFavoriteInput {
+public class MovieFavoriteReq {
 
 	private int movieId;
 	private boolean favorite;

@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 import info.wiwitadityasaputra.movie.Movie;
 import info.wiwitadityasaputra.user.entity.User;
 
-public class MovieReviewOutput {
+public class MovieReviewResp {
 
 	private int id;
 	private String review;
@@ -25,8 +25,8 @@ public class MovieReviewOutput {
 	private String userId;
 	private String initial;
 
-	public static MovieReviewOutput toOutput(MovieReview mr) {
-		MovieReviewOutput o = new MovieReviewOutput();
+	public static MovieReviewResp toOutput(MovieReview mr) {
+		MovieReviewResp o = new MovieReviewResp();
 		if (mr == null)
 			return o;
 

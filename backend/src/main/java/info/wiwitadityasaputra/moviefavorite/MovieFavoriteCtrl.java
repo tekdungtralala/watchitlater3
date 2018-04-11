@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.movieFavorite;
+package info.wiwitadityasaputra.moviefavorite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void postMovieFavorite(@RequestBody MovieFavoriteInput data) {
+	public void postMovieFavorite(@RequestBody MovieFavoriteReq data) {
 		logger.info("POST " + ApiPath.API_MOVIEFAVORITE);
 		logger.info("  movieId = " + data.getMovieId() + ",  isFavorite = " + data.isFavorite());
 		userHelper.mustHasLoggedUser();
