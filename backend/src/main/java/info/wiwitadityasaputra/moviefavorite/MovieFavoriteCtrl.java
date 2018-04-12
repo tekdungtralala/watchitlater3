@@ -2,8 +2,6 @@ package info.wiwitadityasaputra.moviefavorite;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +20,6 @@ import info.wiwitadityasaputra.util.api.exception.NotFoundException;
 @RequestMapping(value = ApiPath.API_MOVIEFAVORITE)
 public class MovieFavoriteCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(MovieFavoriteCtrl.class);
-
 	@Autowired
 	private MovieFavoriteRepository movieFavRepo;
 	@Autowired
@@ -33,7 +29,6 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieFavorite> getMovieFavorites() {
-		logger.info("GET " + ApiPath.API_MOVIEFAVORITE);
 		userHelper.mustHasLoggedUser();
 		User user = userHelper.getLoggedUser();
 		return movieFavRepo.findByUserAndFavorite(user, true);
@@ -41,8 +36,6 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void postMovieFavorite(@RequestBody MovieFavoriteReq data) {
-		logger.info("POST " + ApiPath.API_MOVIEFAVORITE);
-		logger.info("  movieId = " + data.getMovieId() + ",  isFavorite = " + data.isFavorite());
 		userHelper.mustHasLoggedUser();
 		User user = userHelper.getLoggedUser();
 		Movie movie = movieRepo.findOne(data.getMovieId());
@@ -58,6 +51,5 @@ public class MovieFavoriteCtrl extends AbstractCtrl {
 		mf.setFavorite(data.isFavorite());
 		mf.setPosition(0);
 		movieFavRepo.save(mf);
-		logger.info("  id = " + mf.getId());
 	}
 }

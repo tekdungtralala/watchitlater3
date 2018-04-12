@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,11 +32,11 @@ import info.wiwitadityasaputra.movieposter.MoviePoster;
 import info.wiwitadityasaputra.movieposter.MoviePosterRepository;
 import info.wiwitadityasaputra.moviesearch.MovieSearch;
 import info.wiwitadityasaputra.moviesearch.MovieSearchRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class UpdateMovieSchedule {
-
-	private Logger logger = LogManager.getLogger(UpdateMovieSchedule.class);
 
 	private static final String DEFAULT_IMAGE = "java-assets/img_not_found.jpg";
 	private final DateFormat movieReleaseFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -64,7 +62,7 @@ public class UpdateMovieSchedule {
 	// 3600000 = 60 minute
 	@Scheduled(fixedRateString = "3600000", initialDelay = 1000)
 	public void start() throws IOException {
-		logger.info("start(), stillRunnig: " + stillRunnig + ", runUpdateMovie: " + runUpdateMovie);
+		log.info("start(), stillRunnig: {}, runUpdateMovie: {}", stillRunnig, runUpdateMovie);
 		if (!stillRunnig && runUpdateMovie) {
 			stillRunnig = true;
 
@@ -73,28 +71,28 @@ public class UpdateMovieSchedule {
 			updateTop100Movies();
 			updateRatingMovie();
 
-			logger.info(" end");
+			log.info(" end");
 			stillRunnig = false;
 		}
 	}
 
 	public void updateRatingMovie() {
-		logger.info(" update rating movie");
+		log.info(" update rating movie");
 		List<Movie> listMovie = movieRepo.findEmptyRatingMovies();
-		logger.info("  listMovie.size() = " + listMovie.size());
+		log.info("  listMovie.size() = {}", listMovie.size());
 		for (Movie movie : listMovie) {
 			try {
 				String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId() + "&plot=full";
-				logger.info("url: " + url);
+				log.info("url: {}", url);
 
 				RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
 				String response = restTemplate.getForObject(url, String.class);
 				JSONObject json = new JSONObject(response);
-				logger.info(response);
+				log.info(response);
 
 				saveMovie(movie, json);
 			} catch (Exception e) {
-				logger.error("  failed update rating, " + e.getMessage());
+				log.error("  failed update rating, " + e.getMessage());
 			}
 		}
 	}
@@ -103,14 +101,14 @@ public class UpdateMovieSchedule {
 		try {
 			movie.setImdbRating(json.getDouble("imdbRating"));
 			movieRepo.save(movie);
-			logger.info("   success update rating");
+			log.info("   success update rating");
 		} catch (Exception e) {
-			logger.error("  failed update rating, " + e.getMessage());
+			log.error("  failed update rating {} ",  e.getMessage(), e);
 		}
 	}
 
 	public void updateTop100Movies() {
-		logger.info(" update top 100");
+		log.info(" update top 100");
 		MovieGroup movieGroup = movieGroupRepo.findByName(MovieGroupName.TOP_100.toString());
 		if (movieGroup == null) {
 			movieGroup = new MovieGroup();
@@ -125,7 +123,7 @@ public class UpdateMovieSchedule {
 	}
 
 	private void fillEmptyMoviePoster() {
-		logger.info(" iterate MoviePoster to find Movie by movie_id");
+		log.info(" iterate MoviePoster to find Movie by movie_id");
 		for (MoviePoster mp : moviePosterRepo.findAll()) {
 			Movie movie = movieRepo.findByImdbId(mp.getImdbId());
 			if (movie != null) {
@@ -138,7 +136,7 @@ public class UpdateMovieSchedule {
 	public void processMoviePoster(boolean updateSecondaryImg) throws IOException {
 		fillEmptyMoviePoster();
 
-		logger.info(" iterate Movie to find empty MoviePoster");
+		log.info(" iterate Movie to find empty MoviePoster");
 		for (Movie movie : movieRepo.findAll()) {
 			List<MoviePoster> list = moviePosterRepo.findByMovie(movie);
 			boolean emptyPoster = list == null || list.isEmpty();
@@ -149,10 +147,10 @@ public class UpdateMovieSchedule {
 				mp.setImdbId(movie.getImdbId());
 
 				try {
-					logger.info("fetch poster movie: " + movie.getImdbId());
+					log.info("fetch poster movie: " + movie.getImdbId());
 
 					String url = "http://img.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId();
-					logger.info("url: " + url);
+					log.info("url: " + url);
 
 					RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
 					ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, null, byte[].class);
@@ -172,7 +170,7 @@ public class UpdateMovieSchedule {
 						moviePosterRepo.save(mp);
 					}
 
-					logger.error(movie.getImdbId() + ", " + e.getMessage());
+					log.error(movie.getImdbId() + ", " + e.getMessage());
 				}
 
 			}
@@ -181,7 +179,7 @@ public class UpdateMovieSchedule {
 
 	public void processMovieSearch() {
 		List<MovieSearch> listMovieSearch = movieSearchRepo.findByEmptyMovie();
-		logger.info(" listMovieSearch.length: " + listMovieSearch.size());
+		log.info(" listMovieSearch.length: " + listMovieSearch.size());
 		for (MovieSearch ms : listMovieSearch) {
 			boolean finded = false;
 			if (ms.getImdbId() != null) {
@@ -193,35 +191,35 @@ public class UpdateMovieSchedule {
 			if (finded)
 				continue;
 			try {
-				logger.info(ms.getId() + " - " + ms.getQuery());
+				log.info(ms.getId() + " - " + ms.getQuery());
 
 				ms.setQuery(ms.getQuery().trim());
 
 				String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + ms.getQuery().trim();
-				logger.info("url: " + url);
+				log.info("search movie url {}", url);
 
 				RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
 				String response = restTemplate.getForObject(url, String.class);
 				JSONObject json = new JSONObject(response);
-				logger.info(response);
+				log.info(response);
 
 				boolean hasResponseField = response.indexOf("Response") > -1;
 				boolean hasFalseValue = response.indexOf("False") > -1;
 
 				if (hasResponseField && hasFalseValue) {
-					logger.info("not found");
+					log.info("not found");
 					ms.setNotFound(true);
 					movieSearchRepo.save(ms);
 				} else {
 					String imdbId = json.getString("imdbID");
 					Movie findedMovie = movieRepo.findByImdbId(imdbId);
 					if (findedMovie != null) {
-						logger.info("finded movie");
+						log.info("finded movie");
 						ms.setMovie(findedMovie);
 						ms.setImdbId(imdbId);
 						movieSearchRepo.save(ms);
 					} else {
-						logger.info("create/save new movie");
+						log.info("create/save new movie");
 						Movie movie = new Movie();
 						movie.setTitle(getStringValue(json, "Title"));
 						movie.setImdbId(imdbId);
@@ -238,11 +236,10 @@ public class UpdateMovieSchedule {
 						ms.setImdbId(movie.getImdbId());
 						movieSearchRepo.save(ms);
 					}
-
 				}
 
 			} catch (Exception e) {
-				logger.error(ms.getQuery() + ", " + e.getMessage());
+				log.error(ms.getQuery() + ", " + e.getMessage());
 			}
 		}
 	}

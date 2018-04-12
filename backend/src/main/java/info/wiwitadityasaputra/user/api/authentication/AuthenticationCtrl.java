@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,8 +33,6 @@ import info.wiwitadityasaputra.util.api.exception.ForbiddenException;
 @RestController
 public class AuthenticationCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(AuthenticationCtrl.class);
-
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
@@ -44,23 +40,18 @@ public class AuthenticationCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_USER_AUTH_ME)
 	public Object me() {
-		logger.info("GET " + ApiPath.API_USER_AUTH_ME);
-
 		userHelper.mustHasLoggedUser();
 		return userHelper.getLoggedUser();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNIN)
 	public void signIn(@RequestBody SignUpInput input) {
-		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNIN);
-
 		User user = userRepo.findByEmailAndPassword(input.getEmail(), input.getPassword());
 		if (user == null) {
 			throw new ForbiddenException("Cant find user by email & password above.");
 		}
 
 		if (!user.getPassword().equals(input.getPassword())) {
-			logger.info("  cant find user by email & password");
 			throw new ForbiddenException("Cant find user by email & password above.");
 		}
 
@@ -71,12 +62,10 @@ public class AuthenticationCtrl extends AbstractCtrl {
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		context.setAuthentication(auth);
 		SecurityContextHolder.setContext(context);
-		logger.info("success login, create auth");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNOUT)
 	public void signOut(HttpServletRequest request, HttpServletResponse response) {
-		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNOUT);
 		SecurityContextHolder.clearContext();
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -89,8 +78,6 @@ public class AuthenticationCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNUP)
 	public void signUp(@RequestBody NewUserInput input) {
-		logger.info("POST " + ApiPath.API_USER_AUTH_SIGNUP);
-
 		if (!input.getPassword().equals(input.getRePassword())) {
 			throw new BadRequestException("password not same");
 		}
@@ -106,7 +93,6 @@ public class AuthenticationCtrl extends AbstractCtrl {
 			newUser.setFullName(input.getFullName());
 			newUser.setInitial(null);
 			userRepo.save(newUser);
-			logger.info("  new user created");
 		}
 	}
 }

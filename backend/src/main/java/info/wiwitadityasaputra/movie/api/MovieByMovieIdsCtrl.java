@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +22,15 @@ import info.wiwitadityasaputra.util.api.ApiPath;
 @RequestMapping(value = ApiPath.API_MOVIE_BYMOVIEIDS)
 public class MovieByMovieIdsCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(MovieByMovieIdsCtrl.class);
-
 	@Autowired
 	private MovieService movieService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public List<Movie> getMovieByIds(@RequestBody @Valid MovieIdsReq data) throws JSONException {
-		logger.info("GET " + ApiPath.API_MOVIE_BYMOVIEIDS);
-		logger.info("  movieIds size = " + data.getMovieIds().length);
-
 		JSONArray movieIds = new JSONArray();
 		for (int movieId : data.getMovieIds()) {
 			movieIds.put(movieId);
 		}
-
-		List<Movie> result = movieService.findMovieByIds(movieIds);
-		logger.info("  movie size = " + result.size());
-		return result;
+		return movieService.findMovieByIds(movieIds);
 	}
 }

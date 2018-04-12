@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,6 @@ import info.wiwitadityasaputra.util.api.ApiPath;
 @RequestMapping(value = ApiPath.API_MOVIE)
 public class MovieCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(MovieCtrl.class);
-
 	@Autowired
 	private MovieRepository movieRepo;
 	@Autowired
@@ -38,7 +34,6 @@ public class MovieCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_MOVIE_RANDOMSIXMOVIES)
 	public List<Movie> getRandom9Movies() {
-		logger.info("GET " + ApiPath.API_MOVIE + ApiPath.API_MOVIE_RANDOMSIXMOVIES);
 		List<Movie> list = movieRepo.findAll();
 		int max = list.size() - 1;
 
@@ -56,7 +51,6 @@ public class MovieCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = ApiPath.API_MOVIE_TOP100MOVIES)
 	public List<Movie> getTop100Movies() throws JSONException {
-		logger.info("GET " + ApiPath.API_MOVIE + ApiPath.API_MOVIE_TOP100MOVIES);
 		MovieGroup mg = movieGroupRepo.findByName(MovieGroupName.TOP_100.toString());
 		JSONArray movieIds = new JSONArray(mg.getMovieIds());
 		return movieService.findMovieByIds(movieIds);

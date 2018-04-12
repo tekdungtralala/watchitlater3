@@ -3,8 +3,6 @@ package info.wiwitadityasaputra.user.api.randomuser;
 import info.wiwitadityasaputra.util.api.AbstractCtrl;
 import info.wiwitadityasaputra.util.api.ApiPath;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +15,8 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping(value = ApiPath.API_USER_RANDOM)
 public class RandomUserCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(RandomUserCtrl.class);
-
 	@RequestMapping(method = RequestMethod.GET)
 	public RandomUserOutput getRandomUser() throws JSONException {
-		logger.info("GET " + ApiPath.API_USER_RANDOM);
-
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "https://randomuser.me/api";
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);

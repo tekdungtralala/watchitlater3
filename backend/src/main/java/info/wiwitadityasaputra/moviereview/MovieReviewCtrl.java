@@ -3,8 +3,6 @@ package info.wiwitadityasaputra.moviereview;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +22,6 @@ import info.wiwitadityasaputra.util.api.ApiPath;
 @RequestMapping(value = ApiPath.API_MOVIEREVIEW)
 public class MovieReviewCtrl extends AbstractCtrl {
 
-	private Logger logger = LogManager.getLogger(MovieReviewCtrl.class);
-
 	private static final int MOVIEREVIEW_LIMIT = 3;
 
 	@Autowired
@@ -37,7 +33,6 @@ public class MovieReviewCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{movieId}/me")
 	public MovieReviewResp getOwnReview(@PathVariable("movieId") int movieId) {
-		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "/" + movieId + "/me");
 		userHelper.mustHasLoggedUser();
 
 		Movie movie = movieRepo.findOne(movieId);
@@ -50,7 +45,6 @@ public class MovieReviewCtrl extends AbstractCtrl {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<MovieReviewResp> getMovieReview(@RequestParam(value = "offset", required = true) int offset,
 			@RequestParam(value = "movieId", required = true) int movieId) {
-		logger.info("GET " + ApiPath.API_MOVIEREVIEW + "?offset=" + offset + "&movieId=" + movieId);
 
 		List<MovieReview> list = movieReviewRepo.findByMovieId(movieId, MOVIEREVIEW_LIMIT, offset);
 		List<MovieReviewResp> result = new ArrayList<MovieReviewResp>();
@@ -62,10 +56,6 @@ public class MovieReviewCtrl extends AbstractCtrl {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void createMovieReview(@RequestBody MovieReviewReq input) {
-		logger.info("POST " + ApiPath.API_MOVIEREVIEW);
-		logger.info("movieId = " + input.getMovieId());
-		logger.info("review = " + input.getReview());
-
 		userHelper.mustHasLoggedUser();
 
 		User loggedUser = userHelper.getLoggedUser();
