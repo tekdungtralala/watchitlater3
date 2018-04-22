@@ -6,12 +6,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
-public class AbstractEntity {
+public class AbstractEntityTest {
 	protected final static String str = "str";
 	protected final static Double dbl = 1d;
 	protected final static int integer = 1;
 	protected final static Date date = new Date();
 	protected final static Set set = Collections.EMPTY_SET;
+	protected final static boolean bol = true;
 
 	protected void assertString(String value) {
 		assertEquals(this.str, value);
@@ -31,5 +32,9 @@ public class AbstractEntity {
 
 	protected void assertSet(Set value) {
 		assertEquals(this.set, value);
+	}
+	
+	protected void assertBoolean(boolean value) {
+		assertEquals(this.bol, value);
 	}
 }

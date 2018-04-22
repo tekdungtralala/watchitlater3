@@ -2,9 +2,9 @@ package info.wiwitadityasaputra.movie;
 
 import org.junit.Test;
 
-import info.wiwitadityasaputra.test.utility.AbstractEntity;
+import info.wiwitadityasaputra.test.utility.AbstractEntityTest;
 
-public class MovieTest extends AbstractEntity {
+public class MovieTest extends AbstractEntityTest {
 
 	@Test
 	public void testGettersSetters() {
