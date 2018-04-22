@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
+import org.junit.Test;
+
+import info.wiwitadityasaputra.util.AbstractEntity;
+
 public class AbstractEntityTest {
 	protected final static String str = "str";
 	protected final static Double dbl = 1d;
@@ -33,8 +37,14 @@ public class AbstractEntityTest {
 	protected void assertSet(Set value) {
 		assertEquals(this.set, value);
 	}
-	
+
 	protected void assertBoolean(boolean value) {
 		assertEquals(this.bol, value);
+	}
+
+	@Test
+	public void simpletest() {
+		AbstractEntity a = new AbstractEntity() {
+		};
 	}
 }

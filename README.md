@@ -4,3 +4,4 @@ $ mvn install -DskipTests=true
 $ mvn install -Plocal -DskipTests=true
 $ mvn install -Pdev -DskipTests=true
 $ java -jar backend/target/watchitlater-backend-1.0-SNAPSHOT.jar
+$ mvn -Dtest=MovieHelperTest#fetchMovieByGroupName test

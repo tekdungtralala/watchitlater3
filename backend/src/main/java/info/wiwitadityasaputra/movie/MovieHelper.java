@@ -16,7 +16,7 @@ import info.wiwitadityasaputra.moviesearch.MovieSearchRepository;
 
 @Component
 public class MovieHelper {
-	
+
 	@Autowired
 	private MovieSearchRepository movieSearchRepo;
 
@@ -40,7 +40,7 @@ public class MovieHelper {
 		}
 		return listMovieSearch;
 	}
-	
+
 	private String getMovieTitle(Element e) {
 		String title = e.html();
 		int ob = title.indexOf('(');
