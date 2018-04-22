@@ -39,6 +39,8 @@ public class MovieCtrl extends AbstractCtrl {
 
 		List<Movie> results = new ArrayList<Movie>();
 		for (int i = 0; i < 9; i++) {
+			if (max <=0) break;
+			
 			Random random = new Random();
 			int r = random.nextInt(max);
 			results.add(list.get(r));

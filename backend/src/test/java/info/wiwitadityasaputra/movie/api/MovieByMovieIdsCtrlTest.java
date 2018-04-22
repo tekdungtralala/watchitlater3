@@ -55,7 +55,6 @@ public class MovieByMovieIdsCtrlTest {
 						content(new ObjectMapper().writeValueAsString(input))
 				).
 				andReturn();
-
 		assertEquals(HttpStatus.OK.value(), response.getResponse().getStatus());
 	}
 }
