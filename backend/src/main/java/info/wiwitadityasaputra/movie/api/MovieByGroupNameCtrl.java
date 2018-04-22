@@ -39,7 +39,6 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 	private MovieSearchRepository movieSearchRepo;
 	@Autowired
 	private UpdateMovieSchedule updateMovieSchedule;
-
 	@Autowired
 	private MovieService movieService;
 

@@ -48,10 +48,13 @@ public class MovieByMovieIdsCtrlTest {
 		List<Movie> movies = new ArrayList<Movie>();
 
 		given(movieService.findMovieByIds(movieIds)).willReturn(movies);
-		MvcResult response = mockMvc
-				.perform(post(ApiPath.API_MOVIE_BYMOVIEIDS).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-						.content(new ObjectMapper().writeValueAsString(input)))
-				.andReturn();
+		MvcResult response = mockMvc.
+				perform(
+						post(ApiPath.API_MOVIE_BYMOVIEIDS).
+						contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
+						content(new ObjectMapper().writeValueAsString(input))
+				).
+				andReturn();
 
 		assertEquals(HttpStatus.OK.value(), response.getResponse().getStatus());
 	}
