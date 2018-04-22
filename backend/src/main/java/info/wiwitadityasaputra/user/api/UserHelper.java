@@ -2,6 +2,8 @@ package info.wiwitadityasaputra.user.api;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +17,17 @@ public class UserHelper {
 
 	public User getLoggedUser() {
 		try {
-			return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			SecurityContext context = SecurityContextHolder.getContext();
+			if (context != null) {
+				Authentication auth = context.getAuthentication();
+				if (auth != null) {
+					Object principal = auth.getPrincipal();
+					if (principal instanceof User) {
+						return (User) principal;
+					}
+				}
+			}
+			return null;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
