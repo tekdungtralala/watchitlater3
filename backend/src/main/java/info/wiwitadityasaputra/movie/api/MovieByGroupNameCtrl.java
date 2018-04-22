@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import info.wiwitadityasaputra.movie.Movie;
+import info.wiwitadityasaputra.movie.MovieHelper;
 import info.wiwitadityasaputra.movie.MovieRepository;
 import info.wiwitadityasaputra.movie.MovieService;
 import info.wiwitadityasaputra.moviegroup.MovieGroup;
@@ -41,16 +42,8 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 	private UpdateMovieSchedule updateMovieSchedule;
 	@Autowired
 	private MovieService movieService;
-
-	private String getMovieTitle(Element e) {
-		String title = e.html();
-		int ob = title.indexOf('(');
-		int cb = title.indexOf(')');
-		if (ob >= 0 && cb >= 0 && ob < cb) {
-			title = title.split("\\(")[0].trim();
-		}
-		return title;
-	}
+	@Autowired
+	private MovieHelper movieHelper;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Movie> getMovieByGroupName(@RequestParam(value = "groupName", required = true) String groupName)
@@ -58,25 +51,8 @@ public class MovieByGroupNameCtrl extends AbstractCtrl {
 		MovieGroup mg = movieGroupRepo.findByName(groupName);
 		if (mg == null) {
 			List<Movie> result = new ArrayList<Movie>();
-			String fdow = groupName.split("_")[0];
 
-			// Get movies title
-			String url = "http://www.boxofficemojo.com/daily/chart/?sortdate=" + fdow;
-			Document doc = Jsoup.connect(url).timeout(5000).get();
-			Elements titles = doc.select("center table tbody tr td table tbody tr td b a");
-
-			// Create MovieSearch
-			List<MovieSearch> listMovieSearch = new ArrayList<MovieSearch>();
-			for (Element e : titles) {
-				String title = getMovieTitle(e);
-				MovieSearch ms = movieSearchRepo.findByQuery(title);
-				if (ms == null) {
-					ms = new MovieSearch();
-					ms.setQuery(title);
-					movieSearchRepo.save(ms);
-				}
-				listMovieSearch.add(ms);
-			}
+			List<MovieSearch> listMovieSearch = movieHelper.fetchMovieByGroupName(groupName);
 			if (listMovieSearch.isEmpty()) {
 				return result;
 			}
