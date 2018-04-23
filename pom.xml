@@ -30,7 +30,7 @@
 								<activeByDefault>true</activeByDefault>
 						</activation>
 						<properties>
-								<base.api.url>http://localhost:8080/api</base.api.url>
+								<base.api.url>http://localhost:8090/api</base.api.url>
 						</properties>
 				</profile>
 				<profile>
