@@ -50,13 +50,13 @@ public class MovieCtrlTest {
 		given(movieRepo.findAll()).willReturn(movies);
 		
 		assertEquals(HttpStatus.OK.value(), mockMvc.
-				perform(
-						get(ApiPath.API_MOVIE + ApiPath.API_MOVIE_RANDOMSIXMOVIES).
-						contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-				).
-				andReturn().
-				getResponse().
-				getStatus());
+			perform(
+				get(ApiPath.API_MOVIE + ApiPath.API_MOVIE_RANDOMSIXMOVIES).
+				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+			).
+			andReturn().
+			getResponse().
+			getStatus());
 	}
 
 	@Test
@@ -67,12 +67,12 @@ public class MovieCtrlTest {
 		given(movieService.findMovieByIds(new JSONArray(mg.getMovieIds()))).willReturn(null);
 		
 		assertEquals(HttpStatus.OK.value(), mockMvc.
-				perform(
-						get(ApiPath.API_MOVIE + ApiPath.API_MOVIE_TOP100MOVIES).
-						contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-				).
-				andReturn().
-				getResponse().
-				getStatus());
+			perform(
+				get(ApiPath.API_MOVIE + ApiPath.API_MOVIE_TOP100MOVIES).
+				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+			).
+			andReturn().
+			getResponse().
+			getStatus());
 	}
 }
