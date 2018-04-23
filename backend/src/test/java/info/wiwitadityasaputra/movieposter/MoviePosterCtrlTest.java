@@ -54,6 +54,9 @@ public class MoviePosterCtrlTest {
 	public void getPosterByImdbId_validImdbid_400() throws Exception {
 		given(moviePosterRepo.findByImdbId(anyString())).willReturn(null);
 		callGetJPosterByImdbId(HttpStatus.NOT_FOUND.value());
+		
+		given(moviePosterRepo.findByImdbId(anyString())).willReturn(new ArrayList<MoviePoster>());
+		callGetJPosterByImdbId(HttpStatus.NOT_FOUND.value());
 	}
 	
 	public void callGetJPosterByImdbId(int httpStatus) throws Exception {
