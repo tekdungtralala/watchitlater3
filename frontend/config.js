@@ -3,13 +3,13 @@ var fs = require('fs');
 
 var view = {
   production: true,
-  baseApiUrl: process.env.baseApiUrl ? process.env.baseApiUrl : 'http://localhost:8080/api'
+  baseUrl: process.env.baseUrl
 };
 
 var template = 
 "export const environment = { \n" + 
 "	production: {{{production}}}, \n" +
-"	W3_API_URL: '{{{baseApiUrl}}}' \n" +
+"	W3_API_URL: '{{{baseUrl}}}' \n" +
 "}";
 
 

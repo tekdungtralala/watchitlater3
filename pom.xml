@@ -30,13 +30,13 @@
 								<activeByDefault>true</activeByDefault>
 						</activation>
 						<properties>
-								<base.api.url>http://localhost:8090/api</base.api.url>
+								<base.url>http://localhost:8090</base.url>
 						</properties>
 				</profile>
 				<profile>
 						<id>dev</id>
 						<properties>
-								<base.api.url>https://example.com/api</base.api.url>
+								<base.url>https://example.com</base.url>
 						</properties>
 				</profile>
 		</profiles>

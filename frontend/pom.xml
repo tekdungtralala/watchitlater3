@@ -50,7 +50,7 @@
 						<configuration>
 							<arguments>run build</arguments>
 							<environmentVariables>
-								<baseApiUrl>${base.api.url}</baseApiUrl>
+								<baseUrl>${base.url}</baseUrl>
 							</environmentVariables>
 						</configuration>
 					</execution>
