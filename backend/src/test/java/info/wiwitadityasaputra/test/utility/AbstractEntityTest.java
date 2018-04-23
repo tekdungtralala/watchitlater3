@@ -17,6 +17,7 @@ public class AbstractEntityTest {
 	protected final static Date date = new Date();
 	protected final static Set set = Collections.EMPTY_SET;
 	protected final static boolean bol = true;
+	protected final static byte[] bytes = new byte[] { 1, 2 };
 
 	protected void assertString(String value) {
 		assertEquals(this.str, value);
@@ -40,6 +41,10 @@ public class AbstractEntityTest {
 
 	protected void assertBoolean(boolean value) {
 		assertEquals(this.bol, value);
+	}
+
+	protected void assertArrayByte(byte[] value) {
+		assertEquals(this.bytes, value);
 	}
 
 	@Test
