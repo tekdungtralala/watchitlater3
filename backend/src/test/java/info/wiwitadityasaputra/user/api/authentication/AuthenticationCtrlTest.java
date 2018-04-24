@@ -98,15 +98,59 @@ public class AuthenticationCtrlTest {
 		Cookie c = new Cookie("test", "value");
 		c.setMaxAge(123);
 
-		assertEquals(HttpStatus.OK.value(), mockMvc.
+		mockMvc.
 			perform(
 				post(ApiPath.API_USER_AUTH_SIGNOUT).
 				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
 				cookie(c).
 				session(session)
 			).
-			andReturn().
-			getResponse().
-			getStatus());
+			andExpect(status().isOk());
+	}
+	
+	@Test
+	public void signup_passwordIsNotSame_400() throws Exception {
+		NewUserInput input = new NewUserInput();
+		input.setPassword("abc");
+		input.setRePassword("def");
+		mockMvc.
+			perform(
+				post(ApiPath.API_USER_AUTH_SIGNUP).
+				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
+				content(new ObjectMapper().writeValueAsString(input))
+			).
+			andExpect(status().isBadRequest());		
+	}
+	
+	@Test
+	public void signup_emailIsNotAvailable_409() throws Exception {
+		given(userRepo.findByEmail(anyString())).willReturn(new User());
+		
+		NewUserInput input = new NewUserInput();
+		input.setPassword("abc");
+		input.setRePassword("abc");
+		input.setEmail("email");
+		mockMvc.
+			perform(
+				post(ApiPath.API_USER_AUTH_SIGNUP).
+				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
+				content(new ObjectMapper().writeValueAsString(input))
+			).
+			andExpect(status().isConflict());			
+	}
+	
+	@Test
+	public void signup_200() throws Exception {
+		NewUserInput input = new NewUserInput();
+		input.setPassword("abc");
+		input.setRePassword("abc");
+		input.setEmail("email");
+		mockMvc.
+			perform(
+				post(ApiPath.API_USER_AUTH_SIGNUP).
+				contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
+				content(new ObjectMapper().writeValueAsString(input))
+			).
+			andExpect(status().isOk());			
 	}
 }
