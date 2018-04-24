@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import info.wiwitadityasaputra.movie.Movie;
-import info.wiwitadityasaputra.test.utility.AbstractEntityTest;
+import testutility.AbstractEntityTest;
 
 public class MovieSearchTest extends AbstractEntityTest {
 

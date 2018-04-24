@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import info.wiwitadityasaputra.movie.Movie;
-import info.wiwitadityasaputra.test.utility.AbstractEntityTest;
 import info.wiwitadityasaputra.user.entity.User;
+import testutility.AbstractEntityTest;
 
 public class MovieFavoriteTest extends AbstractEntityTest {
 

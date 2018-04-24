@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.test.utility;
+package testutility;
 
 import static org.junit.Assert.assertEquals;
 
