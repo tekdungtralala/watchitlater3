@@ -1,4 +1,4 @@
-package info.wiwitadityasaputra.user.api;
+package info.wiwitadityasaputra.util.api;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.*;
