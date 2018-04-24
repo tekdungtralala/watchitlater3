@@ -2,7 +2,7 @@ package info.wiwitadityasaputra.util.api;
 
 public class ApiPath {
 
-	public ApiPath() {
+	private ApiPath() {
 		throw new IllegalStateException("ApiPath class");
 	}
 
