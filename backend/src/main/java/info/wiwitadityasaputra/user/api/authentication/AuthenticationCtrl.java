@@ -65,7 +65,7 @@ public class AuthenticationCtrl extends AbstractCtrl {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = ApiPath.API_USER_AUTH_SIGNOUT)
-	public void signOut(HttpServletRequest request, HttpServletResponse response) {
+	public void signOut(HttpServletRequest request) {
 		SecurityContextHolder.clearContext();
 		HttpSession session = request.getSession(false);
 		if (session != null) {
