@@ -34,9 +34,18 @@ open http://localhost:4200
 login http://localhost:4200/login?email=alexander.petersen@example.com&password=password
 ```
 
+
+### preparing sonarqube inside docker
+```javascript
+first time only, run it 
+$ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+or start it
+$ docker ps -a
+$ docker start _sonarqube_container_id
+```
+
 ### run all test class
 ```javascript
-preparing sonarqube
 $ cd backend
 $ mvn clean verify -s settings.xml sonar:sonar
 open http://localhost:9000 (sonarqube)
