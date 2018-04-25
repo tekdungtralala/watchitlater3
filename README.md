@@ -1,3 +1,6 @@
+
+
+
 $ mvn clean verify -s settings.xml sonar:sonar
 $ mvn clean pacakge -DskipTests=true
 $ mvn install -DskipTests=true
