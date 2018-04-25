@@ -34,9 +34,6 @@ open http://localhost:4200
 login http://localhost:4200/login?email=alexander.petersen@example.com&password=password
 ```
 
-### latest sonarqube screenshot
-![alt text](https://raw.githubusercontent.com/tekdungtralala/watchitlater3/master/latest_sonar.png)
-
 ### run all test class
 ```javascript
 preparing sonarqube
@@ -50,3 +47,6 @@ open http://localhost:9000 (sonarqube)
 $ cd backend
 $ mvn -Dtest=UpdateMovieScheduleTest#updateRatingMovie_noError test
 ```
+
+### latest sonarqube screenshot
+![alt text](https://raw.githubusercontent.com/tekdungtralala/watchitlater3/master/latest_sonar.png)
