@@ -57,9 +57,6 @@ public class UpdateMovieScheduleTest {
 	private MovieGroupRepository movieGroupRepo;
 	@Mock
 	private OmdbapiHelper omdbapiHelper;
-
-	@Value("${com.omdbapi.apikey}")
-	protected String apiKey;
 	
 	@Test
 	public void start_noError() throws IOException {
