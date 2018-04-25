@@ -36,7 +36,7 @@
 				<profile>
 						<id>dev</id>
 						<properties>
-								<base.url>https://example.com</base.url>
+								<base.url>${WATCHITLATER3_BASEURL}</base.url>
 						</properties>
 				</profile>
 		</profiles>

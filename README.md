@@ -7,6 +7,7 @@ $ export WATCHITLATER3_DATASOURCE_USERNAME=root
 $ export WATCHITLATER3_DATASOURCE_PASSWORD=password
 $ export WATCHITLATER3_OMDBAPI_APIKEY=__use_ur_apikey_
 $ export WATCHITLATER3_CONFIG_RUNUPDATEMOVIE=false
+$ export WATCHITLATER3_BASEURL=....
 ```
 
 ### build (build fe to be resources then run be)
