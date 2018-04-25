@@ -13,10 +13,18 @@ public class UserTest extends AbstractEntityTest {
 		user.setFileType(str);
 		user.setListMovieFavorite(set);
 		user.setListMovieReview(set);
-		
+
 		assertArrayByte(user.getProfilePicture());
 		assertString(user.getFileType());
 		assertSet(user.getListMovieFavorite());
 		assertSet(user.getListMovieReview());
+
+		user.setLastUpdatedBy(str);
+		user.setLastUpdatedDt(date);
+		assertString(user.getLastUpdatedBy());
+		assertDate(user.getLastUpdatedDt());
+
+		user.onCreate();
+		user.onUpdate();
 	}
 }

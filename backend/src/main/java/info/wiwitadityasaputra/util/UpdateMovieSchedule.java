@@ -14,14 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import info.wiwitadityasaputra.movie.Movie;
 import info.wiwitadityasaputra.movie.MovieRepository;
@@ -56,6 +52,8 @@ public class UpdateMovieSchedule {
 	private MoviePosterRepository moviePosterRepo;
 	@Autowired
 	private MovieGroupRepository movieGroupRepo;
+	@Autowired
+	private OmdbapiHelper omdbapiHelper;
 
 	// 10000 = 10 second
 	// 900000 = 15 minute
@@ -82,16 +80,9 @@ public class UpdateMovieSchedule {
 		log.info("  listMovie.size() = {}", listMovie.size());
 		for (Movie movie : listMovie) {
 			try {
-				String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId() + "&plot=full";
-				log.info("url: {}", url);
-
-				RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-				String response = restTemplate.getForObject(url, String.class);
-				JSONObject json = new JSONObject(response);
-				log.info(response);
-
+				JSONObject json = omdbapiHelper.getFullMovie(movie.getImdbId());
 				saveMovie(movie, json);
-			} catch (Exception e) {
+			} catch (JSONException e) {
 				log.error("  failed update rating, " + e.getMessage());
 			}
 		}
@@ -146,14 +137,18 @@ public class UpdateMovieSchedule {
 				mp.setMovie(movie);
 				mp.setImdbId(movie.getImdbId());
 
+				if (!secondaryPoster) {
+					Resource resource = new ClassPathResource(DEFAULT_IMAGE);
+					mp.setImgByte(IOUtils.toByteArray(resource.getInputStream()));
+					mp.setFileType(MediaType.IMAGE_JPEG_VALUE);
+					mp.setMain(false);
+					moviePosterRepo.save(mp);
+				}
+				
 				try {
 					log.info("fetch poster movie: " + movie.getImdbId());
 
-					String url = "http://img.omdbapi.com/?apikey=" + apiKey + "&i=" + movie.getImdbId();
-					log.info("url: " + url);
-
-					RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-					ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, null, byte[].class);
+					ResponseEntity<byte[]> response = omdbapiHelper.getImage(movie.getImdbId());
 					MediaType contentType = response.getHeaders().getContentType();
 
 					mp.setImgByte(response.getBody());
@@ -161,18 +156,8 @@ public class UpdateMovieSchedule {
 					mp.setMain(true);
 					moviePosterRepo.save(mp);
 				} catch (Exception e) {
-
-					if (!secondaryPoster) {
-						Resource resource = new ClassPathResource(DEFAULT_IMAGE);
-						mp.setImgByte(IOUtils.toByteArray(resource.getInputStream()));
-						mp.setFileType(MediaType.IMAGE_JPEG_VALUE);
-						mp.setMain(false);
-						moviePosterRepo.save(mp);
-					}
-
 					log.error(movie.getImdbId() + ", " + e.getMessage());
 				}
-
 			}
 		}
 	}
@@ -181,32 +166,18 @@ public class UpdateMovieSchedule {
 		List<MovieSearch> listMovieSearch = movieSearchRepo.findByEmptyMovie();
 		log.info(" listMovieSearch.length: " + listMovieSearch.size());
 		for (MovieSearch ms : listMovieSearch) {
-			boolean finded = false;
 			if (ms.getImdbId() != null) {
 				Movie movie = movieRepo.findByImdbId(ms.getImdbId());
-
 				ms.setMovie(movie);
 				movieSearchRepo.save(ms);
 			}
-			if (finded)
-				continue;
 			try {
 				log.info(ms.getId() + " - " + ms.getQuery());
 
 				ms.setQuery(ms.getQuery().trim());
 
-				String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + ms.getQuery().trim();
-				log.info("search movie url {}", url);
-
-				RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-				String response = restTemplate.getForObject(url, String.class);
-				JSONObject json = new JSONObject(response);
-				log.info(response);
-
-				boolean hasResponseField = response.indexOf("Response") > -1;
-				boolean hasFalseValue = response.indexOf("False") > -1;
-
-				if (hasResponseField && hasFalseValue) {
+				JSONObject json = omdbapiHelper.getMovie(ms.getQuery().trim());
+				if (!json.getBoolean("Response")) {
 					log.info("not found");
 					ms.setNotFound(true);
 					movieSearchRepo.save(ms);
@@ -229,7 +200,7 @@ public class UpdateMovieSchedule {
 						movie.setYear(getIntValue(json, "Year", 2017));
 						movie.setPlot(getStringValue(json, "Plot"));
 
-						movie.setJson(response);
+						movie.setJson(json.toString());
 						movieRepo.save(movie);
 
 						ms.setMovie(movie);
@@ -237,7 +208,6 @@ public class UpdateMovieSchedule {
 						movieSearchRepo.save(ms);
 					}
 				}
-
 			} catch (Exception e) {
 				log.error(ms.getQuery() + ", " + e.getMessage());
 			}
@@ -274,12 +244,5 @@ public class UpdateMovieSchedule {
 		} catch (JSONException e) {
 			return "";
 		}
-	}
-
-	private ClientHttpRequestFactory getClientHttpRequestFactory() {
-		int timeout = 5000;
-		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-		clientHttpRequestFactory.setConnectTimeout(timeout);
-		return clientHttpRequestFactory;
 	}
 }

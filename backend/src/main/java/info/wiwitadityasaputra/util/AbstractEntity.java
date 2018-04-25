@@ -66,13 +66,13 @@ public abstract class AbstractEntity implements Serializable {
 	}
 
 	@PrePersist
-	void onCreate() {
+	public void onCreate() {
 		this.setCreatedDt(new Date());
 		this.setCreatedBy("system");
 	}
 
 	@PreUpdate
-	void onUpdate() {
+	public void onUpdate() {
 		this.setLastUpdatedDt(new Date());
 		this.setLastUpdatedBy("system");
 	}
