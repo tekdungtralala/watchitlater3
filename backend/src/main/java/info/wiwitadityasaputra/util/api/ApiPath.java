@@ -1,6 +1,6 @@
 package info.wiwitadityasaputra.util.api;
 
-public class ApiPath {
+public final class ApiPath {
 
 	private ApiPath() {
 		throw new IllegalStateException("ApiPath class");
