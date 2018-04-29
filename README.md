@@ -87,3 +87,6 @@ $ ./node_modules/protractor/bin/webdriver-manager start
 # dont forget to run springboot app first before run e2e test
 $ ./node_modules/protractor/bin/protractor src/conf.js
 ```
+
+### frontend test - latest protractor screenshot
+![alt text](https://raw.githubusercontent.com/tekdungtralala/watchitlater3/master/latest_protractor.png)
