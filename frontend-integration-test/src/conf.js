@@ -9,6 +9,7 @@ exports.config = {
 	specs: [
 		'page.js',
 		'page-top100.js',
-		'page-latest.js'
+		'page-latest.js',
+		'page-register.js'
 	]
 };
