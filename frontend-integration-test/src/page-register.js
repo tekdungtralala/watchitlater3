@@ -42,7 +42,7 @@ describe('register page', function() {
 		}
 	});
 
-	it('should register user hide/show necessary info', function() {
+	it('should hide/show necessary info', function() {
 		browser.get('/register');
 
 		var info = $$('.random-user-info');
@@ -77,7 +77,19 @@ describe('register page', function() {
 				expect(infoDE.isDisplayed()).toBe(false);
 			}
 		})
+	});
 
+	it('should submit form', function() {
+		browser.get('/register');
+		$('app-register').$('form').getAttribute('class').then(function(classes) {
+			expect(classes.split(' ').indexOf('form-submited') === -1).toBe(true);
+		});
+
+		clickRegisterUser();
+
+		$('app-register').$('form').getAttribute('class').then(function(classes) {
+			expect(classes.split(' ').indexOf('form-submited') >= 0).toBe(true);
+		});
 	});
 
 	function clickRandomUser() {

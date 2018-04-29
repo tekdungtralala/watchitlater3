@@ -7,9 +7,9 @@ exports.config = {
 	seleniumAddress: 'http://localhost:4444/wd/hub',
 	baseUrl: 'http://localhost:8090',
 	specs: [
-		'page.js',
-		'page-top100.js',
-		'page-latest.js',
+		// 'page.js',
+		// 'page-top100.js',
+		// 'page-latest.js',
 		'page-register.js'
 	]
 };
