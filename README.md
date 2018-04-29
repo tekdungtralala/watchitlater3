@@ -36,7 +36,7 @@ login http://localhost:4200/login?email=alexander.petersen@example.com&password=
 ```
 
 
-### preparing sonarqube inside docker
+### backend test - preparing sonarqube inside docker
 ```javascript
 first time only, run it 
 $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
@@ -45,18 +45,45 @@ $ docker ps -a
 $ docker start _sonarqube_container_id
 ```
 
-### run all test class
+### backend test - run all test class
 ```javascript
 $ cd backend
 $ mvn clean verify -s settings.xml sonar:sonar
 open http://localhost:9000 (sonarqube)
 ```
 
-### run singgle test class
+### backend test - run singgle test class
 ```javascript
 $ cd backend
 $ mvn -Dtest=UpdateMovieScheduleTest#updateRatingMovie_noError test
 ```
 
-### latest sonarqube screenshot
+### backend test - latest sonarqube screenshot
 ![alt text](https://raw.githubusercontent.com/tekdungtralala/watchitlater3/master/latest_sonar.png)
+
+
+### frontend test - version check
+```javascript
+node v10.0.0
+java 1.8.0_162
+angular 4.2.4
+protractor 5.3.1
+webdriver-manager 12.0.6
+chromedriver 2.38
+selenium standalone 3.11.0
+Browser: Chrome 66.0.3359.139
+Operating System : Mac OS 10.13.4
+```
+
+### frontend test - update & run webdriver
+```javascript
+$ cd frontend-integration-test
+$ ./node_modules/protractor/bin/webdriver-manager update
+$ ./node_modules/protractor/bin/webdriver-manager start
+```
+
+### frontend test - run test
+```javascript
+# dont forget to run springboot app first before run e2e test
+$ ./node_modules/protractor/bin/protractor src/conf.js
+```
