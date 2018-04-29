@@ -1,4 +1,4 @@
-describe('access home page', function() {
+describe('home page', function() {
 	it('should get correct title', function() {
 		browser.get('/');
 		browser.getTitle().then(function(webpagetitle){
