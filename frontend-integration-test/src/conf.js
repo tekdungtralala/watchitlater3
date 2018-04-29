@@ -1,12 +1,8 @@
 exports.config = {
 	capabilities: {
 		browserName: 'chrome',
-		chromeOptions: {
-			args: [
-				"--headless",
-				"--disable-gpu"
-			],
-		},
 	},
-	specs: ['todo-spec.js']
+	seleniumAddress: 'http://localhost:4444/wd/hub',
+	baseUrl: 'http://localhost:8090',
+	specs: ['page.js']
 };
