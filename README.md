@@ -85,6 +85,9 @@ $ ./node_modules/protractor/bin/webdriver-manager start
 ### frontend test - run test
 ```javascript
 # dont forget to run springboot app first before run e2e test
+# setup env var
+$ export WATCHITLATER3_FE_TEST_EMAIL=alexander.petersen@example.com
+$ export WATCHITLATER3_FE_TEST_PASSWORD=password
 $ ./node_modules/protractor/bin/protractor src/conf.js
 ```
 
