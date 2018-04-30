@@ -12,6 +12,7 @@ exports.config = {
 		'page-top100.js',
 		'page-latest.js',
 		'page-register.js',
-		'page-login.js'
+		'page-login.js',
+		'page-dashboard.js'
 	]
 };
